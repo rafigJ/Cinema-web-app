@@ -4,9 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.vsu.cs.dzhabbarov.cinema.config.JwtService;
+import ru.vsu.cs.dzhabbarov.cinema.exception.ExistUserException;
+import ru.vsu.cs.dzhabbarov.cinema.exception.IncorrectCredentialsException;
+import ru.vsu.cs.dzhabbarov.cinema.exception.NotExistUserException;
 import ru.vsu.cs.dzhabbarov.cinema.user.Role;
 import ru.vsu.cs.dzhabbarov.cinema.user.User;
 import ru.vsu.cs.dzhabbarov.cinema.user.UserRepository;
@@ -24,8 +28,7 @@ public class AuthenticationService {
     public AuthenticationResponse register(RegisterRequest request) throws DataIntegrityViolationException{
         Optional<User> optionalUser = repository.findByEmail(request.getEmail());
         if (optionalUser.isPresent()) {
-            // todo сделать нормальный exception
-            throw new RuntimeException("Such an email already exists");
+            throw new ExistUserException();
         }
 
         var user = User.builder()
@@ -43,14 +46,18 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
-                )
-        );
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getEmail(),
+                            request.getPassword()
+                    )
+            );
+        } catch (AuthenticationException e) {
+            throw new IncorrectCredentialsException();
+        }
         var user = repository.findByEmail(request.getEmail())
-                .orElseThrow();
+                .orElseThrow(NotExistUserException::new);
 
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
