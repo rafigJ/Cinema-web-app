@@ -24,7 +24,7 @@ public class AuthenticationService {
     public AuthenticationResponse register(RegisterRequest request) throws DataIntegrityViolationException{
         Optional<User> optionalUser = repository.findByEmail(request.getEmail());
         if (optionalUser.isPresent()) {
-            // todo сделать нормальный exception 
+            // todo сделать нормальный exception
             throw new RuntimeException("Such an email already exists");
         }
 
