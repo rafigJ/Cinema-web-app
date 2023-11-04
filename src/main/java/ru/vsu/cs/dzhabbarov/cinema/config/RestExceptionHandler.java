@@ -1,5 +1,7 @@
 package ru.vsu.cs.dzhabbarov.cinema.config;
 
+import io.jsonwebtoken.ClaimJwtException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,4 +20,15 @@ public class RestExceptionHandler {
                         .build()
                 );
     }
+
+    @ExceptionHandler(value = {ClaimJwtException.class})
+    @ResponseBody
+    public ResponseEntity<RestExceptionResponse> handleExpiredJwtException(ClaimJwtException ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(RestExceptionResponse.builder()
+                        .message(ex.getMessage())
+                        .build()
+                );
+    }
+
 }
