@@ -1,6 +1,8 @@
 package ru.vsu.cs.dzhabbarov.cinema.auth;
 
+import jdk.jfr.ContentType;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +20,8 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody RegisterRequest request
     ) {
-        return ResponseEntity.ok(service.register(request));
+        var register = service.register(request);
+        return ResponseEntity.ok(register);
     }
 
     @PostMapping("/authenticate")

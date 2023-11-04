@@ -1,6 +1,7 @@
 package ru.vsu.cs.dzhabbarov.cinema.auth;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -10,6 +11,8 @@ import ru.vsu.cs.dzhabbarov.cinema.user.Role;
 import ru.vsu.cs.dzhabbarov.cinema.user.User;
 import ru.vsu.cs.dzhabbarov.cinema.user.UserRepository;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -18,7 +21,13 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse register(RegisterRequest request) {
+    public AuthenticationResponse register(RegisterRequest request) throws DataIntegrityViolationException{
+        Optional<User> optionalUser = repository.findByEmail(request.getEmail());
+        if (optionalUser.isPresent()) {
+            // todo сделать нормальный exception 
+            throw new RuntimeException("Such an email already exists");
+        }
+
         var user = User.builder()
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())

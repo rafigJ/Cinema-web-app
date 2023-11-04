@@ -29,6 +29,7 @@ public class User implements UserDetails {
 
     private String lastname;
 
+    @Column(unique = true)
     private String email;
 
     private String password;
@@ -38,7 +39,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return List.of(new SimpleGrantedAuthority((role == null) ? Role.USER.toString() : role.toString()));
     }
 
     @Override
