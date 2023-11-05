@@ -1,8 +1,6 @@
 package ru.vsu.cs.dzhabbarov.cinema.auth;
 
-import jdk.jfr.ContentType;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

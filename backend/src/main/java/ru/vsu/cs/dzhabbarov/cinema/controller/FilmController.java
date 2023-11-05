@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.vsu.cs.dzhabbarov.cinema.user.User;
 
-import java.security.Principal;
-
 @RestController
 @RequestMapping("/api/v1/film-controller")
 public class FilmController {
