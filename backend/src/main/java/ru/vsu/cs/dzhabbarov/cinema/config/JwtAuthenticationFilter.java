@@ -1,5 +1,8 @@
 package ru.vsu.cs.dzhabbarov.cinema.config;
 
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -52,9 +55,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }
             }
-        } catch (RuntimeException runtimeException) {
+        } catch (SignatureException | ExpiredJwtException e) {
+            request.setAttribute("error", e.getMessage());
+        } catch (RuntimeException re) {
             SecurityContextHolder.clearContext();
-            throw runtimeException;
+            throw re;
         }
         filterChain.doFilter(request, response);
     }
