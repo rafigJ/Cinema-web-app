@@ -31,7 +31,7 @@ nav > ul {
     display: flex;
     align-items: center;
     margin-left: 15px;
-    padding: 8px 10px;
+    padding: 8px 15px;
     border-radius: 10px;
     font-size: 18px;
     color: whitesmoke;
@@ -41,6 +41,9 @@ nav > ul {
 }
 
 button > img {
-    background: none;
     margin-right: 10px;
+}
+
+button > * {
+    background: none;
 }

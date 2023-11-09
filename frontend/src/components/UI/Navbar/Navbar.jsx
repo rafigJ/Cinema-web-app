@@ -21,7 +21,7 @@ const Navbar = () => {
             <div className={classes.right_nav}>
                 <button className={classes.btn}>
                     <img src={userLogo} alt=''/>
-                    Войти
+                    <span >Войти</span>
                 </button>
             </div>
         </div>
