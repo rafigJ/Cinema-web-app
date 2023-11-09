@@ -1,0 +1,14 @@
+.active {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.default{
+    text-decoration: none;
+    color: #87888F;
+}
+
+.navbar_item {
+    display: inline;
+    margin-left: 15px;
+}
