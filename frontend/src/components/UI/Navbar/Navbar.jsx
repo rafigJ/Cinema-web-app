@@ -8,8 +8,11 @@ const Navbar = () => {
             <img src={logo} width="239px" height="50px" alt=""/>
             {/*todo Link with img*/}
             <div className="navbar__links">
-                <a>Главная</a>
-                <a>Фильмы</a>
+                <ul className="navbar_list">
+                    <li className="navbar_item"><a>Главная</a></li>
+                    <li className="navbar_item"><a>Фильмы</a></li>
+                    <li className="navbar_item"><a>Другое</a></li>
+                </ul>
             </div>
         </div>
     );
