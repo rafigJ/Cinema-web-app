@@ -1,12 +1,16 @@
-.box{
+.box {
     background-color: white;
+    display: flex;
+    flex-direction: column;
 }
 
 .box > * {
     background-color: white;
+    margin: 10px;
+    text-align: center;
 }
 
-form{
+form {
     display: flex;
     flex-direction: column;
     width: 200px;
@@ -22,7 +26,17 @@ form > * {
     color: #1a1d29;
     background-color: white;
 }
-input{
+
+input {
     width: 200px;
     height: 50px;
+    text-align: left;
+}
+
+button {
+    cursor: pointer;
+}
+
+.secondary-btn {
+    border: transparent;
 }
