@@ -12,8 +12,8 @@ import ru.vsu.cs.dzhabbarov.cinema.user.User;
 public class FilmController {
 
     @GetMapping
-    public ResponseEntity<String> filmHello(@AuthenticationPrincipal User principal) {
-        return ResponseEntity.ok("Ура, получилось? " + principal.getLastname() + " " + principal.getPassword());
+    public ResponseEntity<User> filmHello(@AuthenticationPrincipal User principal) {
+        return ResponseEntity.ok(principal);
     }
 
 }
