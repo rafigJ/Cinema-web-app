@@ -32,7 +32,7 @@ public class FilmEntity {
     @Column(name = "poster_url")
     private String posterUrl;
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "film_genre",
             joinColumns = @JoinColumn(name = "film_id"),

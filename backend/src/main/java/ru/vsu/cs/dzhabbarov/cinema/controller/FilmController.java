@@ -20,7 +20,7 @@ public class FilmController {
     private final FilmRepository repository;
     @GetMapping
     public ResponseEntity<List<FilmEntity>> filmHello(@AuthenticationPrincipal User principal) {
-        return ResponseEntity.ok(repository.findAllByNameContainingIgnoreCase("Поб"));
+        return ResponseEntity.ok(repository.findAll());
     }
 
 }
