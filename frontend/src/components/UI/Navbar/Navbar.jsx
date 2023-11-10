@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import NavbarElement from "./NavbarElement";
 import './Navbar.css';
 import Modal from "../Modal/Modal";
+import LoginForm from "../../Authorization/LoginForm";
 
 const Navbar = () => {
     const [modalActive, setModalActive] = useState(false)
@@ -23,10 +24,12 @@ const Navbar = () => {
             <div className="right_nav">
                 <button className="btn" onClick={() => setModalActive(true)}>
                     <img src={userLogo} alt=''/>
-                    <span >Войти</span>
+                    <span>Войти</span>
                 </button>
             </div>
-            <Modal active={modalActive} setActive={setModalActive}/>
+            <Modal active={modalActive} setActive={setModalActive}>
+                <LoginForm/>
+            </Modal>
         </div>
     );
 };

@@ -20,11 +20,11 @@
 }
 
 .modal__content{
-    padding: 20px;
+    padding: 20px 100px;
     border-radius: 20px;
     background-color: white;
-    height: 200px;
-    width: 400px;
+    display: flex;
+    justify-content: center;
     transform: scale(0.5);
     transition: 0.4s all;
 }

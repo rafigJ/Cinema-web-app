@@ -7,7 +7,7 @@ const HomePage = () => {
             justifyContent: "center",
             top:"0", left:"0",
             width: "100vw", height: "80vh"}}>
-           <h1 style={{color: "white"}}>MAIN</h1>
+           <h1 style={{color: "white"}}>Главная страница</h1>
         </div>
     );
 };
