@@ -16,7 +16,7 @@ public class FilmService {
         return repository.findAll();
     }
 
-    public List<FilmEntity> findFilmsByName(String name) {
+    public List<FilmEntity> findFilmByName(String name) {
         return repository.findAllByNameContainingIgnoreCase(name);
     }
 }
