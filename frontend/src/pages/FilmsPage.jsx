@@ -3,10 +3,11 @@ import FilmService from "../API/FilmService";
 
 const FilmsPage = () => {
     const [query, setQuery] = useState('')
-    const search = () => {
-        console.log(query);
-        console.log(FilmService.getByName(query));
+     const search = async () => {
+        const response = await FilmService.getByName(query);
+        return response;
     }
+
 
     return (
         <div style={{
