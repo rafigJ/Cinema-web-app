@@ -1,10 +1,10 @@
-.box {
+.container {
     background-color: white;
     display: flex;
     flex-direction: column;
 }
 
-.box > * {
+.container > * {
     background-color: white;
     margin: 10px;
     text-align: center;

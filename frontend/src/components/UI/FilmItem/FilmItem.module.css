@@ -1,0 +1,42 @@
+.container {
+    background-color: transparent;
+    position: relative;
+    width: 206px;
+    height: 309px;
+    cursor: pointer;
+}
+
+.poster{
+    background-color: transparent;
+    width: 206px;
+    height: 309px;
+    border-radius: 8px;
+}
+
+.activePoster {
+    background-color: transparent;
+    width: 206px;
+    height: 309px;
+    border-radius: 8px;
+    opacity: 0.3;
+}
+
+.centeredBox {
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.centeredBox * {
+    background: transparent;
+    text-align: center;
+    color: whitesmoke;
+}
+
+.hidden{
+    visibility: hidden;
+}

@@ -24,7 +24,7 @@ const AuthForm = ({setModalActive}) => {
 
     if (isLoginForm) {
         return (
-            <div className="box">
+            <div className="container">
                 <h1>Вход</h1>
                 <form className="form">
                     <input type="email" placeholder="Эл.почта"/>
@@ -37,7 +37,7 @@ const AuthForm = ({setModalActive}) => {
     }
 
     return (
-        <div className="box">
+        <div className="container">
             <h2>Создать аккаунт</h2>
             <form className="form">
                 <input type="text" placeholder="Имя"/>
