@@ -32,11 +32,7 @@ const Navbar = () => {
             <div className="right_nav">
                 <button className="btn" onClick={buttonClick}>
                     <img src={userLogo} alt=''/>
-                    {isAuth ?
-                        <span>Профиль</span>
-                        :
-                        <span>Войти</span>
-                    }
+                    <span>{isAuth ? "Профиль" : "Войти"}</span>
                 </button>
             </div>
             <Modal active={modalActive} setActive={setModalActive}>
