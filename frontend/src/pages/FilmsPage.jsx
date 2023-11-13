@@ -5,7 +5,8 @@ const FilmsPage = () => {
     const [query, setQuery] = useState('')
      const search = async () => {
         const response = await FilmService.getByName(query);
-        return response;
+         console.log(response);
+         return response;
     }
 
 
