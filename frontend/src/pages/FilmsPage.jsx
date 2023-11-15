@@ -11,7 +11,7 @@ const FilmsPage = () => {
 
 
     return (
-        <div style={{
+        <main style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -29,7 +29,7 @@ const FilmsPage = () => {
             />
             <button onClick={search}>Поиск</button>
 
-        </div>
+        </main>
     );
 };
 

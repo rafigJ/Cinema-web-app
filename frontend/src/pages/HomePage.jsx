@@ -3,7 +3,7 @@ import FilmItem from "../components/UI/FilmItem/FilmItem";
 
 const HomePage = () => {
     return (
-        <div style={{display: "flex",
+        <main style={{display: "flex",
             alignItems: "center",
             justifyContent: "center",
             top:"0", left:"0",
@@ -29,7 +29,7 @@ const HomePage = () => {
                 name="Джокер"
                 year="2019"
             />
-        </div>
+        </main>
     );
 };
 

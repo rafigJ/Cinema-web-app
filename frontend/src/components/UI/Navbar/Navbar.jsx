@@ -17,7 +17,7 @@ const Navbar = () => {
 
 
     return (
-        <div className="header">
+        <header className="header">
             <Link to="/">
                 <img src={logo} width="239px" height="50px" alt=""/>
             </Link>
@@ -38,7 +38,7 @@ const Navbar = () => {
             <Modal active={modalActive} setActive={setModalActive}>
                 <AuthForm setModalActive={setModalActive}/>
             </Modal>
-        </div>
+        </header>
     );
 };
 
