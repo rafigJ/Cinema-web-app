@@ -1,4 +1,4 @@
-package ru.vsu.cs.dzhabbarov.cinema.user;
+package ru.vsu.cs.dzhabbarov.cinema.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ru.vsu.cs.dzhabbarov.cinema.user.Role;
 
 import java.util.Collection;
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "_user")
-public class User implements UserDetails {
+public class UserEntity implements UserDetails {
 
     @Id
     @GeneratedValue

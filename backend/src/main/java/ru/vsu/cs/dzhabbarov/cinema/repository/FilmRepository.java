@@ -8,5 +8,4 @@ import java.util.List;
 public interface FilmRepository extends JpaRepository<FilmEntity, Integer> {
     List<FilmEntity> findAllByNameContainingIgnoreCase(String name);
 
-    FilmEntity getFirstByNameContaining(String name);
 }

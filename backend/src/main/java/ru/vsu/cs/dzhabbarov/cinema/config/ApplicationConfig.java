@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.vsu.cs.dzhabbarov.cinema.exception.NotExistUserException;
-import ru.vsu.cs.dzhabbarov.cinema.user.UserRepository;
+import ru.vsu.cs.dzhabbarov.cinema.repository.UserRepository;
 
 @Configuration
 @RequiredArgsConstructor

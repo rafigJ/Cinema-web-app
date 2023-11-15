@@ -1,8 +1,12 @@
-package ru.vsu.cs.dzhabbarov.cinema.auth;
+package ru.vsu.cs.dzhabbarov.cinema.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.vsu.cs.dzhabbarov.cinema.auth.AuthenticationRequest;
+import ru.vsu.cs.dzhabbarov.cinema.auth.AuthenticationResponse;
+import ru.vsu.cs.dzhabbarov.cinema.auth.AuthenticationService;
+import ru.vsu.cs.dzhabbarov.cinema.auth.RegisterRequest;
 
 @RestController
 @RequestMapping("/api/v1/auth")

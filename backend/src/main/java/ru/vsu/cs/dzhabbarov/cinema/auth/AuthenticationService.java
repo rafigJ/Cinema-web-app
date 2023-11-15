@@ -12,8 +12,8 @@ import ru.vsu.cs.dzhabbarov.cinema.exception.ExistUserException;
 import ru.vsu.cs.dzhabbarov.cinema.exception.IncorrectCredentialsException;
 import ru.vsu.cs.dzhabbarov.cinema.exception.NotExistUserException;
 import ru.vsu.cs.dzhabbarov.cinema.user.Role;
-import ru.vsu.cs.dzhabbarov.cinema.user.User;
-import ru.vsu.cs.dzhabbarov.cinema.user.UserRepository;
+import ru.vsu.cs.dzhabbarov.cinema.entity.UserEntity;
+import ru.vsu.cs.dzhabbarov.cinema.repository.UserRepository;
 
 import java.util.Optional;
 
@@ -26,12 +26,12 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) throws DataIntegrityViolationException{
-        Optional<User> optionalUser = repository.findByEmail(request.getEmail());
+        Optional<UserEntity> optionalUser = repository.findByEmail(request.getEmail());
         if (optionalUser.isPresent()) {
             throw new ExistUserException();
         }
 
-        var user = User.builder()
+        var user = UserEntity.builder()
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())
                 .email(request.getEmail())
