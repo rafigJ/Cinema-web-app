@@ -1,8 +1,8 @@
-.container {
+.filmContainer {
     background-color: transparent;
     position: relative;
-    width: 206px;
-    height: 309px;
+    width: 204px;
+    height: 305px;
     cursor: pointer;
     margin: 5px;
 }

@@ -18,7 +18,7 @@ form {
     align-items: center;
 }
 
-form > * {
+form * {
     border: 1px solid silver;
     padding: 8px 20px;
     border-radius: 5px;

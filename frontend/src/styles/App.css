@@ -7,6 +7,11 @@
     background: #1a1d29;
 }
 
+.main-page {
+    margin: 30px;
+    box-sizing: content-box;
+}
+
 button {
     border: 1px solid silver;
     padding: 8px 20px;

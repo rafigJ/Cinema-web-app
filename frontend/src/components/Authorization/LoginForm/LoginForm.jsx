@@ -19,20 +19,16 @@ const LoginForm = ({deactivate, setModalActive}) => {
         <div className="container">
             <h1>Вход</h1>
             <form className="form">
-                <label>
-                    <input value={loginEmail}
-                           type="email"
-                           placeholder="Эл.почта"
-                           onChange={e => setLoginEmail(e.target.value)}
-                    />
-                </label>
-                <label>
-                    <input value={loginPassword}
-                           type="password"
-                           placeholder="Пароль"
-                           onChange={e => setLoginPassword(e.target.value)}
-                    />
-                </label>
+                <input value={loginEmail}
+                       type="email"
+                       placeholder="Эл.почта"
+                       onChange={e => setLoginEmail(e.target.value)}
+                />
+                <input value={loginPassword}
+                       type="password"
+                       placeholder="Пароль"
+                       onChange={e => setLoginPassword(e.target.value)}
+                />
                 <button onClick={login}>Войти</button>
                 <button className="secondary-btn" onClick={deactivate}>Зарегистрироваться</button>
             </form>

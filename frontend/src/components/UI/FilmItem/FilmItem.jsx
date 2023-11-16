@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import classes from './FilmItem.module.css'
-
+// todo исправить моргание постера
 const FilmItem = ({poster, name, genres, year, id}) => {
     const [isActive, setIsActive] = useState(false)
 
     return (
-        <div className={classes.container}
+        <div className={classes.filmContainer}
              onMouseEnter={() => setIsActive(true)}
              onMouseLeave={() => setIsActive(false)}
              onMouseDown={() => console.log("нажат постер")}
