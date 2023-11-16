@@ -20,7 +20,7 @@ public class FilmServiceImpl implements FilmService {
     }
 
     public Page<FilmEntity> getAllFilms(int offset, int limit) {
-        return repository.findAll(PageRequest.of(offset, limit, Sort.by("name")));
+        return repository.findAll(PageRequest.of(offset, limit, Sort.by("id")));
     }
 
 }
