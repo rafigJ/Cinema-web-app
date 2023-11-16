@@ -1,0 +1,21 @@
+.section {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    display: flex;
+    background-color: transparent;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.title {
+    color: whitesmoke;
+    margin: 10px 5px;
+    font-weight: normal;
+    font-size: 28px;
+}
+
+

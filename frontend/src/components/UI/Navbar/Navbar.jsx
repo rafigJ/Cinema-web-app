@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import logo from './img/logo.png';
 import userLogo from './img/user.png';
 import {Link, useNavigate} from "react-router-dom";
-import NavbarElement from "./NavbarElement";
+import NavbarElement from "../NavbarElement/NavbarElement";
 import './Navbar.css';
 import Modal from "../Modal/Modal";
 import AuthForm from "../../Authorization/AuthForm";
