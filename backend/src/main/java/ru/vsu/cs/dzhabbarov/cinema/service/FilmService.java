@@ -11,4 +11,6 @@ public interface FilmService {
     Page<FilmDto> getPaginationFilms(int offset, int limit);
 
     FullFilmDto getFilmById(int id);
+
+    void createFilm(FullFilmDto film);
 }

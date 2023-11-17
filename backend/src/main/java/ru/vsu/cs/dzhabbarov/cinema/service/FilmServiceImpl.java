@@ -1,6 +1,7 @@
 package ru.vsu.cs.dzhabbarov.cinema.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -12,6 +13,7 @@ import ru.vsu.cs.dzhabbarov.cinema.entity.FilmEntity;
 import ru.vsu.cs.dzhabbarov.cinema.entity.GenreEntity;
 import ru.vsu.cs.dzhabbarov.cinema.exception.RestException;
 import ru.vsu.cs.dzhabbarov.cinema.repository.FilmRepository;
+import ru.vsu.cs.dzhabbarov.cinema.repository.GenreRepository;
 
 import java.util.function.Function;
 
@@ -19,6 +21,7 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class FilmServiceImpl implements FilmService {
     private final FilmRepository repository;
+    private final GenreRepository genreRepository;
 
     @Override
     public Page<FilmDto> searchFilmByName(String name, int offset, int limit) {
@@ -41,6 +44,21 @@ public class FilmServiceImpl implements FilmService {
         return convertEntityToFullDto(filmEntity);
     }
 
+    @Override
+    public void createFilm(FullFilmDto film) {
+        FilmEntity entity = convertFullDtoToEntity(film, genreRepository);
+        if (entity == null) {
+            throw new RestException("Entity is null", HttpStatus.BAD_REQUEST);
+        }
+        try {
+            repository.saveAndFlush(entity);
+        } catch (DataIntegrityViolationException e) {
+            throw new RestException("Client error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (RuntimeException e) {
+            throw new RestException("Server error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     private static Function<FilmEntity, FilmDto> entityToDtoConverter() {
         return e -> {
             if (e == null) {
@@ -61,12 +79,32 @@ public class FilmServiceImpl implements FilmService {
         if (e == null) {
             return null;
         }
+        var genres = e.getGenres()
+                .stream()
+                .map(GenreEntity::getName)
+                .toList();
+
         return FullFilmDto.builder()
                 .id(e.getId())
                 .name(e.getName())
                 .year(e.getYear())
                 .poster(e.getPosterUrl())
                 .description(e.getDescription())
+                .genres(genres)
                 .build();
+    }
+
+    private static FilmEntity convertFullDtoToEntity(FullFilmDto film, GenreRepository genreRepository) {
+        if (film == null) {
+            return null;
+        }
+        var entity = new FilmEntity();
+        var genres = genreRepository.findByNameIn(film.getGenres());
+        entity.setName(film.getName());
+        entity.setPosterUrl(film.getPoster());
+        entity.setDescription(film.getDescription());
+        entity.setYear(film.getYear());
+        entity.setGenres(genres);
+        return entity;
     }
 }

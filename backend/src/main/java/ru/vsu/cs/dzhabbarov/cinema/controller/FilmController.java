@@ -3,7 +3,6 @@ package ru.vsu.cs.dzhabbarov.cinema.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.vsu.cs.dzhabbarov.cinema.dto.FilmDto;
 import ru.vsu.cs.dzhabbarov.cinema.dto.FullFilmDto;
@@ -37,7 +36,8 @@ public class FilmController {
     }
 
     @PostMapping()
-    public ResponseEntity<String> hello() {
-        return ResponseEntity.ok("защитаа");
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createFilm(@RequestBody FullFilmDto filmDto) {
+        service.createFilm(filmDto);
     }
 }
