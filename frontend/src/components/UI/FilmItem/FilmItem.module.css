@@ -1,13 +1,12 @@
 .filmContainer {
     background-color: transparent;
     position: relative;
-    width: 204px;
-    height: 305px;
+    width: 206px;
+    height: 309px;
     cursor: pointer;
-    margin: 5px;
 }
 
-.poster{
+.poster {
     background-color: transparent;
     width: 206px;
     height: 309px;
@@ -29,6 +28,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
+    max-height: 200px;
     transform: translate(-50%, -50%);
 }
 
@@ -38,6 +38,8 @@
     color: whitesmoke;
 }
 
-.hidden{
+.hidden {
     visibility: hidden;
+    max-width: 0;
+    max-height: 0;
 }

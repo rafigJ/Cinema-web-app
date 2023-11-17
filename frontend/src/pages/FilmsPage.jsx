@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import FilmService from "../API/FilmService";
 import FilmGrid from "../components/UI/FilmGrid/FilmGrid";
 import {useFetching} from "../hooks/useFetching";
+import '../styles/App.css'
 
 const FilmsPage = () => {
     const [films, setFilms] = useState([])
@@ -16,9 +17,9 @@ const FilmsPage = () => {
     }, []);
 
     return (
-        <main className="main-page">
+        <div className="main-page">
             <FilmGrid title="Фильмы" filmArray={films}/>
-        </main>
+        </div>
     );
 };
 
