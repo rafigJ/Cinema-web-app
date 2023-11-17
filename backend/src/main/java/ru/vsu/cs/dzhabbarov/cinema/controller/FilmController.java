@@ -9,8 +9,6 @@ import ru.vsu.cs.dzhabbarov.cinema.dto.FilmDto;
 import ru.vsu.cs.dzhabbarov.cinema.dto.FullFilmDto;
 import ru.vsu.cs.dzhabbarov.cinema.service.FilmService;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/films")
