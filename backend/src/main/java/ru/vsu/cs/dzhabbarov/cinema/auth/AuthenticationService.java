@@ -7,7 +7,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.vsu.cs.dzhabbarov.cinema.config.JwtService;
+import ru.vsu.cs.dzhabbarov.cinema.dto.AuthRequestDto;
+import ru.vsu.cs.dzhabbarov.cinema.dto.AuthResponseDto;
+import ru.vsu.cs.dzhabbarov.cinema.dto.RegisterRequestDto;
 import ru.vsu.cs.dzhabbarov.cinema.exception.ExistUserException;
 import ru.vsu.cs.dzhabbarov.cinema.exception.IncorrectCredentialsException;
 import ru.vsu.cs.dzhabbarov.cinema.exception.NotExistUserException;
@@ -25,7 +27,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse register(RegisterRequest request) throws DataIntegrityViolationException{
+    public AuthRequestDto register(RegisterRequestDto request) throws DataIntegrityViolationException{
         Optional<UserEntity> optionalUser = repository.findByEmail(request.getEmail());
         if (optionalUser.isPresent()) {
             throw new ExistUserException();
@@ -40,10 +42,10 @@ public class AuthenticationService {
                 .build();
         repository.save(user);
         var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.userToResponse(user, jwtToken);
+        return convertEntityToDto(user, jwtToken);
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    public AuthRequestDto authenticate(AuthResponseDto request) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -58,6 +60,15 @@ public class AuthenticationService {
                 .orElseThrow(NotExistUserException::new);
 
         var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.userToResponse(user, jwtToken);
+        return convertEntityToDto(user, jwtToken);
+    }
+
+    private static AuthRequestDto convertEntityToDto(UserEntity userEntity, String token) {
+        return AuthRequestDto.builder()
+                .name(userEntity.getFirstname() + ' ' + userEntity.getLastname())
+                .email(userEntity.getEmail())
+                .role(userEntity.getRole().name())
+                .token(token)
+                .build();
     }
 }

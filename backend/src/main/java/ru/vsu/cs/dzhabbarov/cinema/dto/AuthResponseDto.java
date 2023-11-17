@@ -1,4 +1,4 @@
-package ru.vsu.cs.dzhabbarov.cinema.auth;
+package ru.vsu.cs.dzhabbarov.cinema.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,12 +7,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class RegisterRequest {
-
-    private String firstname;
-    private String lastname;
+@NoArgsConstructor
+public class AuthResponseDto {
     private String email;
     private String password;
 }

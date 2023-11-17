@@ -1,4 +1,4 @@
-package ru.vsu.cs.dzhabbarov.cinema.config;
+package ru.vsu.cs.dzhabbarov.cinema.auth;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

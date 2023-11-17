@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
-import ru.vsu.cs.dzhabbarov.cinema.config.RestExceptionResponse;
+import ru.vsu.cs.dzhabbarov.cinema.dto.RestExceptionDto;
 
 import java.io.IOException;
 
@@ -27,9 +27,9 @@ public class UserAuthenticationEntryPoint implements AuthenticationEntryPoint {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         if (request.getAttribute("error") != null) {
-            OBJECT_MAPPER.writeValue(response.getOutputStream(), new RestExceptionResponse(request.getAttribute("error").toString()));
+            OBJECT_MAPPER.writeValue(response.getOutputStream(), new RestExceptionDto(request.getAttribute("error").toString()));
         } else {
-            OBJECT_MAPPER.writeValue(response.getOutputStream(), new RestExceptionResponse("Unauthorized path"));
+            OBJECT_MAPPER.writeValue(response.getOutputStream(), new RestExceptionDto("Unauthorized path"));
         }
     }
 }
