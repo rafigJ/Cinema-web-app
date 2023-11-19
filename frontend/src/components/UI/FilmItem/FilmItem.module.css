@@ -1,45 +1,41 @@
 .filmContainer {
     background-color: transparent;
-    position: relative;
-    width: 206px;
-    height: 309px;
     cursor: pointer;
+    max-height: 309px;
+    border-radius: 8px;
 }
 
-.poster {
-    background-color: transparent;
+.filmContainer * {
+    background: transparent;
+    text-align: left;
+    color: whitesmoke;
+}
+
+.poster, .activePoster {
     width: 206px;
     height: 309px;
+    margin: auto;
+    padding: 0;
     border-radius: 8px;
 }
 
 .activePoster {
-    background-color: transparent;
-    width: 206px;
-    height: 309px;
-    border-radius: 8px;
     opacity: 0.3;
 }
 
-.centeredBox {
-    background: transparent;
-    display: flex;
+.centeredBox, .hiddenBox {
     flex-direction: column;
     position: absolute;
     top: 50%;
     left: 50%;
-    max-height: 200px;
     transform: translate(-50%, -50%);
 }
 
-.centeredBox * {
-    background: transparent;
-    text-align: center;
-    color: whitesmoke;
+
+.hiddenBox {
+    visibility: hidden;
 }
 
-.hidden {
-    visibility: hidden;
-    max-width: 0;
-    max-height: 0;
+.hiddenBox, .centeredBox > ul {
+    list-style: none;
 }

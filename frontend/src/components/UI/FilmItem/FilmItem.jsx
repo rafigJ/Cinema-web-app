@@ -6,23 +6,21 @@ const FilmItem = ({poster, name, genres, year, id}) => {
 
     return (
         <article className={classes.filmContainer}
-             onMouseEnter={() => setIsActive(true)}
-             onMouseLeave={() => setIsActive(false)}
-             onMouseDown={() => console.log("нажат постер")}
+                 onMouseEnter={() => setIsActive(true)}
+                 onMouseLeave={() => setIsActive(false)}
+                 onMouseDown={() => console.log("нажат постер")}
         >
             <img className={isActive ? classes.activePoster : classes.poster} alt="" src={poster}/>
-            {/*<div className={*/}
-            {/*    isActive ? classes.centeredBox : classes.hidden*/}
-            {/*}>*/}
-            {/*    <h3>{name}</h3><br/>*/}
-            {/*    <span>{year}</span><br/>*/}
-            {/*    {genres.map(el =>*/}
-            {/*        <div key={el.id}>*/}
-            {/*            <span>{el.name}</span>*/}
-            {/*            <br/>*/}
-            {/*        </div>*/}
-            {/*    )}*/}
-            {/*</div>*/}
+            <div className={
+                isActive ? classes.centeredBox : classes.hiddenBox
+            }>
+                <h4>{name}, {year}</h4>
+                <ul>
+                    {genres.map(genre =>
+                        <li key={genre.id}>{genre.name}</li>
+                    )}
+                </ul>
+            </div>
         </article>
     );
 };
