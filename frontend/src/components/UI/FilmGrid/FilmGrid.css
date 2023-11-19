@@ -1,7 +1,6 @@
-.section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.films-section {
+    padding-left: 5.6rem!important;
+    padding-right: 5.6rem!important;
     align-items: center;
 }
 
@@ -16,6 +15,7 @@
 .title {
     color: whitesmoke;
     font-weight: 400;
+    margin-bottom: 20px;
     font-size: 33px;
 }
 

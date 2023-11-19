@@ -4,7 +4,7 @@ import FilmItem from "../FilmItem/FilmItem";
 
 const FilmGrid = ({title, filmArray = []}) => {
     return (
-        <section className="section">
+        <section className="films-section">
             <div className="title-container">
                 <h1 className="title">{title}</h1>
             </div>

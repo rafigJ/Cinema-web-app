@@ -17,23 +17,28 @@ const Navbar = () => {
 
 
     return (
-        <header className="header">
-            <Link to="/">
-                <img src={logo} width="239px" height="50px" alt=""/>
-            </Link>
-            <nav className="left_nav">
-                <ul>
-                    <NavbarElement to="/">Главная</NavbarElement>
-                    <NavbarElement to="/films">Фильмы</NavbarElement>
-                    <NavbarElement to="/users">Другое</NavbarElement>
-                </ul>
-            </nav>
+        <header className="headerContainer">
 
-            <div className="right_nav">
-                <button className="btn" onClick={buttonClick}>
-                    <img src={userLogo} alt=''/>
-                    <span>{isAuth ? "Профиль" : "Войти"}</span>
-                </button>
+            <div className="left">
+                <Link to="/">
+                    <img src={logo} width="239px" height="50px" alt=""/>
+                </Link>
+            </div>
+
+            <div className="right">
+                <nav className="right__nav">
+                    <ul>
+                        <NavbarElement to="/">Главная</NavbarElement>
+                        <NavbarElement to="/films">Фильмы</NavbarElement>
+                        <NavbarElement to="/users">Другое</NavbarElement>
+                    </ul>
+                </nav>
+                <div className="right__acc">
+                    <button className="btn" onClick={buttonClick}>
+                        <img src={userLogo} alt=''/>
+                        <span>{isAuth ? "Профиль" : "Войти"}</span>
+                    </button>
+                </div>
             </div>
             <Modal active={modalActive} setActive={setModalActive}>
                 <AuthForm setModalActive={setModalActive}/>

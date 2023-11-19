@@ -1,8 +1,10 @@
 .filmContainer {
     background-color: transparent;
+    position: relative;
     cursor: pointer;
     max-height: 309px;
     border-radius: 8px;
+    overflow: hidden;
 }
 
 .filmContainer * {
