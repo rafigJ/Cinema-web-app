@@ -14,7 +14,7 @@ const FilmGrid = ({title, filmArray = []}) => {
                         key={film.id}
                         id={film.id}
                         name={film.name}
-                        poster={film.posterUrl}
+                        poster={film.poster}
                         genres={film.genres}
                         year={film.year}
                     />
