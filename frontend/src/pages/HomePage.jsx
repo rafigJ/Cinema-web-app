@@ -6,8 +6,7 @@ const HomePage = () => {
         <main style={{display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            top:"0", left:"0",
-            width: "100vw", height: "80vh"}}>
+            top:"0", left:"0"}}>
 
             <FilmItem
                 id="235"
