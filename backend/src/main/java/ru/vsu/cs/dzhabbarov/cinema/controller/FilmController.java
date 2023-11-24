@@ -1,13 +1,15 @@
 package ru.vsu.cs.dzhabbarov.cinema.controller;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.codec.json.Jackson2JsonDecoder;
-import org.springframework.http.codec.json.Jackson2JsonEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 import ru.vsu.cs.dzhabbarov.cinema.dto.FilmDto;
 import ru.vsu.cs.dzhabbarov.cinema.dto.FullFilmDto;
 import ru.vsu.cs.dzhabbarov.cinema.service.FilmService;
@@ -40,8 +42,30 @@ public class FilmController {
     }
 
     @PostMapping()
-    public ResponseEntity<FilmDto> createFilm(@RequestBody @Valid FullFilmDto filmDto) {
-        var film = service.createFilm(filmDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(film);
+    public ResponseEntity<Void> createFilm(@Valid @RequestBody FullFilmDto filmDto,
+                                           UriComponentsBuilder uriBuilder) {
+        var createdFilm = service.createFilm(filmDto);
+        UriComponents uriComponents = uriBuilder.path("/api/v1/films/{id}").buildAndExpand(createdFilm.getId());
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(uriComponents.toUri());
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateFilm(@NotNull @PathVariable Integer id,
+                                           @Valid @RequestBody FullFilmDto filmDto,
+                                           UriComponentsBuilder uriBuilder) {
+        service.updateFilm(id, filmDto);
+        UriComponents uriComponents = uriBuilder.path("/api/v1/films/{id}").buildAndExpand(id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(uriComponents.toUri());
+        return new ResponseEntity<>(headers, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteFilm(@NotNull @PathVariable Integer id) {
+        service.deleteFilm(id);
+    }
+
 }

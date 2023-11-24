@@ -41,20 +41,21 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public FullFilmDto getFilmById(int id) {
+    public FullFilmDto getFilmById(Integer id) {
         var filmEntity = repository.getReferenceById(id);
         return convertEntityToFullDto(filmEntity);
     }
 
     @Override
-    public FilmDto createFilm(FullFilmDto film) {
+    public FullFilmDto createFilm(FullFilmDto film) {
         FilmEntity entity = convertFullDtoToEntity(film, genreRepository);
         if (entity == null) {
             throw new RestException("Entity is null", HttpStatus.BAD_REQUEST);
         }
         try {
             FilmEntity createdFilm = repository.saveAndFlush(entity);
-            return entityToDtoConverter().apply(createdFilm);
+            film.setId(createdFilm.getId());
+            return film;
         } catch (DataIntegrityViolationException e) {
             throw new RestException("Client error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (RuntimeException e) {
@@ -63,18 +64,33 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public void updateFilm(FullFilmDto film) {
-        if (film.getId() == null) {
-            throw new RestException("Client error: id field must not be null", HttpStatus.BAD_REQUEST);
-        } else if (film.getName() == null) {
-            throw new RestException("Client error: id field must not be null", HttpStatus.BAD_REQUEST);
+    public void updateFilm(Integer id, FullFilmDto film) {
+        var optionalFilmEntity = repository.findById(id);
+        if (optionalFilmEntity.isEmpty()) {
+            throw new RestException("Client error: film with id:" + id + " field not exist", HttpStatus.NOT_FOUND);
         }
-        var filmEntity = repository.getReferenceById(film.getId());
+
+        var filmEntity = optionalFilmEntity.get();
+        filmEntity.setName(film.getName());
+        filmEntity.setYear(film.getYear());
+        filmEntity.setDescription(film.getDescription());
+        filmEntity.setPosterUrl(filmEntity.getPosterUrl());
+
+        var genreIds = film.getGenres().stream()
+                .map(GenreDto::getId)
+                .toList();
+        List<GenreEntity> genres = genreRepository.findAllById(genreIds);
+        filmEntity.setGenres(genres);
+        repository.save(filmEntity);
     }
 
     @Override
-    public void deleteFilm(int id) {
-
+    public void deleteFilm(Integer id) {
+        try {
+            repository.deleteById(id);
+        } catch (IllegalArgumentException e) {
+            throw new RestException("Client error: id must be not null", HttpStatus.BAD_REQUEST);
+        }
     }
 
     private static Function<FilmEntity, FilmDto> entityToDtoConverter() {

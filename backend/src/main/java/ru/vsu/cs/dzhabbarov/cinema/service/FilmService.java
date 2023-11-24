@@ -10,11 +10,11 @@ public interface FilmService {
 
     Page<FilmDto> getPaginationFilms(int offset, int limit);
 
-    FullFilmDto getFilmById(int id);
+    FullFilmDto getFilmById(Integer id);
 
-    FilmDto createFilm(FullFilmDto film);
+    FullFilmDto createFilm(FullFilmDto film);
 
-    void updateFilm(FullFilmDto film);
+    void updateFilm(Integer id, FullFilmDto film);
 
-    void deleteFilm(int id);
+    void deleteFilm(Integer id);
 }
