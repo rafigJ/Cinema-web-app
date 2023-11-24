@@ -1,8 +1,12 @@
-package ru.vsu.cs.dzhabbarov.cinema.controller;
+package com.github.gifarj.cinema.controller;
 
+import com.github.gifarj.cinema.dto.FilmDto;
+import com.github.gifarj.cinema.dto.FullFilmDto;
+import com.github.gifarj.cinema.service.FilmService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -10,9 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
-import ru.vsu.cs.dzhabbarov.cinema.dto.FilmDto;
-import ru.vsu.cs.dzhabbarov.cinema.dto.FullFilmDto;
-import ru.vsu.cs.dzhabbarov.cinema.service.FilmService;
 
 @RestController
 @RequiredArgsConstructor

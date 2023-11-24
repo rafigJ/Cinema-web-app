@@ -1,5 +1,13 @@
-package ru.vsu.cs.dzhabbarov.cinema.service;
+package com.github.gifarj.cinema.service;
 
+import com.github.gifarj.cinema.dto.FilmDto;
+import com.github.gifarj.cinema.dto.FullFilmDto;
+import com.github.gifarj.cinema.dto.GenreDto;
+import com.github.gifarj.cinema.entity.FilmEntity;
+import com.github.gifarj.cinema.entity.GenreEntity;
+import com.github.gifarj.cinema.exception.RestException;
+import com.github.gifarj.cinema.repository.FilmRepository;
+import com.github.gifarj.cinema.repository.GenreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -7,17 +15,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import ru.vsu.cs.dzhabbarov.cinema.dto.FilmDto;
-import ru.vsu.cs.dzhabbarov.cinema.dto.FullFilmDto;
-import ru.vsu.cs.dzhabbarov.cinema.dto.GenreDto;
-import ru.vsu.cs.dzhabbarov.cinema.entity.FilmEntity;
-import ru.vsu.cs.dzhabbarov.cinema.entity.GenreEntity;
-import ru.vsu.cs.dzhabbarov.cinema.exception.RestException;
-import ru.vsu.cs.dzhabbarov.cinema.repository.FilmRepository;
-import ru.vsu.cs.dzhabbarov.cinema.repository.GenreRepository;
 
 import java.util.List;
 import java.util.function.Function;
+
 
 @Service
 @RequiredArgsConstructor
