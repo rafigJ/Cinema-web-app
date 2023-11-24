@@ -12,5 +12,9 @@ public interface FilmService {
 
     FullFilmDto getFilmById(int id);
 
-    void createFilm(FullFilmDto film);
+    FilmDto createFilm(FullFilmDto film);
+
+    void updateFilm(FullFilmDto film);
+
+    void deleteFilm(int id);
 }

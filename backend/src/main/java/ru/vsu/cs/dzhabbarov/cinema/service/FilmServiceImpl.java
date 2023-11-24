@@ -9,12 +9,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import ru.vsu.cs.dzhabbarov.cinema.dto.FilmDto;
 import ru.vsu.cs.dzhabbarov.cinema.dto.FullFilmDto;
+import ru.vsu.cs.dzhabbarov.cinema.dto.GenreDto;
 import ru.vsu.cs.dzhabbarov.cinema.entity.FilmEntity;
 import ru.vsu.cs.dzhabbarov.cinema.entity.GenreEntity;
 import ru.vsu.cs.dzhabbarov.cinema.exception.RestException;
 import ru.vsu.cs.dzhabbarov.cinema.repository.FilmRepository;
 import ru.vsu.cs.dzhabbarov.cinema.repository.GenreRepository;
 
+import java.util.List;
 import java.util.function.Function;
 
 @Service
@@ -27,7 +29,7 @@ public class FilmServiceImpl implements FilmService {
     public Page<FilmDto> searchFilmByName(String name, int offset, int limit) {
         var searchFilms = repository.findAllByNameContainsIgnoreCase(name, PageRequest.of(offset, limit));
         if (searchFilms.isEmpty()) {
-            throw new RestException("Films by name: " + name + " Not Found", HttpStatus.NOT_FOUND);
+            throw new RestException("Film by name: " + name + " not Found", HttpStatus.NOT_FOUND);
         }
         return searchFilms.map(entityToDtoConverter());
     }
@@ -45,13 +47,14 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public void createFilm(FullFilmDto film) {
+    public FilmDto createFilm(FullFilmDto film) {
         FilmEntity entity = convertFullDtoToEntity(film, genreRepository);
         if (entity == null) {
             throw new RestException("Entity is null", HttpStatus.BAD_REQUEST);
         }
         try {
-            repository.saveAndFlush(entity);
+            FilmEntity createdFilm = repository.saveAndFlush(entity);
+            return entityToDtoConverter().apply(createdFilm);
         } catch (DataIntegrityViolationException e) {
             throw new RestException("Client error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (RuntimeException e) {
@@ -59,12 +62,29 @@ public class FilmServiceImpl implements FilmService {
         }
     }
 
+    @Override
+    public void updateFilm(FullFilmDto film) {
+        if (film.getId() == null) {
+            throw new RestException("Client error: id field must not be null", HttpStatus.BAD_REQUEST);
+        } else if (film.getName() == null) {
+            throw new RestException("Client error: id field must not be null", HttpStatus.BAD_REQUEST);
+        }
+        var filmEntity = repository.getReferenceById(film.getId());
+    }
+
+    @Override
+    public void deleteFilm(int id) {
+
+    }
+
     private static Function<FilmEntity, FilmDto> entityToDtoConverter() {
         return e -> {
             if (e == null) {
                 return null;
             }
-            var genres = e.getGenres().stream().map(GenreEntity::getName).toList();
+            var genres = e.getGenres().stream()
+                    .map(g -> new GenreDto(g.getId(), g.getName()))
+                    .toList();
             return FilmDto.builder()
                     .id(e.getId())
                     .name(e.getName())
@@ -81,7 +101,7 @@ public class FilmServiceImpl implements FilmService {
         }
         var genres = e.getGenres()
                 .stream()
-                .map(GenreEntity::getName)
+                .map(g -> new GenreDto(g.getId(), g.getName()))
                 .toList();
 
         return FullFilmDto.builder()
@@ -99,7 +119,10 @@ public class FilmServiceImpl implements FilmService {
             return null;
         }
         var entity = new FilmEntity();
-        var genres = genreRepository.findByNameIn(film.getGenres());
+        var genreIds = film.getGenres().stream()
+                .map(GenreDto::getId)
+                .toList();
+        List<GenreEntity> genres = genreRepository.findAllById(genreIds);
         entity.setName(film.getName());
         entity.setPosterUrl(film.getPoster());
         entity.setDescription(film.getDescription());

@@ -7,5 +7,5 @@ import java.util.Collection;
 import java.util.List;
 
 public interface GenreRepository extends JpaRepository<GenreEntity, Integer> {
-    List<GenreEntity> findByNameIn(Collection<String> strings);
+
 }

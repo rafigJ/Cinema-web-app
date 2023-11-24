@@ -18,13 +18,13 @@ public class FilmEntity {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
 
     @Column(name = "year")
-    private int year;
+    private Integer year;
 
     @Column(name = "description")
     private String description;
@@ -48,7 +48,7 @@ public class FilmEntity {
 
         FilmEntity that = (FilmEntity) o;
 
-        if (year != that.year) return false;
+        if (!Objects.equals(year, that.year)) return false;
         if (!name.equals(that.name)) return false;
         if (!description.equals(that.description)) return false;
         return posterUrl.equals(that.posterUrl);

@@ -1,8 +1,12 @@
 package ru.vsu.cs.dzhabbarov.cinema.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.codec.json.Jackson2JsonDecoder;
+import org.springframework.http.codec.json.Jackson2JsonEncoder;
 import org.springframework.web.bind.annotation.*;
 import ru.vsu.cs.dzhabbarov.cinema.dto.FilmDto;
 import ru.vsu.cs.dzhabbarov.cinema.dto.FullFilmDto;
@@ -36,8 +40,8 @@ public class FilmController {
     }
 
     @PostMapping()
-    @ResponseStatus(HttpStatus.CREATED)
-    public void createFilm(@RequestBody FullFilmDto filmDto) {
-        service.createFilm(filmDto);
+    public ResponseEntity<FilmDto> createFilm(@RequestBody @Valid FullFilmDto filmDto) {
+        var film = service.createFilm(filmDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(film);
     }
 }

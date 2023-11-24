@@ -12,9 +12,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FilmDto {
-    private int id;
+    private Integer id;
     private String name;
-    private int year;
+    private Integer year;
     private String poster;
-    private List<String> genres;
+    private List<GenreDto> genres;
 }
