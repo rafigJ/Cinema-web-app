@@ -37,6 +37,9 @@ public class UserEntity {
     @Column(nullable = false, name = "role")
     private Role role;
 
+    @Column(nullable = false, name = "money")
+    private Integer money;
+
     @Column(nullable = false, name = "create_time")
     private LocalDateTime createTime;
 
