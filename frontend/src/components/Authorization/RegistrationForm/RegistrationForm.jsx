@@ -7,7 +7,6 @@ const RegistrationForm = ({activate, setModalActive}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
-    const [lastName, setLastName] = useState('');
 
     const register = event => {
         event.preventDefault();
@@ -25,12 +24,6 @@ const RegistrationForm = ({activate, setModalActive}) => {
                     type="text"
                     placeholder="Имя"
                     onChange={e => setName(e.target.value)}
-                />
-                <input
-                    value={lastName}
-                    type="text"
-                    placeholder="Фамилия"
-                    onChange={e => setLastName(e.target.value)}
                 />
                 <input
                     value={email}
