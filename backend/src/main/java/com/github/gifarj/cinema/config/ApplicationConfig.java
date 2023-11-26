@@ -2,6 +2,7 @@ package com.github.gifarj.cinema.config;
 
 import com.github.gifarj.cinema.exception.NotExistUserException;
 import com.github.gifarj.cinema.repository.UserRepository;
+import com.github.gifarj.cinema.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,8 +22,8 @@ public class ApplicationConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> repository.findByEmail(username)
-                .orElseThrow(NotExistUserException::new);
+        return username -> new User(repository.findByEmail(username)
+                .orElseThrow(NotExistUserException::new));
     }
 
     @Bean

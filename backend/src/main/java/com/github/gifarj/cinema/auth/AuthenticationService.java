@@ -18,6 +18,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -34,17 +36,12 @@ public class AuthenticationService {
             throw new ExistUserException();
         }
 
-        UserEntity userEntity = UserEntity.builder()
-                .name(request.getName())
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.USER)
-                .build();
+        UserEntity userEntity = convertRequestToEntity(request, passwordEncoder);
         repository.save(userEntity);
 
         User user = new User(userEntity);
         String jwtToken = jwtService.generateToken(user);
-        return convertEntityToAuthResponseDto(userEntity, jwtToken);
+        return convertEntityToAuthResponse(userEntity, jwtToken);
     }
 
     public AuthResponseDto authenticate(AuthRequestDto request) {
@@ -63,15 +60,26 @@ public class AuthenticationService {
 
         User user = new User(userEntity);
         String jwtToken = jwtService.generateToken(user);
-        return convertEntityToAuthResponseDto(userEntity, jwtToken);
+        return convertEntityToAuthResponse(userEntity, jwtToken);
     }
 
-    private static AuthResponseDto convertEntityToAuthResponseDto(UserEntity userEntity, String token) {
+    private static AuthResponseDto convertEntityToAuthResponse(UserEntity userEntity, String token) {
         return AuthResponseDto.builder()
                 .name(userEntity.getName())
                 .email(userEntity.getEmail())
                 .role(userEntity.getRole().name())
                 .token(token)
+                .build();
+    }
+
+    private static UserEntity convertRequestToEntity(RegisterRequestDto request, PasswordEncoder passwordEncoder) {
+        return UserEntity.builder()
+                .name(request.getName())
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .role(Role.USER)
+                .createTime(LocalDateTime.now())
+                .updateTime(LocalDateTime.now())
                 .build();
     }
 }

@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -36,10 +37,10 @@ public class UserEntity {
     @Column(nullable = false, name = "role")
     private Role role;
 
-    @Column(nullable = false, name = "created_date")
-    private LocalDate createdDate;
+    @Column(nullable = false, name = "create_time")
+    private LocalDateTime createTime;
 
-    @Column(nullable = false, name = "updated_date")
-    private LocalDate updatedDate;
+    @Column(nullable = false, name = "update_time")
+    private LocalDateTime updateTime;
 
 }
