@@ -1,17 +1,14 @@
 package com.github.gifarj.cinema.entity;
 
+import com.github.gifarj.cinema.user.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import com.github.gifarj.cinema.user.Role;
 
-import java.util.Collection;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -19,57 +16,30 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "_user")
-public class UserEntity implements UserDetails {
+public class UserEntity {
 
     @Id
-    @GeneratedValue
-    @Column(name = "id")
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(nullable = false, name = "uuid")
+    private UUID uuid;
 
-    private String firstname;
+    @Column(nullable = false, name = "name")
+    private String name;
 
-    private String lastname;
-
-    @Column(unique = true)
+    @Column(nullable = false, unique = true, name = "email")
     private String email;
 
+    @Column(nullable = false, name = "password")
     private String password;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false, name = "role")
     private Role role;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority((role == null) ? Role.USER.toString() : role.toString()));
-    }
+    @Column(nullable = false, name = "created_date")
+    private LocalDate createdDate;
 
-    @Override
-    public String getPassword() {
-        return password;
-    }
+    @Column(nullable = false, name = "updated_date")
+    private LocalDate updatedDate;
 
-    @Override
-    public String getUsername() {
-        return email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }

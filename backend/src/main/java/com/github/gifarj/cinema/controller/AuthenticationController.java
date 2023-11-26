@@ -1,7 +1,7 @@
 package com.github.gifarj.cinema.controller;
 
-import com.github.gifarj.cinema.dto.AuthRequestDto;
 import com.github.gifarj.cinema.dto.AuthResponseDto;
+import com.github.gifarj.cinema.dto.AuthRequestDto;
 import com.github.gifarj.cinema.dto.RegisterRequestDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ public class AuthenticationController {
     private final AuthenticationService service;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthRequestDto> register(
+    public ResponseEntity<AuthResponseDto> register(
            @Valid @RequestBody RegisterRequestDto request
     ) {
         var register = service.register(request);
@@ -25,8 +25,8 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthRequestDto> login(
-            @RequestBody AuthResponseDto request
+    public ResponseEntity<AuthResponseDto> login(
+            @RequestBody AuthRequestDto request
     ) {
         return ResponseEntity.ok(service.authenticate(request));
     }

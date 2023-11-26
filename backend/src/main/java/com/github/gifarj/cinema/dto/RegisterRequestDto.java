@@ -17,14 +17,10 @@ public class RegisterRequestDto {
 
     @NotEmpty(message = "should be not empty")
     @Size(min = 3, max = 40, message = "should contain minimum 3 characters, maximum 40 characters")
-    private String firstname;
+    private String name;
 
     @NotEmpty(message = "should be not empty")
-    @Size(min = 3, max = 40, message = "should contain minimum 3 characters, maximum 40 characters")
-    private String lastname;
-
-    @NotEmpty(message = "should be not empty")
-    @Size(min = 5, max = 200, message = "should contain minimum 5 characters, maximum 200 characters")
+    @Size(min = 5, max = 150, message = "should contain minimum 5 characters, maximum 150 characters")
     @Email(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$",
             message = "Invalid email format")
     private String email;
