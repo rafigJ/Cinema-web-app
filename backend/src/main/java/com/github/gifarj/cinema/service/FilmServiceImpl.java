@@ -37,7 +37,7 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public Page<FilmDto> getPaginationFilms(int offset, int limit) {
-        var films = repository.findAll(PageRequest.of(offset, limit, Sort.by("id")));
+        var films = repository.findAll(PageRequest.of(offset, limit, Sort.by("id"))); // TODO: не сортировать
         return films.map(entityToDtoConverter());
     }
 

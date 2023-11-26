@@ -3,6 +3,7 @@ package com.github.gifarj.cinema.controller;
 import com.github.gifarj.cinema.dto.AuthRequestDto;
 import com.github.gifarj.cinema.dto.AuthResponseDto;
 import com.github.gifarj.cinema.dto.RegisterRequestDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthRequestDto> register(
-            @RequestBody RegisterRequestDto request
+           @Valid @RequestBody RegisterRequestDto request
     ) {
         var register = service.register(request);
         return ResponseEntity.ok(register);
