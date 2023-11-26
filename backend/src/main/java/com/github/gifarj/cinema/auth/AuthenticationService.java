@@ -1,7 +1,7 @@
 package com.github.gifarj.cinema.auth;
 
-import com.github.gifarj.cinema.dto.AuthResponseDto;
 import com.github.gifarj.cinema.dto.AuthRequestDto;
+import com.github.gifarj.cinema.dto.AuthResponseDto;
 import com.github.gifarj.cinema.dto.RegisterRequestDto;
 import com.github.gifarj.cinema.entity.UserEntity;
 import com.github.gifarj.cinema.exception.ExistUserException;
@@ -18,7 +18,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
