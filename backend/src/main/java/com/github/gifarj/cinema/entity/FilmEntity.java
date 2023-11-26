@@ -20,16 +20,16 @@ public class FilmEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "year")
+    @Column(name = "year", nullable = false)
     private Integer year;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "poster_url")
+    @Column(name = "poster_url", nullable = false)
     private String posterUrl;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -40,6 +40,8 @@ public class FilmEntity {
     )
     private List<GenreEntity> genres;
 
+    @OneToMany(mappedBy = "film")
+    private List<SessionEntity> sessions;
 
     @Override
     public boolean equals(Object o) {

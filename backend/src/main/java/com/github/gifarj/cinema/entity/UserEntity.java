@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -42,5 +43,8 @@ public class UserEntity {
 
     @Column(nullable = false, name = "update_time")
     private LocalDateTime updateTime;
+
+    @OneToMany(mappedBy = "owner")
+    private List<TicketEntity> tickets;
 
 }
