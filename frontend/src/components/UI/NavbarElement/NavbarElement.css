@@ -1,0 +1,13 @@
+.navigation__link {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.navigation__link_default {
+    opacity: .5;
+}
+
+.navigation__list-item {
+    display: inline;
+    margin-left: 15px;
+}

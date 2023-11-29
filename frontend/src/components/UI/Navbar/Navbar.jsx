@@ -27,7 +27,7 @@ const Navbar = () => {
 
             <div className="navigation">
                 <nav className="navigation__menu">
-                    <ul>
+                    <ul className="navigation__list">
                         <NavbarElement to="/">Главная</NavbarElement>
                         <NavbarElement to="/films">Фильмы</NavbarElement>
                         <NavbarElement to="/users">Другое</NavbarElement>
@@ -35,7 +35,7 @@ const Navbar = () => {
                 </nav>
                 <div className="navigation__user-menu">
                     <Button onClick={buttonClick}>
-                        <img className="btn__icon" src={userLogo} alt='Войти'/>
+                        <img className="navigation__user-icon" src={userLogo} alt='Войти'/>
                         <span>{isAuth ? "Профиль" : "Войти"}</span>
                     </Button>
                 </div>
