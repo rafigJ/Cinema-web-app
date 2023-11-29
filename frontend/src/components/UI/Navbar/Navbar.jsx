@@ -7,6 +7,7 @@ import './Navbar.css';
 import Modal from "../Modal/Modal";
 import AuthForm from "../../Authorization/AuthForm";
 import {AuthContext} from "../../../context";
+import Button from "../Button/Button";
 
 const Navbar = () => {
     const [modalActive, setModalActive] = useState(false);
@@ -17,27 +18,26 @@ const Navbar = () => {
 
 
     return (
-        <header className="headerContainer">
-
-            <div className="left">
+        <header className="header">
+            <div className="logo">
                 <Link to="/">
-                    <img src={logo} width="239px" height="50px" alt=""/>
+                    <img src={logo} width="239px" height="50px" alt="logo"/>
                 </Link>
             </div>
 
-            <div className="right">
-                <nav className="right__nav">
+            <div className="navigation">
+                <nav className="navigation__menu">
                     <ul>
                         <NavbarElement to="/">Главная</NavbarElement>
                         <NavbarElement to="/films">Фильмы</NavbarElement>
                         <NavbarElement to="/users">Другое</NavbarElement>
                     </ul>
                 </nav>
-                <div className="right__acc">
-                    <button className="btn" onClick={buttonClick}>
-                        <img src={userLogo} alt=''/>
+                <div className="navigation__user-menu">
+                    <Button onClick={buttonClick}>
+                        <img className="btn__icon" src={userLogo} alt='Войти'/>
                         <span>{isAuth ? "Профиль" : "Войти"}</span>
-                    </button>
+                    </Button>
                 </div>
             </div>
             <Modal active={modalActive} setActive={setModalActive}>

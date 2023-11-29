@@ -8,7 +8,7 @@ const FilmsPage = () => {
     const [films, setFilms] = useState([])
 
     const [fetchFilms, isFilmsLoading, filmError] = useFetching(async () => {
-        const response = await FilmService.getAllFilms(0, 250);
+        const response = await FilmService.getAllFilms(100, 10);
         setFilms(response.data.content)
     },)
 
@@ -17,9 +17,9 @@ const FilmsPage = () => {
     }, []);
 
     return (
-        <div className="main-page">
+        <main className="main-page">
             <FilmGrid title="Фильмы" filmArray={films}/>
-        </div>
+        </main>
     );
 };
 

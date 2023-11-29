@@ -3,7 +3,7 @@ import FilmItem from "../components/UI/FilmItem/FilmItem";
 
 const HomePage = () => {
     return (
-        <main>
+        <main className="main-page">
 
             <FilmItem
                 id="235"

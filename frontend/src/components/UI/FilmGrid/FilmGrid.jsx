@@ -4,11 +4,11 @@ import FilmItem from "../FilmItem/FilmItem";
 
 const FilmGrid = ({title, filmArray = []}) => {
     return (
-        <section className="films-section">
+        <>
             <div className="title-container">
                 <h1 className="title">{title}</h1>
             </div>
-            <div className="film-grid">
+            <section className="film-grid">
                 {filmArray.map(film =>
                     <FilmItem
                         key={film.id}
@@ -19,8 +19,8 @@ const FilmGrid = ({title, filmArray = []}) => {
                         year={film.year}
                     />
                 )}
-            </div>
-        </section>
+            </section>
+        </>
     );
 };
 

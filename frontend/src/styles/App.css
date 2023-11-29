@@ -1,5 +1,13 @@
+body * {
+    font-family: "Open Sans", sans-serif;
+}
 
 body {
     background: #1a1d29;
-    font-family: "Open Sans", sans-serif;
+    color: whitesmoke;
+}
+
+.main-page {
+    padding-left: 5.6rem !important;
+    padding-right: 5.6rem !important;
 }
