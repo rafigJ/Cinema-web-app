@@ -37,8 +37,7 @@
 }
 
 .auth-container__change {
-    display: inline-flex;
-    justify-content: space-between;
+    display: inline;
     background-color: transparent;
     font-size: 12px;
     border: 0;
@@ -46,6 +45,7 @@
 }
 
 .auth-container__change-hyperlink {
+    margin-left: 2px;
     background-color: transparent;
     cursor: pointer;
 }
