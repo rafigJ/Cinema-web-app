@@ -1,42 +1,55 @@
-.container {
-    background-color: white;
+.auth-container {
+    background: transparent;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
-.container > * {
-    background-color: white;
-    margin: 10px;
+.auth-container * {
+    font-family: "Open Sans", sans-serif;
+    color: whitesmoke;
+}
+
+.auth-container__title {
     text-align: center;
+    width: 100%;
 }
 
-form {
+.auth-container__form {
+    background-color: transparent;
     display: flex;
     flex-direction: column;
-    width: 200px;
     justify-content: space-between;
     align-items: center;
 }
 
-form * {
-    border: 1px solid silver;
-    padding: 8px 20px;
-    border-radius: 5px;
-    margin-top: 5px;
-    color: #1a1d29;
-    background-color: white;
+.auth-container__input {
+    background: #2d303b;
+    border: 1px solid hsla(0, 0%, 100%, .15);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    margin: 6px;
+    opacity: .8;
+    padding: 8px 24px;
 }
 
-input {
-    width: 200px;
-    height: 50px;
-    text-align: left;
+.auth-container__change {
+    display: inline-flex;
+    justify-content: space-between;
+    background-color: transparent;
+    font-size: 12px;
+    border: 0;
+    text-align: center;
 }
 
-button {
+.auth-container__change-hyperlink {
+    background-color: transparent;
     cursor: pointer;
 }
 
-.secondary-btn {
-    border: transparent;
+.auth-container__button{
+    margin: 10px;
 }

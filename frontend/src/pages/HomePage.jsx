@@ -25,6 +25,8 @@ const HomePage = () => {
                 name="Джокер"
                 year="2019"
             />
+
+            <input type={"email"} className="auth-container__input" placeholder="E-Mail"/>
         </main>
     );
 };

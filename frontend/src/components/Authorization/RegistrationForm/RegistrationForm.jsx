@@ -16,9 +16,9 @@ const RegistrationForm = ({activate, setModalActive}) => {
     }
 
     return (
-        <div className="container">
+        <div className="auth-container">
             <h2>Создать аккаунт</h2>
-            <form className="form">
+            <form className="auth-container__form">
                 <input
                     value={name}
                     type="text"

@@ -22,7 +22,7 @@
 .modal__content {
     padding: 20px 100px;
     border-radius: 20px;
-    background-color: white;
+    background-color: #1a1d29;
     display: flex;
     justify-content: center;
     transform: scale(0.5);
