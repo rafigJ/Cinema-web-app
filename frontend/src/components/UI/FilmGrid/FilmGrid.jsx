@@ -6,7 +6,7 @@ const FilmGrid = ({title, filmArray = []}) => {
     return (
         <>
             <div className="title-container">
-                <h1 className="title">{title}</h1>
+                <h1 className="title-container__title">{title} {filmArray.length}</h1>
             </div>
             <section className="film-grid">
                 {filmArray.map(film =>

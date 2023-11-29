@@ -1,4 +1,4 @@
-.filmContainer {
+.film-container {
     background-color: transparent;
     position: relative;
     cursor: pointer;
@@ -7,13 +7,7 @@
     border-radius: 8px;
 }
 
-.filmContainer * {
-    background: transparent;
-    text-align: left;
-    color: whitesmoke;
-}
-
-.poster, .activePoster {
+.film-container__poster {
     width: 206px;
     height: 309px;
     margin: auto;
@@ -21,11 +15,11 @@
     border-radius: 8px;
 }
 
-.activePoster {
-    opacity: 0.3;
+.film-container__poster_active {
+    opacity: .3;
 }
 
-.centeredBox {
+.detail-box {
     flex-direction: column;
     position: absolute;
     top: 50%;
@@ -34,10 +28,15 @@
 }
 
 
-.hiddenBox {
+.detail-box_hidden {
     display: none;
 }
 
-.centeredBox > ul {
+.detail-box__genre-list {
+    padding: 0;
     list-style: none;
+}
+
+.detail-box__genre-item {
+
 }

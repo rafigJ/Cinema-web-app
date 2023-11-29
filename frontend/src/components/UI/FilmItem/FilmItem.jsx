@@ -1,23 +1,26 @@
 import React, {useState} from 'react';
-import classes from './FilmItem.module.css'
-// todo исправить моргание постера
+import './FilmItem.css'
+
 const FilmItem = ({poster, name, genres, year, id}) => {
     const [isActive, setIsActive] = useState(false)
+    const keyGeneration = (filmId, genreId) => filmId.toString() + genreId.toString()
 
     return (
-        <article className={classes.filmContainer}
+        <article className="film-container"
                  onMouseEnter={() => setIsActive(true)}
                  onMouseLeave={() => setIsActive(false)}
                  onMouseDown={() => console.log("нажат постер")}
         >
-            <img className={isActive ? classes.activePoster : classes.poster} alt="" src={poster}/>
+            <img className={isActive ?
+                "film-container__poster film-container__poster_active" :
+                "film-container__poster"} alt="Постер" src={poster}/>
             <div className={
-                isActive ? classes.centeredBox : classes.hiddenBox
+                isActive ? "detail-box" : "detail-box detail-box_hidden"
             }>
                 <h4>{name}, {year}</h4>
-                <ul>
+                <ul className="detail-box__genre-list">
                     {genres.map(genre =>
-                        <li key={genre.id}>{genre.name}</li>
+                        <li className="detail-box__genre-item" key={keyGeneration(id, genre.id)}>{genre.name}</li>
                     )}
                 </ul>
             </div>
