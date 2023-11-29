@@ -3,8 +3,8 @@
     position: relative;
     cursor: pointer;
     max-height: 309px;
+    max-width: 206px;
     border-radius: 8px;
-    overflow: hidden;
 }
 
 .filmContainer * {

@@ -1,11 +1,5 @@
-* {
-    margin: 0;
-    padding: 0;
-    font-family: 'Open Sans', sans-serif;
-    font-weight: normal;
-    background: #1a1d29;
-}
 
-.main-page {
-    display: flex;
+body {
+    background: #1a1d29;
+    font-family: "Open Sans", sans-serif;
 }
