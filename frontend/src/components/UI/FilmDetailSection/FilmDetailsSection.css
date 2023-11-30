@@ -20,6 +20,25 @@
 }
 
 .film-info__buttons {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.film-info__ticket-icon {
+    margin-right: 10px;
+    width: 26px;
+    height: 24px;
+}
+
+.film-info__ticket-text {
+    margin-right: 3px;
+}
+
+.film-info__favorite-icon {
+    width: 32px;
+    height: 29px;
 }
 
 .film-detail {

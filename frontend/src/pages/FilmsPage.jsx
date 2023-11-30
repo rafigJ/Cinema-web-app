@@ -8,7 +8,7 @@ const FilmsPage = () => {
     const [films, setFilms] = useState([])
 
     const [fetchFilms, isFilmsLoading, filmError] = useFetching(async () => {
-        const response = await FilmService.getAllFilms(100, 10);
+        const response = await FilmService.getAll(100, 10);
         setFilms(response.data.content)
     },)
 
