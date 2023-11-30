@@ -1,0 +1,34 @@
+.overview-section {
+    display: flex;
+}
+
+.overview-section__big-poster{
+    width: 302px;
+    height: 469px;
+    margin-right: 80px;
+}
+
+.film-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.film-info__title {}
+
+.film-info__buttons {}
+
+.film-detail {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.film-detail__title {}
+
+.film-detail__year {}
+
+.film-genres {}
+
+.film-genres__list {}
+
+.film-genres__list-item {}

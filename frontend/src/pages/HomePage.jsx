@@ -1,14 +1,15 @@
 import React from 'react';
-import FilmItem from "../components/UI/FilmItem/FilmItem";
+import FilmDetailsSection from "../components/UI/FilmDetailSection/FilmDetailsSection";
 
 const HomePage = () => {
     return (
         <main className="main-page">
 
-            <FilmItem
+            <FilmDetailsSection
                 id="235"
+                description="Готэм, начало 1980-х годов. Комик Артур Флек живет с больной матерью, которая с детства учит его «ходить с улыбкой». Пытаясь нести в мир хорошее и дарить людям радость, Артур сталкивается с человеческой жестокостью и постепенно приходит к выводу, что этот мир получит от него не добрую улыбку, а ухмылку злодея Джокера."
                 poster="https://kinopoiskapiunofficial.tech/images/posters/kp/1048334.jpg"
-                genres={[
+                genreArray={[
                     {
                         "id": 8,
                         "name": "драма"
@@ -26,7 +27,6 @@ const HomePage = () => {
                 year="2019"
             />
 
-            <input type={"email"} className="auth-container__input" placeholder="E-Mail"/>
         </main>
     );
 };

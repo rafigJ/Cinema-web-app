@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './FilmItem.css'
 
-const FilmItem = ({poster, name, genres, year, id}) => {
+const FilmItem = ({id, name, year, poster, genres}) => {
     const [isActive, setIsActive] = useState(false)
     const keyGeneration = (filmId, genreId) => filmId.toString() + genreId.toString()
 
