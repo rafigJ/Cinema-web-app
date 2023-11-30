@@ -23,7 +23,7 @@ public class FilmController {
     private final FilmService service;
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(HttpStatus.OK)
     private FullFilmDto getFilmById(@PathVariable("id") Integer id) {
         return service.getFilmById(id);
     }
