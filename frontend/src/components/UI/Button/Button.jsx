@@ -1,9 +1,15 @@
 import React from 'react';
 import classes from "./Button.module.css"
-
-const Button = ({children, ...props}) => {
+import '../../../styles/App.css'
+const Button = ({isIconButton = false, children, ...props}) => {
     return (
-        <button className={classes.btn} {...props}>
+        <button className={
+            isIconButton ?
+                classes.iconBtn
+                :
+                classes.btn
+        }
+                {...props}>
             {children}
         </button>
     );
