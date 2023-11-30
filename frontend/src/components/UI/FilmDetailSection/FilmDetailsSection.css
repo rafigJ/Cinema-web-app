@@ -2,10 +2,11 @@
     display: flex;
 }
 
-.overview-section__big-poster{
+.overview-section__big-poster {
     width: 302px;
     height: 469px;
     margin-right: 80px;
+    border-radius: 15px;
 }
 
 .film-info {
@@ -13,22 +14,41 @@
     flex-direction: column;
 }
 
-.film-info__title {}
+.film-info__title {
+    margin: 0;
+    font-size: 40px;
+}
 
-.film-info__buttons {}
+.film-info__buttons {
+}
 
 .film-detail {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
-.film-detail__title {}
+.film-detail__title {
+    margin-top: 1em;
+}
 
-.film-detail__year {}
+.film-detail__year {
+}
 
-.film-genres {}
+.film-genres {
+    margin-top: .3em;
+}
 
-.film-genres__list {}
+.film-genres__list {
+    list-style: none;
+    padding: 0;
+    display: inline;
+}
 
-.film-genres__list-item {}
+.film-genres__list-item {
+    display: inline;
+    margin-right: 5px;
+}
+
+.film-detail__description {
+    margin-top: 1em;
+}
