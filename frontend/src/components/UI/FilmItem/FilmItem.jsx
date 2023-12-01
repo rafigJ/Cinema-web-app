@@ -1,15 +1,17 @@
 import React, {useState} from 'react';
 import './FilmItem.css'
+import {useNavigate} from "react-router-dom";
 
 const FilmItem = ({id, name, year, poster, genres}) => {
     const [isActive, setIsActive] = useState(false)
     const keyGeneration = (filmId, genreId) => filmId.toString() + genreId.toString()
+    const navigate = useNavigate();
 
     return (
         <article className="film-container"
                  onMouseEnter={() => setIsActive(true)}
                  onMouseLeave={() => setIsActive(false)}
-                 onMouseDown={() => console.log("нажат постер")}
+                 onMouseDown={() => navigate(`/films/${id}`)}
         >
             <img className={isActive ?
                 "film-container__poster film-container__poster_active" :

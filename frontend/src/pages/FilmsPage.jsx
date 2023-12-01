@@ -7,8 +7,8 @@ import '../styles/App.css'
 const FilmsPage = () => {
     const [films, setFilms] = useState([])
 
-    const [fetchFilms, isFilmsLoading, filmError] = useFetching(async () => {
-        const response = await FilmService.getAll(100, 10);
+    const [fetchFilms, isLoading, error] = useFetching(async () => {
+        const response = await FilmService.getAll(10, 20);
         setFilms(response.data.content)
     },)
 

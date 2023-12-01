@@ -4,7 +4,6 @@ import FilmOverviewContainer from "../components/UI/FilmOverviewContainer/FilmOv
 const HomePage = () => {
     return (
         <main className="main-page">
-
             <FilmOverviewContainer
                 id="235"
                 description="Готэм, начало 1980-х годов. Комик Артур Флек живет с больной матерью, которая с детства учит его «ходить с улыбкой». Пытаясь нести в мир хорошее и дарить людям радость, Артур сталкивается с человеческой жестокостью и постепенно приходит к выводу, что этот мир получит от него не добрую улыбку, а ухмылку злодея Джокера."
@@ -26,7 +25,6 @@ const HomePage = () => {
                 name="Джокер"
                 year="2019"
             />
-
         </main>
     );
 };
