@@ -73,7 +73,7 @@ public class FilmServiceImpl implements FilmService {
     public FullFilmDto updateFilm(Integer id, FullFilmDto film) {
         var optionalFilmEntity = repository.findById(id);
         if (optionalFilmEntity.isEmpty()) {
-            throw new RestException("Client error: film with id:" + id + " field not exist", HttpStatus.NOT_FOUND);
+            throw new RestException("Film by id: " + id + " not found", HttpStatus.NOT_FOUND);
         }
 
         var filmEntity = optionalFilmEntity.get();
