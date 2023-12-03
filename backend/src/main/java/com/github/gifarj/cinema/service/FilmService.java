@@ -14,7 +14,7 @@ public interface FilmService {
 
     FullFilmDto createFilm(FullFilmDto film);
 
-    void updateFilm(Integer id, FullFilmDto film);
+    FullFilmDto updateFilm(Integer id, FullFilmDto film);
 
     void deleteFilm(Integer id);
 }

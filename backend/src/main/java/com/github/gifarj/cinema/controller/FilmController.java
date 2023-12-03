@@ -41,24 +41,16 @@ public class FilmController {
     }
 
     @PostMapping()
-    public ResponseEntity<Void> createFilm(@Valid @RequestBody FullFilmDto filmDto,
-                                           UriComponentsBuilder uriBuilder) {
-        var createdFilm = service.createFilm(filmDto);
-        UriComponents uriComponents = uriBuilder.path("/api/v1/films/{id}").buildAndExpand(createdFilm.getId());
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(uriComponents.toUri());
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+    @ResponseStatus(HttpStatus.CREATED)
+    public FullFilmDto createFilm(@Valid @RequestBody FullFilmDto filmDto) {
+        return service.createFilm(filmDto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateFilm(@NotNull @PathVariable Integer id,
-                                           @Valid @RequestBody FullFilmDto filmDto,
-                                           UriComponentsBuilder uriBuilder) {
-        service.updateFilm(id, filmDto);
-        UriComponents uriComponents = uriBuilder.path("/api/v1/films/{id}").buildAndExpand(id);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(uriComponents.toUri());
-        return new ResponseEntity<>(headers, HttpStatus.OK);
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public FullFilmDto updateFilm(@NotNull @PathVariable Integer id,
+                                  @Valid @RequestBody FullFilmDto filmDto) {
+        return service.updateFilm(id, filmDto);
     }
 
     @DeleteMapping("/{id}")

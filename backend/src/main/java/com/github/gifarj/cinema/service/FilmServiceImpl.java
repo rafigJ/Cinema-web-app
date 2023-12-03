@@ -8,6 +8,7 @@ import com.github.gifarj.cinema.entity.GenreEntity;
 import com.github.gifarj.cinema.exception.RestException;
 import com.github.gifarj.cinema.repository.FilmRepository;
 import com.github.gifarj.cinema.repository.GenreRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -43,8 +44,12 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public FullFilmDto getFilmById(Integer id) {
-        var filmEntity = repository.getReferenceById(id);
-        return convertEntityToFullDto(filmEntity);
+        try {
+            var filmEntity = repository.getReferenceById(id);
+            return convertEntityToFullDto(filmEntity);
+        } catch (EntityNotFoundException e) {
+            throw new RestException("Film by id: " + id + " not Found", HttpStatus.NOT_FOUND);
+        }
     }
 
     @Override
@@ -65,7 +70,7 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public void updateFilm(Integer id, FullFilmDto film) {
+    public FullFilmDto updateFilm(Integer id, FullFilmDto film) {
         var optionalFilmEntity = repository.findById(id);
         if (optionalFilmEntity.isEmpty()) {
             throw new RestException("Client error: film with id:" + id + " field not exist", HttpStatus.NOT_FOUND);
@@ -82,7 +87,10 @@ public class FilmServiceImpl implements FilmService {
                 .toList();
         List<GenreEntity> genres = genreRepository.findAllById(genreIds);
         filmEntity.setGenres(genres);
+
         repository.save(filmEntity);
+        film.setId(filmEntity.getId());
+        return film;
     }
 
     @Override
