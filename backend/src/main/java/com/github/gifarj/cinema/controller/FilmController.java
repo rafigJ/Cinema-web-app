@@ -23,7 +23,6 @@ public class FilmController {
     private final FilmService service;
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     private FullFilmDto getFilmById(@PathVariable("id") Integer id) {
         return service.getFilmById(id);
     }
@@ -35,7 +34,6 @@ public class FilmController {
     }
 
     @GetMapping("/search")
-    @ResponseStatus(HttpStatus.FOUND)
     public Page<FilmDto> searchFilms(@RequestParam("query") String query,
                                      @RequestParam(value = "offset", defaultValue = "0") Integer offset,
                                      @RequestParam(value = "limit", defaultValue = "10") Integer limit) {
@@ -64,7 +62,6 @@ public class FilmController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public void deleteFilm(@NotNull @PathVariable Integer id) {
         service.deleteFilm(id);
     }
