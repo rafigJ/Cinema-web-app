@@ -1,6 +1,7 @@
 import React, {useContext, useState} from 'react';
 import {AuthContext} from "../../../context";
 import '../Auth.css'
+import Button from "../../UI/Button/Button";
 
 const LoginForm = ({deactivate, setModalActive}) => {
     const {setIsAuth} = useContext(AuthContext);
@@ -16,22 +17,30 @@ const LoginForm = ({deactivate, setModalActive}) => {
     };
 
     return (
-        <div className="container">
-            <h1>Вход</h1>
-            <form className="form">
-                <input value={loginEmail}
+        <div className="auth-container">
+            <h1 className="auth-container__title">Вход</h1>
+            <form className="auth-container__form">
+                <input className="auth-container__input"
+                       value={loginEmail}
                        type="email"
                        placeholder="Эл.почта"
                        onChange={e => setLoginEmail(e.target.value)}
                 />
-                <input value={loginPassword}
+                <input className="auth-container__input"
+                       value={loginPassword}
                        type="password"
                        placeholder="Пароль"
                        onChange={e => setLoginPassword(e.target.value)}
                 />
-                <button onClick={login}>Войти</button>
-                <button className="secondary-btn" onClick={deactivate}>Зарегистрироваться</button>
+                <div className="auth-container__button">
+                    <Button onClick={login}>Войти</Button>
+                </div>
             </form>
+            <span className="auth-container__change">
+                    Не зарегистрированы?
+                    <strong className="auth-container__change-hyperlink"
+                            onClick={deactivate}>Зарегистрироваться</strong>
+            </span>
         </div>
     );
 };

@@ -1,46 +1,41 @@
 .header {
-    margin-top: 30px;
-    margin-left: 50px;
-    margin-right: 50px;
+    padding-left: 5.6rem !important;
+    padding-right: 5.6rem !important;
+    padding-top: 1.6rem;
+    padding-bottom: 1.6rem;
+    margin-bottom: 48px;
     display: flex;
+    align-items: center;
+    justify-content: flex-start;
     background: none;
 }
 
-
-
-.left_nav {
-    flex: 1;
-    margin-left: 25px;
-    font-size: 16px;
-    display: flex;
+.logo {
     align-items: center;
+    align-self: flex-start;
 }
 
-.right_nav {
-    flex: 1;
+.navigation {
+    position: relative;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
+    margin-left: auto;
+    width: 100%;
 }
 
-.btn {
-    display: flex;
-    align-items: center;
-    margin-left: 15px;
-    padding: 8px 15px;
-    border-radius: 10px;
-    font-size: 18px;
-    font-weight: bolder;
-    color: whitesmoke;
-    background: #3363B3;
-    border: 1px #3363B3 solid;
-    cursor: pointer;
+.navigation__menu {
+    justify-self: flex-start;
+    margin-right: 20px;
+    font-weight: 600;
 }
 
-button > img {
+.navigation__user-menu {
+    justify-self: flex-end;
+}
+
+.navigation__user-icon {
     margin-right: 10px;
 }
 
-button > * {
-    background: none;
-}
+.navigation__login-text{}

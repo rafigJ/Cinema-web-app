@@ -1,9 +1,10 @@
 import axios from "axios";
 
 export default class FilmService {
+    static url = "http://192.168.1.110:8080"
 
     static async getByName(query) {
-        return await axios.get(`http://localhost:8080/api/v1/films/search`, {
+        return await axios.get(`${FilmService.url}/api/v1/films/search`, {
                 params: {query: query},
                 headers: {
                     'Content-Type': 'application/json',
@@ -12,8 +13,8 @@ export default class FilmService {
         );
     }
 
-    static async getAllFilms(offset = 0, limit = 10) {
-        return await axios.get(`http://localhost:8080/api/v1/films`, {
+    static async getAll(offset = 0, limit = 10) {
+        return await axios.get(`${FilmService.url}/api/v1/films`, {
                 params: {
                     offset: offset,
                     limit: limit
@@ -25,4 +26,12 @@ export default class FilmService {
         );
     }
 
+    static async getById(id) {
+        return await axios.get(`${FilmService.url}/api/v1/films/${id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+    }
 };

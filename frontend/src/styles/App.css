@@ -1,22 +1,15 @@
-* {
-    margin: 0;
-    padding: 0;
-    font-family: 'Open Sans', sans-serif;
-    font-weight: normal;
-    box-sizing: border-box;
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
+
+body * {
+    font-family: "Open Sans", sans-serif;
+}
+
+body {
     background: #1a1d29;
+    color: whitesmoke;
 }
 
 .main-page {
-    margin: 30px;
-    box-sizing: content-box;
-}
-
-button {
-    border: 1px solid silver;
-    padding: 8px 20px;
-    border-radius: 5px;
-    margin-top: 5px;
-    background: white;
-    color: black;
+    padding-left: 5.6rem !important;
+    padding-right: 5.6rem !important;
 }

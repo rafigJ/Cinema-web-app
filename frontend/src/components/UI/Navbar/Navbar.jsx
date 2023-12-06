@@ -7,6 +7,7 @@ import './Navbar.css';
 import Modal from "../Modal/Modal";
 import AuthForm from "../../Authorization/AuthForm";
 import {AuthContext} from "../../../context";
+import Button from "../Button/Button";
 
 const Navbar = () => {
     const [modalActive, setModalActive] = useState(false);
@@ -18,22 +19,26 @@ const Navbar = () => {
 
     return (
         <header className="header">
-            <Link to="/">
-                <img src={logo} width="239px" height="50px" alt=""/>
-            </Link>
-            <nav className="left_nav">
-                <ul>
-                    <NavbarElement to="/">Главная</NavbarElement>
-                    <NavbarElement to="/films">Фильмы</NavbarElement>
-                    <NavbarElement to="/users">Другое</NavbarElement>
-                </ul>
-            </nav>
+            <div className="logo">
+                <Link to="/">
+                    <img src={logo} width="239px" height="50px" alt="logo"/>
+                </Link>
+            </div>
 
-            <div className="right_nav">
-                <button className="btn" onClick={buttonClick}>
-                    <img src={userLogo} alt=''/>
-                    <span>{isAuth ? "Профиль" : "Войти"}</span>
-                </button>
+            <div className="navigation">
+                <nav className="navigation__menu">
+                    <ul className="navigation__list">
+                        <NavbarElement to="/">Главная</NavbarElement>
+                        <NavbarElement to="/films">Фильмы</NavbarElement>
+                        <NavbarElement to="/users">Другое</NavbarElement>
+                    </ul>
+                </nav>
+                <div className="navigation__user-menu">
+                    <Button onClick={buttonClick}>
+                        <img className="navigation__user-icon" src={userLogo} alt='Войти'/>
+                        <span>{isAuth ? "Профиль" : "Войти"}</span>
+                    </Button>
+                </div>
             </div>
             <Modal active={modalActive} setActive={setModalActive}>
                 <AuthForm setModalActive={setModalActive}/>

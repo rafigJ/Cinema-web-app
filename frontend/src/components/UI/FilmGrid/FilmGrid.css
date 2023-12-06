@@ -1,25 +1,19 @@
-.section {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
 .film-grid {
-    flex: 1;
     display: flex;
     background-color: transparent;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
-    margin: -5px;
+    justify-content: left;
 }
 
-.title {
-    flex: 2;
-    color: whitesmoke;
-    margin: 2vh;
-    font-weight: normal;
-    font-size: 28px;
+.title-container__title {
+    font-weight: 400;
+    font-size: 33px;
+}
+
+.title-container {
+    margin-bottom: 20px;
+    width: 100%;
 }
 
 

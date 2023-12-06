@@ -4,8 +4,8 @@ import "./modal.css"
 
 const Modal = ({active, setActive, children}) => {
     return ReactDOM.createPortal(
-        <div className={active ? 'modal active' : 'modal'} onClick={() => setActive(false)}>
-            <div className={active ? 'modal__content active' : 'modal__content'} onClick={(e) => e.stopPropagation()}>
+        <div className={active ? 'modal navigation__link' : 'modal'} onClick={() => setActive(false)}>
+            <div className={active ? 'modal__content navigation__link' : 'modal__content'} onClick={(e) => e.stopPropagation()}>
                 {children}
             </div>
         </div>,

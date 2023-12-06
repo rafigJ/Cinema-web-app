@@ -1,29 +1,32 @@
 import React, {useState} from 'react';
-import classes from './FilmItem.module.css'
-// todo исправить моргание постера
-const FilmItem = ({poster, name, genres, year, id}) => {
+import './FilmItem.css'
+import {useNavigate} from "react-router-dom";
+
+const FilmItem = ({id, name, year, poster, genres}) => {
     const [isActive, setIsActive] = useState(false)
+    const keyGeneration = (filmId, genreId) => filmId.toString() + genreId.toString()
+    const navigate = useNavigate();
 
     return (
-        <div className={classes.filmContainer}
-             onMouseEnter={() => setIsActive(true)}
-             onMouseLeave={() => setIsActive(false)}
-             onMouseDown={() => console.log("нажат постер")}
+        <article className="film-container"
+                 onMouseEnter={() => setIsActive(true)}
+                 onMouseLeave={() => setIsActive(false)}
+                 onMouseDown={() => navigate(`/films/${id}`)}
         >
-            <img className={isActive ? classes.activePoster : classes.poster} alt="" src={poster}/>
+            <img className={isActive ?
+                "film-container__poster film-container__poster_active" :
+                "film-container__poster"} alt="Постер" src={poster}/>
             <div className={
-                isActive ? classes.centeredBox : classes.hidden
+                isActive ? "detail-box" : "detail-box detail-box_hidden"
             }>
-                <h3>{name}</h3><br/>
-                <span>{year}</span><br/>
-                {genres.map(el =>
-                    <div key={el.id}>
-                        <span>{el.name}</span>
-                        <br/>
-                    </div>
-                )}
+                <h4>{name}, {year}</h4>
+                <ul className="detail-box__genre-list">
+                    {genres.map(genre =>
+                        <li className="detail-box__genre-item" key={keyGeneration(id, genre.id)}>{genre.name}</li>
+                    )}
+                </ul>
             </div>
-        </div>
+        </article>
     );
 };
 

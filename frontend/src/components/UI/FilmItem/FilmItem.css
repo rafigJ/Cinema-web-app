@@ -1,0 +1,42 @@
+.film-container {
+    background-color: transparent;
+    position: relative;
+    cursor: pointer;
+    max-height: 309px;
+    max-width: 206px;
+    border-radius: 8px;
+}
+
+.film-container__poster {
+    width: 206px;
+    height: 309px;
+    margin: auto;
+    padding: 0;
+    border-radius: 8px;
+}
+
+.film-container__poster_active {
+    opacity: .3;
+}
+
+.detail-box {
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.detail-box_hidden {
+    display: none;
+}
+
+.detail-box__genre-list {
+    padding: 0;
+    list-style: none;
+}
+
+.detail-box__genre-item {
+
+}

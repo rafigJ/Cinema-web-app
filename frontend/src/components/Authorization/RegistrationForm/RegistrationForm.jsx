@@ -1,13 +1,14 @@
 import React, {useContext, useState} from 'react';
 import '../Auth.css'
 import {AuthContext} from "../../../context";
+import Button from "../../UI/Button/Button";
+
 const RegistrationForm = ({activate, setModalActive}) => {
     const {setIsAuth} = useContext(AuthContext);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
-    const [lastName, setLastName] = useState('');
 
     const register = event => {
         event.preventDefault();
@@ -17,36 +18,36 @@ const RegistrationForm = ({activate, setModalActive}) => {
     }
 
     return (
-        <div className="container">
-            <h2>Создать аккаунт</h2>
-            <form className="form">
-                <input
-                    value={name}
-                    type="text"
-                    placeholder="Имя"
-                    onChange={e => setName(e.target.value)}
+        <div className="auth-container">
+            <h1 className="auth-container__title">Создать аккаунт</h1>
+            <form className="auth-container__form">
+                <input className="auth-container__input"
+                       value={name}
+                       type="text"
+                       placeholder="Имя"
+                       onChange={e => setName(e.target.value)}
                 />
-                <input
-                    value={lastName}
-                    type="text"
-                    placeholder="Фамилия"
-                    onChange={e => setLastName(e.target.value)}
+                <input className="auth-container__input"
+                       value={email}
+                       type="email"
+                       placeholder="Эл.почта"
+                       onChange={e => setEmail(e.target.value)}
                 />
-                <input
-                    value={email}
-                    type="email"
-                    placeholder="Эл.почта"
-                    onChange={e => setEmail(e.target.value)}
+                <input className="auth-container__input"
+                       value={password}
+                       type="password"
+                       placeholder="Пароль"
+                       onChange={e => setPassword(e.target.value)}
                 />
-                <input
-                    value={password}
-                    type="password"
-                    placeholder="Пароль"
-                    onChange={e => setPassword(e.target.value)}
-                />
-                <button onClick={register}>Создать</button>
-                <button className="secondary-btn" onClick={activate}>Уже есть аккаунт</button>
+                <div className="auth-container__button">
+                    <Button onClick={register}>Создать</Button>
+                </div>
             </form>
+            <span className="auth-container__change">
+                    Уже есть аккаунт?
+                    <strong className="auth-container__change-hyperlink"
+                            onClick={activate}>Войти</strong>
+            </span>
         </div>
     );
 };

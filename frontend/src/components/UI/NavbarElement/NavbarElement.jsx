@@ -1,11 +1,14 @@
 import React from 'react';
-import classes from './NavbarElement.module.css'
 import {NavLink} from "react-router-dom";
+import "./NavbarElement.css"
 
 const NavbarElement = ({children, ...props}) => {
     return (
-        <li className={classes.navbar_item}>
-            <NavLink {...props} className={({isActive}) => isActive ? classes.active : classes.default}>
+        <li className="navigation__list-item">
+            <NavLink {...props}
+                     className={({isActive}) => {
+                         return isActive ? "navigation__link" : "navigation__link navigation__link_default"
+                     }}>
                 {children}
             </NavLink>
         </li>
