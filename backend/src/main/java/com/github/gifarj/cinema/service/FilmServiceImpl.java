@@ -29,7 +29,7 @@ public class FilmServiceImpl implements FilmService {
     private final GenreRepository genreRepository;
 
     @Override
-    public Page<FilmDto> searchFilmByName(String name, int offset, int limit) {
+    public Page<FilmDto> searchByName(String name, int offset, int limit) {
         var searchFilms = repository.findAllByNameContainsIgnoreCase(name, PageRequest.of(offset, limit));
         if (searchFilms.isEmpty()) {
             throw new NotFoundException("Film by name: " + name + " not Found");
@@ -38,7 +38,7 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public Page<FilmDto> getPaginationFilms(int offset, int limit) {
+    public Page<FilmDto> getFilmsPage(int offset, int limit) {
         var films = repository.findAll(PageRequest.of(offset, limit, Sort.by("id"))); // TODO: не сортировать
         return films.map(entityToDtoConverter());
     }

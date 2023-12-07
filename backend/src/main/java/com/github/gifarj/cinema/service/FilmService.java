@@ -6,9 +6,9 @@ import org.springframework.data.domain.Page;
 
 public interface FilmService {
 
-    Page<FilmDto> searchFilmByName(String name, int offset, int limit);
+    Page<FilmDto> searchByName(String name, int offset, int limit);
 
-    Page<FilmDto> getPaginationFilms(int offset, int limit);
+    Page<FilmDto> getFilmsPage(int offset, int limit);
 
     FullFilmDto getFilmById(Integer id);
 
