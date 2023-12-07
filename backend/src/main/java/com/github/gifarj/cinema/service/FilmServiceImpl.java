@@ -5,6 +5,7 @@ import com.github.gifarj.cinema.dto.FullFilmDto;
 import com.github.gifarj.cinema.dto.GenreDto;
 import com.github.gifarj.cinema.entity.FilmEntity;
 import com.github.gifarj.cinema.entity.GenreEntity;
+import com.github.gifarj.cinema.exception.NotFoundException;
 import com.github.gifarj.cinema.exception.RestException;
 import com.github.gifarj.cinema.repository.FilmRepository;
 import com.github.gifarj.cinema.repository.GenreRepository;
@@ -31,7 +32,7 @@ public class FilmServiceImpl implements FilmService {
     public Page<FilmDto> searchFilmByName(String name, int offset, int limit) {
         var searchFilms = repository.findAllByNameContainsIgnoreCase(name, PageRequest.of(offset, limit));
         if (searchFilms.isEmpty()) {
-            throw new RestException("Film by name: " + name + " not Found", HttpStatus.NOT_FOUND);
+            throw new NotFoundException("Film by name: " + name + " not Found");
         }
         return searchFilms.map(entityToDtoConverter());
     }
@@ -48,7 +49,7 @@ public class FilmServiceImpl implements FilmService {
             var filmEntity = repository.getReferenceById(id);
             return convertEntityToFullDto(filmEntity);
         } catch (EntityNotFoundException e) {
-            throw new RestException("Film by id: " + id + " not Found", HttpStatus.NOT_FOUND);
+            throw new NotFoundException("Film by id: " + id + " not Found");
         }
     }
 
@@ -73,7 +74,7 @@ public class FilmServiceImpl implements FilmService {
     public FullFilmDto updateFilm(Integer id, FullFilmDto film) {
         var optionalFilmEntity = repository.findById(id);
         if (optionalFilmEntity.isEmpty()) {
-            throw new RestException("Film by id: " + id + " not found", HttpStatus.NOT_FOUND);
+            throw new NotFoundException("Film by id: " + id + " not found");
         }
 
         var filmEntity = optionalFilmEntity.get();
