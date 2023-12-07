@@ -1,7 +1,6 @@
 package com.github.gifarj.cinema.exception;
 
 import com.github.gifarj.cinema.dto.RestExceptionDto;
-import com.github.gifarj.cinema.exception.RestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
