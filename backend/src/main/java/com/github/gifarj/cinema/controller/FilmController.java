@@ -23,16 +23,16 @@ public class FilmController {
     }
 
     @GetMapping()
-    public Page<FilmDto> getFilmsPagination(@RequestParam(value = "offset", defaultValue = "0") Integer offset,
-                                            @RequestParam(value = "limit", defaultValue = "10") Integer limit) {
-        return service.getFilmsPage(offset, limit);
+    public Page<FilmDto> getFilmsPagination(@RequestParam(value = "_page", defaultValue = "0") Integer page,
+                                            @RequestParam(value = "_limit", defaultValue = "10") Integer limit) {
+        return service.getFilmsPage(page, limit);
     }
 
     @GetMapping("/search")
-    public Page<FilmDto> searchFilms(@RequestParam("query") String query,
-                                     @RequestParam(value = "offset", defaultValue = "0") Integer offset,
-                                     @RequestParam(value = "limit", defaultValue = "10") Integer limit) {
-        return service.searchByName(query, offset, limit);
+    public Page<FilmDto> searchFilms(@RequestParam("name") String name,
+                                     @RequestParam(value = "_page", defaultValue = "0") Integer page,
+                                     @RequestParam(value = "_limit", defaultValue = "10") Integer limit) {
+        return service.searchByName(name, page, limit);
     }
 
     @PostMapping()
