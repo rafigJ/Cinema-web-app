@@ -32,7 +32,7 @@ public class FilmEntity {
     private String description;
 
     @Column(name = "poster_url", nullable = false)
-    private String posterUrl;
+    private String poster;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -55,7 +55,7 @@ public class FilmEntity {
         if (!Objects.equals(year, that.year)) return false;
         if (!name.equals(that.name)) return false;
         if (!description.equals(that.description)) return false;
-        return posterUrl.equals(that.posterUrl);
+        return poster.equals(that.poster);
     }
 
     @Override
