@@ -1,9 +1,8 @@
 .film-grid {
-    display: flex;
-    background-color: transparent;
-    flex-direction: row;
-    flex-wrap: wrap;
+    display: grid;
     justify-content: left;
+    grid-gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(206px, 1fr));
 }
 
 .title-container__title {
