@@ -11,7 +11,6 @@ import com.github.gifarj.cinema.exception.RestException;
 import com.github.gifarj.cinema.repository.FilmRepository;
 import com.github.gifarj.cinema.repository.GenreRepository;
 import com.github.gifarj.cinema.utils.DateTimeUtil;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -23,7 +22,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -50,12 +48,10 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public FullFilmDto getFilmById(Integer id) {
-        try {
-            var filmEntity = repository.getReferenceById(id);
-            return modelMapper.map(filmEntity, FullFilmDto.class);
-        } catch (EntityNotFoundException e) {
-            throw new NotFoundException("Film by id: " + id + " not Found");
-        }
+        var filmEntity = repository.findById(id).orElseThrow(() ->
+                new NotFoundException("Film by id: " + id + " not Found")
+        );
+        return modelMapper.map(filmEntity, FullFilmDto.class);
     }
 
     @Override
@@ -73,15 +69,12 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public FullFilmDto updateFilm(Integer id, FullFilmDto film) {
-        var optionalFilmEntity = repository.findById(id);
-        if (optionalFilmEntity.isEmpty()) {
+        if (!repository.existsById(id)) {
             throw new NotFoundException("Film by id: " + id + " not found");
         }
-
         var filmEntity = convertFullFilmDtoToEntity(film, genreRepository);
         filmEntity.setId(id);
         repository.save(filmEntity);
-
         return modelMapper.map(filmEntity, FullFilmDto.class);
     }
 
@@ -96,24 +89,22 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public List<SessionDto> getFilmSessionsByPeriod(Integer filmId, LocalDate start, LocalDate end) {
-        try {
-            var filmEntity = repository.getReferenceById(filmId);
+        var filmEntity = repository.findById(filmId).orElseThrow(() ->
+                new NotFoundException("Film by id: " + filmId + " not Found")
+        );
 
-            return filmEntity.getSessions().stream()
-                    .filter(session -> DateTimeUtil.isDateBetweenInclusive(session.getDate(), start, end))
-                    .map(session -> modelMapper.map(session, SessionDto.class))
-                    .toList();
-        } catch (EntityNotFoundException e) {
-            throw new NotFoundException("Film by id: " + filmId + " not Found");
-        }
+        return filmEntity.getSessions().stream()
+                .filter(session -> DateTimeUtil.isDateBetweenInclusive(session.getDate(), start, end))
+                .map(session -> modelMapper.map(session, SessionDto.class))
+                .toList();
     }
 
     /**
      * Converts a {@link FullFilmDto} object to a {@link FilmEntity} object, including genre validation.
      *
-     * @param filmDto           The {@link FullFilmDto} object to be converted.
-     * @param genreRepository   The {@link GenreRepository} used for genre validation.
-     * @return                  A {@link FilmEntity} representing the converted film.
+     * @param filmDto         The {@link FullFilmDto} object to be converted.
+     * @param genreRepository The {@link GenreRepository} used for genre validation.
+     * @return A {@link FilmEntity} representing the converted film.
      * @throws NotFoundException If a GenreDto with a specified ID or name is not found in the genreRepository.
      * @throws RestException     If neither ID nor name is present in a GenreDto, or if the ID and name do not match.
      */
@@ -143,34 +134,33 @@ public class FilmServiceImpl implements FilmService {
      * The validation includes checking if the provided GenreDto objects have valid IDs or names
      * and verifying if the data matches the records in the genreRepository.
      *
-     * @param genres      A list of GenreDto objects to be validated.
-     * @param genreRepository  The GenreRepository used for data validation.
-     * @throws NotFoundException    If a GenreDto with a specified ID or name is not found in the genreRepository.
-     * @throws RestException        If neither ID nor name is present in a GenreDto, or if the ID and name do not match.
+     * @param genres          A list of GenreDto objects to be validated.
+     * @param genreRepository The GenreRepository used for data validation.
+     * @throws NotFoundException If a GenreDto with a specified ID or name is not found in the genreRepository.
+     * @throws RestException     If neither ID nor name is present in a GenreDto, or if the ID and name do not match.
      */
     private static void validateGenreRequestDto(List<GenreDto> genres, GenreRepository genreRepository) {
         for (GenreDto dto : genres) {
-            Optional<GenreEntity> optionalGenre;
+            GenreEntity genre;
             if (dto.getId() != null) {
-                optionalGenre = genreRepository.findById(dto.getId());
-                if (optionalGenre.isEmpty()) {
-                    throw new NotFoundException("Genre by id: " + dto.getId() + " not Found");
-                }
+                genre = genreRepository.findById(dto.getId()).orElseThrow(() ->
+                        new NotFoundException("Genre by id: " + dto.getId() + " not Found")
+                );
             } else if (dto.getName() != null) {
-                optionalGenre = genreRepository.findByNameIgnoreCase(dto.getName());
-                if (optionalGenre.isEmpty()) {
-                    throw new NotFoundException("Genre by name: " + dto.getName() + " not Found");
-                }
+                genre = genreRepository.findByNameIgnoreCase(dto.getName()).orElseThrow(() ->
+                        new NotFoundException("Genre by name: " + dto.getName() + " not Found")
+                );
             } else {
                 throw new RestException("Genre id or name must be present", HttpStatus.BAD_REQUEST);
             }
 
-            var correctGenre = optionalGenre.get();
             if (dto.getId() != null && dto.getName() != null
-                    && !correctGenre.getName().equalsIgnoreCase(dto.getName())) {
-                throw new RestException("Genre by id " + dto.getId()
-                        + " does not match the dto name " + dto.getName()
-                        + ". Remove the id/name in the name or change it", HttpStatus.BAD_REQUEST);
+                    && !genre.getName().equalsIgnoreCase(dto.getName())) {
+                throw new RestException("Genre by id " + dto.getId() +
+                        " does not match the dto name " + dto.getName() +
+                        ". Remove the id/name in the name or change it",
+                        HttpStatus.BAD_REQUEST
+                );
             }
         }
     }
