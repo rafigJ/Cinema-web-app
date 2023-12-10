@@ -1,11 +1,15 @@
-import React from 'react';
+import React, {FC, PropsWithChildren} from 'react';
 import {NavLink} from "react-router-dom";
 import "./NavbarElement.css"
 
-const NavbarElement = ({children, ...props}) => {
+interface NavbarElementProps extends PropsWithChildren {
+    to: string;
+}
+
+const NavbarElement: FC<NavbarElementProps> = ({to, children}) => {
     return (
         <li className="navigation__list-item">
-            <NavLink {...props}
+            <NavLink to={to}
                      className={({isActive}) => {
                          return isActive ? "navigation__link" : "navigation__link navigation__link_default"
                      }}>
