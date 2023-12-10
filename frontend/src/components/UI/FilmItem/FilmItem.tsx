@@ -1,28 +1,33 @@
-import React, {useState} from 'react';
+import React, {FC, useState} from 'react';
 import './FilmItem.css'
 import {useNavigate} from "react-router-dom";
+import {IFilm} from "../../../types/types";
 
-const FilmItem = ({id, name, year, poster, genres}) => {
+interface FilmItemProps {
+    film: IFilm;
+}
+
+const FilmItem: FC<FilmItemProps> = ({film}) => {
     const [isActive, setIsActive] = useState(false)
-    const keyGeneration = (filmId, genreId) => filmId.toString() + genreId.toString()
+    const keyGeneration = (filmId: number, genreId: number) => filmId.toString() + genreId.toString()
     const navigate = useNavigate();
 
     return (
         <article className="film-container"
                  onMouseEnter={() => setIsActive(true)}
                  onMouseLeave={() => setIsActive(false)}
-                 onMouseDown={() => navigate(`/films/${id}`)}
+                 onMouseDown={() => navigate(`/films/${film.id}`)}
         >
             <img className={isActive ?
                 "film-container__poster film-container__poster_active" :
-                "film-container__poster"} alt="Постер" src={poster}/>
+                "film-container__poster"} alt="Постер" src={film.poster}/>
             <div className={
                 isActive ? "detail-box" : "detail-box detail-box_hidden"
             }>
-                <h4>{name}, {year}</h4>
+                <h4>{film.name}, {film.year}</h4>
                 <ul className="detail-box__genre-list">
-                    {genres.map(genre =>
-                        <li className="detail-box__genre-item" key={keyGeneration(id, genre.id)}>{genre.name}</li>
+                    {film.genres.map(genre =>
+                        <li className="detail-box__genre-item" key={keyGeneration(film.id, genre.id)}>{genre.name}</li>
                     )}
                 </ul>
             </div>

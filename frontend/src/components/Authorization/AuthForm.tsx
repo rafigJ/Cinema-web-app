@@ -1,16 +1,20 @@
-import React, {useState} from 'react';
+import React, {FC, useState} from 'react';
 import './Auth.css'
 import LoginForm from "./LoginForm/LoginForm";
 import RegistrationForm from "./RegistrationForm/RegistrationForm";
 
-const AuthForm = ({setModalActive}) => {
+interface AuthFormProps {
+    setModalActive: (item: boolean) => void;
+}
+
+const AuthForm: FC<AuthFormProps> = ({setModalActive}) => {
     const [isLoginForm, setIsLoginForm] = useState(true);
 
-    const activateLoginForm = event => {
+    const activateLoginForm = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         setIsLoginForm(true);
     };
-    const deactivateLoginForm = event => {
+    const deactivateLoginForm = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         setIsLoginForm(false);
     };

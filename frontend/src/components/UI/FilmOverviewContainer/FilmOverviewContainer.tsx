@@ -1,19 +1,24 @@
-import React from 'react';
+import React, {FC} from 'react';
 import './FilmOverviewContainer.css'
 import Button from '../Button/Button';
 import ticketIcon from './icons/ticket.svg';
 import favIcon from './icons/add-to-favorites-icon.svg';
 import AboutFilmSection from "../AboutFilmSection/AboutFilmSection";
+import {IFilm} from "../../../types/types";
 
-const FilmOverviewContainer = ({name, year, poster, description, genreArray}) => {
+interface FilmOverviewContainerProps {
+    film: IFilm;
+}
+
+const FilmOverviewContainer: FC<FilmOverviewContainerProps> = ({film}) => {
     return (
         <div className="overview-container">
             <img className="overview-container__big-poster"
                  alt="Постер"
-                 src={poster}
+                 src={film.poster}
             />
             <div className="film-info">
-                <h1 className="film-info__title">{name} ({year} г.)</h1>
+                <h1 className="film-info__title">{film.name} ({film.year} г.)</h1>
                 <div className="buttons-container">
                     <div className="ticket-btn">
                         <Button>
@@ -28,7 +33,7 @@ const FilmOverviewContainer = ({name, year, poster, description, genreArray}) =>
                     </div>
                 </div>
 
-                <AboutFilmSection year={year} description={description} genreArray={genreArray}/>
+                <AboutFilmSection film={film}/>
             </div>
         </div>
     );

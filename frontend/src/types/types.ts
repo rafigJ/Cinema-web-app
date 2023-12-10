@@ -11,3 +11,9 @@ export interface IGenre {
     id: number;
     name: string;
 }
+
+export interface IPageResponse<T>{
+    content: T[];
+    totalElements: number;
+    totalPages: number;
+}

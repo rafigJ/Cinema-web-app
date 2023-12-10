@@ -50,3 +50,33 @@
     height: 29px;
 }
 
+.film-detail {
+    display: flex;
+    flex-direction: column;
+}
+
+.film-detail__title {
+    margin-top: 1em;
+}
+
+.film-detail__year {
+}
+
+.film-genres {
+    margin-top: .3em;
+}
+
+.film-genres__list {
+    list-style: none;
+    padding: 0;
+    display: inline;
+}
+
+.film-genres__list-item {
+    display: inline;
+    margin-right: 5px;
+}
+
+.film-detail__description {
+    margin-top: 1em;
+}

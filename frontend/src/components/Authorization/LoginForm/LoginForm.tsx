@@ -1,15 +1,20 @@
-import React, {useContext, useState} from 'react';
+import React, {FC, useContext, useState} from 'react';
 import {AuthContext} from "../../../context";
 import '../Auth.css'
 import Button from "../../UI/Button/Button";
 
-const LoginForm = ({deactivate, setModalActive}) => {
+interface AuthFormProps {
+    deactivate: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    setModalActive: (item: boolean) => void;
+}
+
+const LoginForm: FC<AuthFormProps> = ({deactivate, setModalActive}) => {
     const {setIsAuth} = useContext(AuthContext);
 
     const [loginEmail, setLoginEmail] = useState('');
     const [loginPassword, setLoginPassword] = useState('');
 
-    const login = event => {
+    const login = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         setIsAuth(true);
         setModalActive(false);

@@ -9,8 +9,8 @@ const AppRouter = () => {
     return (
         <Routes>
             <Route index path="/" element={<HomePage/>}/>
-            <Route exact path="/films" element={<FilmsPage/>}/>
-            <Route exact path="/films/:id" element={<FilmOverviewPage/>}/>
+            <Route path="/films" element={<FilmsPage/>}/>
+            <Route path="/films/:id" element={<FilmOverviewPage/>}/>
             <Route path="*" element={<Navigate replace to="/"/>}/>
         </Routes>
     );
