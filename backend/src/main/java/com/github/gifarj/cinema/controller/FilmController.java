@@ -2,13 +2,19 @@ package com.github.gifarj.cinema.controller;
 
 import com.github.gifarj.cinema.dto.FilmDto;
 import com.github.gifarj.cinema.dto.FullFilmDto;
+import com.github.gifarj.cinema.dto.SessionDto;
+import com.github.gifarj.cinema.exception.RestException;
 import com.github.gifarj.cinema.service.FilmService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,6 +39,24 @@ public class FilmController {
                                      @RequestParam(value = "_page", defaultValue = "0") Integer page,
                                      @RequestParam(value = "_limit", defaultValue = "10") Integer limit) {
         return service.searchByName(name, page, limit);
+    }
+
+    @GetMapping("/{id}/sessions")
+    public List<SessionDto> getSessionByPeriod(@PathVariable("id") Integer id,
+                                               @RequestParam(value = "start", required = false)
+                                               @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
+                                               @RequestParam(value = "end", required = false)
+                                               @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
+        if (end == null) {
+            end = (start == null) ? LocalDate.now() : start;
+        }
+        if (start == null) {
+            start = LocalDate.now();
+        }
+        if (!start.equals(end) && start.isAfter(end)) {
+            throw new RestException("Start must be before End", HttpStatus.BAD_REQUEST);
+        }
+        return service.getFilmSessionsByPeriod(id, start, end);
     }
 
     @PostMapping()
