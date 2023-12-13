@@ -4,12 +4,9 @@ import {IFilm, IPageResponse} from "../types/types";
 
 export default class FilmService {
 
-    static async getByName(query: string): Promise<AxiosResponse<IFilm[]>> {
-        return await $api.get<IFilm[]>('/films/search', {
-                params: {query: query},
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+    static async getByName(query: string): Promise<AxiosResponse<IPageResponse<IFilm>>> {
+        return await $api.get('/films/search', {
+                params: {name: query}
             }
         );
     }
