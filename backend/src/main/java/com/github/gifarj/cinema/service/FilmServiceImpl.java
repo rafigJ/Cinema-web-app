@@ -42,7 +42,7 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public Page<FilmDto> getFilmsPage(int offset, int limit) {
-        var films = repository.findAll(PageRequest.of(offset, limit, Sort.by("id"))); // TODO: не сортировать
+        var films = repository.findAll(PageRequest.of(offset, limit, Sort.by("name"))); // TODO: не сортировать
         return films.map(film -> modelMapper.map(film, FilmDto.class));
     }
 
@@ -92,7 +92,7 @@ public class FilmServiceImpl implements FilmService {
         var filmEntity = repository.findById(filmId).orElseThrow(() ->
                 new NotFoundException("Film by id: " + filmId + " not Found")
         );
-
+        // todo Использовать SessionRepository с каким-нибудь методом findByFilmAndDateBetween
         return filmEntity.getSessions().stream()
                 .filter(session -> DateTimeUtil.isDateBetweenInclusive(session.getDate(), start, end))
                 .map(session -> modelMapper.map(session, SessionDto.class))

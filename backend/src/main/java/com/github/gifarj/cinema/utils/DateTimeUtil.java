@@ -2,6 +2,7 @@ package com.github.gifarj.cinema.utils;
 
 import java.time.LocalDate;
 
+@Deprecated
 public class DateTimeUtil {
 
     /**
