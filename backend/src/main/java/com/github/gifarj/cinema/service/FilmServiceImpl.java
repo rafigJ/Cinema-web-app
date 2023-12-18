@@ -33,25 +33,25 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public Page<FilmDto> searchByName(String name, int offset, int limit) {
-        var searchFilms = repository.findAllByNameContainsIgnoreCase(name, PageRequest.of(offset, limit));
-        if (searchFilms.isEmpty()) {
+        Page<FilmEntity> foundFilm = repository.findAllByNameContainsIgnoreCase(name, PageRequest.of(offset, limit));
+        if (foundFilm.isEmpty()) {
             throw new NotFoundException("Film by name: " + name + " not Found");
         }
-        return searchFilms.map(film -> modelMapper.map(film, FilmDto.class));
+        return foundFilm.map(film -> modelMapper.map(film, FilmDto.class));
     }
 
     @Override
     public Page<FilmDto> getFilmsPage(int offset, int limit) {
-        var films = repository.findAll(PageRequest.of(offset, limit, Sort.by("name"))); // TODO: не сортировать
+        Page<FilmEntity> films = repository.findAll(PageRequest.of(offset, limit, Sort.by("name"))); // TODO: не сортировать
         return films.map(film -> modelMapper.map(film, FilmDto.class));
     }
 
     @Override
     public FullFilmDto getFilmById(Integer id) {
-        var filmEntity = repository.findById(id).orElseThrow(() ->
+        FilmEntity film = repository.findById(id).orElseThrow(() ->
                 new NotFoundException("Film by id: " + id + " not Found")
         );
-        return modelMapper.map(filmEntity, FullFilmDto.class);
+        return modelMapper.map(film, FullFilmDto.class);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class FilmServiceImpl implements FilmService {
         if (!repository.existsById(id)) {
             throw new NotFoundException("Film by id: " + id + " not found");
         }
-        var filmEntity = convertFullFilmDtoToEntity(film, genreRepository);
+        FilmEntity filmEntity = convertFullFilmDtoToEntity(film, genreRepository);
         filmEntity.setId(id);
         repository.save(filmEntity);
         return modelMapper.map(filmEntity, FullFilmDto.class);
@@ -89,11 +89,11 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public List<SessionDto> getFilmSessionsByPeriod(Integer filmId, LocalDate start, LocalDate end) {
-        var filmEntity = repository.findById(filmId).orElseThrow(() ->
+        FilmEntity film = repository.findById(filmId).orElseThrow(() ->
                 new NotFoundException("Film by id: " + filmId + " not Found")
         );
         // todo Использовать SessionRepository с каким-нибудь методом findByFilmAndDateBetween
-        return filmEntity.getSessions().stream()
+        return film.getSessions().stream()
                 .filter(session -> DateTimeUtil.isDateBetweenInclusive(session.getDate(), start, end))
                 .map(session -> modelMapper.map(session, SessionDto.class))
                 .toList();
@@ -109,9 +109,9 @@ public class FilmServiceImpl implements FilmService {
      * @throws RestException     If neither ID nor name is present in a GenreDto, or if the ID and name do not match.
      */
     private static FilmEntity convertFullFilmDtoToEntity(FullFilmDto filmDto, GenreRepository genreRepository) {
-        var dtoGenres = filmDto.getGenres();
+        List<GenreDto> dtoGenres = filmDto.getGenres();
         validateGenreRequestDto(dtoGenres, genreRepository);
-        var entityGenres = dtoGenres.stream().map(dto -> {
+        List<GenreEntity> entityGenres = dtoGenres.stream().map(dto -> {
             if (dto.getId() != null) {
                 return genreRepository.findById(dto.getId()).orElseThrow();
             } else if (filmDto.getName() != null) {
@@ -120,7 +120,7 @@ public class FilmServiceImpl implements FilmService {
                 throw new RestException("Server error ", HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }).toList();
-        var filmEntity = new FilmEntity();
+        FilmEntity filmEntity = new FilmEntity();
         filmEntity.setName(filmDto.getName());
         filmEntity.setYear(filmDto.getYear());
         filmEntity.setPoster(filmDto.getPoster());
