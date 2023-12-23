@@ -6,17 +6,17 @@ import com.github.gifarj.cinema.dto.GenreDto;
 import com.github.gifarj.cinema.dto.SessionDto;
 import com.github.gifarj.cinema.entity.FilmEntity;
 import com.github.gifarj.cinema.entity.GenreEntity;
+import com.github.gifarj.cinema.entity.SessionEntity;
 import com.github.gifarj.cinema.exception.NotFoundException;
 import com.github.gifarj.cinema.exception.RestException;
 import com.github.gifarj.cinema.repository.FilmRepository;
 import com.github.gifarj.cinema.repository.GenreRepository;
-import com.github.gifarj.cinema.utils.DateTimeUtil;
+import com.github.gifarj.cinema.repository.SessionRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -29,20 +29,21 @@ import java.util.List;
 public class FilmServiceImpl implements FilmService {
     private final FilmRepository repository;
     private final GenreRepository genreRepository;
+    private final SessionRepository sessionRepository;
     private final ModelMapper modelMapper;
 
     @Override
-    public Page<FilmDto> searchByName(String name, int offset, int limit) {
-        Page<FilmEntity> foundFilm = repository.findAllByNameContainsIgnoreCase(name, PageRequest.of(offset, limit));
-        if (foundFilm.isEmpty()) {
+    public Page<FilmDto> searchByName(String name, Pageable pageable) {
+        Page<FilmEntity> foundFilms = repository.findAllByNameContainsIgnoreCase(name, pageable);
+        if (foundFilms.isEmpty()) {
             throw new NotFoundException("Film by name: " + name + " not Found");
         }
-        return foundFilm.map(film -> modelMapper.map(film, FilmDto.class));
+        return foundFilms.map(film -> modelMapper.map(film, FilmDto.class));
     }
 
     @Override
-    public Page<FilmDto> getFilmsPage(int offset, int limit) {
-        Page<FilmEntity> films = repository.findAll(PageRequest.of(offset, limit, Sort.by("name"))); // TODO: не сортировать
+    public Page<FilmDto> getFilmsPage(Pageable pageable) {
+        Page<FilmEntity> films = repository.findAll(pageable);
         return films.map(film -> modelMapper.map(film, FilmDto.class));
     }
 
@@ -89,14 +90,8 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public List<SessionDto> getFilmSessionsByPeriod(Integer filmId, LocalDate start, LocalDate end) {
-        FilmEntity film = repository.findById(filmId).orElseThrow(() ->
-                new NotFoundException("Film by id: " + filmId + " not Found")
-        );
-        // todo Использовать SessionRepository с каким-нибудь методом findByFilmAndDateBetween
-        return film.getSessions().stream()
-                .filter(session -> DateTimeUtil.isDateBetweenInclusive(session.getDate(), start, end))
-                .map(session -> modelMapper.map(session, SessionDto.class))
-                .toList();
+        List<SessionEntity> sessionsList = sessionRepository.findAllByFilmIdAndDateBetween(filmId, start, end);
+        return sessionsList.stream().map(e -> modelMapper.map(e, SessionDto.class)).toList();
     }
 
     /**

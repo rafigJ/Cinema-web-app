@@ -4,15 +4,16 @@ import com.github.gifarj.cinema.dto.FilmDto;
 import com.github.gifarj.cinema.dto.FullFilmDto;
 import com.github.gifarj.cinema.dto.SessionDto;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public interface FilmService {
 
-    Page<FilmDto> searchByName(String name, int offset, int limit);
+    Page<FilmDto> searchByName(String name, Pageable pageable);
 
-    Page<FilmDto> getFilmsPage(int offset, int limit);
+    Page<FilmDto> getFilmsPage(Pageable pageable);
 
     FullFilmDto getFilmById(Integer id);
 

@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -29,16 +30,16 @@ public class FilmController {
     }
 
     @GetMapping()
-    public Page<FilmDto> getFilmsPagination(@RequestParam(value = "_page", defaultValue = "0") Integer page,
-                                            @RequestParam(value = "_limit", defaultValue = "10") Integer limit) {
-        return service.getFilmsPage(page, limit);
+    public Page<FilmDto> getFilmsPage(@RequestParam(value = "_page", defaultValue = "0") Integer page,
+                                      @RequestParam(value = "_limit", defaultValue = "10") Integer limit) {
+        return service.getFilmsPage(PageRequest.of(page, limit));
     }
 
     @GetMapping("/search")
     public Page<FilmDto> searchFilms(@RequestParam("name") String name,
                                      @RequestParam(value = "_page", defaultValue = "0") Integer page,
                                      @RequestParam(value = "_limit", defaultValue = "10") Integer limit) {
-        return service.searchByName(name, page, limit);
+        return service.searchByName(name, PageRequest.of(page, limit));
     }
 
     @GetMapping("/{id}/sessions")
