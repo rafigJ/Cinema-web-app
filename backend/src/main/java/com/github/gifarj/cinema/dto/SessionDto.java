@@ -1,6 +1,7 @@
 package com.github.gifarj.cinema.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -17,7 +18,9 @@ public class SessionDto {
     private Integer id;
 
     @NotNull
-    private FilmDto film;
+    private Integer filmId;
+
+    private String filmName;
 
     @NotNull
     private HallDto hall;
@@ -31,5 +34,6 @@ public class SessionDto {
     private LocalTime time;
 
     @NotNull
+    @Min(1)
     private Integer price;
 }

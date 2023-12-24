@@ -12,6 +12,7 @@ import com.github.gifarj.cinema.exception.RestException;
 import com.github.gifarj.cinema.repository.FilmRepository;
 import com.github.gifarj.cinema.repository.GenreRepository;
 import com.github.gifarj.cinema.repository.SessionRepository;
+import com.github.gifarj.cinema.utils.FilmCriteria;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -33,17 +34,14 @@ public class FilmServiceImpl implements FilmService {
     private final ModelMapper modelMapper;
 
     @Override
-    public Page<FilmDto> searchByName(String name, Pageable pageable) {
-        Page<FilmEntity> foundFilms = repository.findAllByNameContainsIgnoreCase(name, pageable);
-        if (foundFilms.isEmpty()) {
-            throw new NotFoundException("Film by name: " + name + " not Found");
-        }
-        return foundFilms.map(film -> modelMapper.map(film, FilmDto.class));
+    public Page<FilmDto> getFilms(Pageable pageable) {
+        Page<FilmEntity> films = repository.findAll(pageable);
+        return films.map(film -> modelMapper.map(film, FilmDto.class));
     }
 
     @Override
-    public Page<FilmDto> getFilmsPage(Pageable pageable) {
-        Page<FilmEntity> films = repository.findAll(pageable);
+    public Page<FilmDto> filterFilms(FilmCriteria criteria, Pageable pageable) {
+        Page<FilmEntity> films = repository.findAll(criteria.getSpecification(), pageable);
         return films.map(film -> modelMapper.map(film, FilmDto.class));
     }
 
@@ -91,7 +89,12 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public List<SessionDto> getFilmSessionsByPeriod(Integer filmId, LocalDate start, LocalDate end) {
         List<SessionEntity> sessionsList = sessionRepository.findAllByFilmIdAndDateBetween(filmId, start, end);
-        return sessionsList.stream().map(e -> modelMapper.map(e, SessionDto.class)).toList();
+        return sessionsList.stream().map(e -> {
+            var dto = modelMapper.map(e, SessionDto.class);
+            dto.setFilmId(filmId);
+            dto.setFilmName(e.getFilm().getName());
+            return dto;
+        }).toList();
     }
 
     /**

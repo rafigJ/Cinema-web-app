@@ -1,5 +1,6 @@
 package com.github.gifarj.cinema.controller;
 
+import com.github.gifarj.cinema.utils.FilmCriteria;
 import com.github.gifarj.cinema.dto.FilmDto;
 import com.github.gifarj.cinema.dto.FullFilmDto;
 import com.github.gifarj.cinema.dto.SessionDto;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -32,14 +34,18 @@ public class FilmController {
     @GetMapping()
     public Page<FilmDto> getFilmsPage(@RequestParam(value = "_page", defaultValue = "0") Integer page,
                                       @RequestParam(value = "_limit", defaultValue = "10") Integer limit) {
-        return service.getFilmsPage(PageRequest.of(page, limit));
+        return service.getFilms(PageRequest.of(page, limit));
     }
 
     @GetMapping("/search")
-    public Page<FilmDto> searchFilms(@RequestParam("name") String name,
+    public Page<FilmDto> searchFilms(@RequestParam(value = "name", required = false) String name,
+                                     @RequestParam(value = "genres", required = false) Collection<Integer> genreIds,
                                      @RequestParam(value = "_page", defaultValue = "0") Integer page,
                                      @RequestParam(value = "_limit", defaultValue = "10") Integer limit) {
-        return service.searchByName(name, PageRequest.of(page, limit));
+        if (name == null && genreIds == null) {
+            throw new RestException("name or genres must be not null", HttpStatus.BAD_REQUEST);
+        }
+        return service.filterFilms(FilmCriteria.of(name, genreIds), PageRequest.of(page, limit));
     }
 
     @GetMapping("/{id}/sessions")

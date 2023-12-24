@@ -1,11 +1,9 @@
 package com.github.gifarj.cinema.repository;
 
 import com.github.gifarj.cinema.entity.FilmEntity;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-public interface FilmRepository extends JpaRepository<FilmEntity, Integer> {
+public interface FilmRepository extends JpaRepository<FilmEntity, Integer>, JpaSpecificationExecutor<FilmEntity> {
 
-    Page<FilmEntity> findAllByNameContainsIgnoreCase(String name, Pageable pageable);
 }

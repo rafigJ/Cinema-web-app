@@ -1,5 +1,6 @@
 package com.github.gifarj.cinema.service;
 
+import com.github.gifarj.cinema.utils.FilmCriteria;
 import com.github.gifarj.cinema.dto.FilmDto;
 import com.github.gifarj.cinema.dto.FullFilmDto;
 import com.github.gifarj.cinema.dto.SessionDto;
@@ -11,9 +12,9 @@ import java.util.List;
 
 public interface FilmService {
 
-    Page<FilmDto> searchByName(String name, Pageable pageable);
+    Page<FilmDto> getFilms(Pageable pageable);
 
-    Page<FilmDto> getFilmsPage(Pageable pageable);
+    Page<FilmDto> filterFilms(FilmCriteria criteria, Pageable pageable);
 
     FullFilmDto getFilmById(Integer id);
 

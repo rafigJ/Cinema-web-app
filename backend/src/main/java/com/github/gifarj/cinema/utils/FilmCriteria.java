@@ -1,6 +1,10 @@
 package com.github.gifarj.cinema.utils;
 
 import com.github.gifarj.cinema.entity.FilmEntity;
+import com.github.gifarj.cinema.entity.GenreEntity;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.Predicate;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
@@ -45,8 +49,16 @@ public class FilmCriteria {
     }
 
     private static Specification<FilmEntity> genresIdIn(Collection<Integer> genreIds) {
-        return (root, query, criteriaBuilder) ->
-                root.join("genres").get("id").in(genreIds);
+        return (root, query, criteriaBuilder) -> {
+            Join<FilmEntity, GenreEntity> genreJoin = root.join("genres", JoinType.INNER);
+
+            Predicate genrePredicate = genreJoin.get("id").in(genreIds);
+
+            query.groupBy(root.get("id")); // Группировка по film_id
+            query.having(criteriaBuilder.equal(criteriaBuilder.countDistinct(genreJoin.get("id")), genreIds.size())); // Условие HAVING
+
+            return criteriaBuilder.and(genrePredicate);
+        };
     }
 
     private static Specification<FilmEntity> genresIdInAndNameContainsIgnoreCase(Collection<Integer> genreIds, String name) {
