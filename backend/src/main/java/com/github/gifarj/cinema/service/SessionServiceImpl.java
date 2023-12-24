@@ -27,7 +27,7 @@ public class SessionServiceImpl implements SessionService {
 
     @Override
     public Page<SessionDto> getSessions(Pageable pageable, LocalDate start, LocalDate end) {
-        return repository.findAllByDateBetween(start, end, pageable).map(e -> modelMapper.map(e, SessionDto.class));
+        return repository.findAllByDateBetween(start, end, pageable).map(this::convertToDto);
     }
 
     @Override
