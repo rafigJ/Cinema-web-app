@@ -31,8 +31,7 @@ public class SessionController {
                                         @RequestParam(value = "start", required = false)
                                         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
                                         @RequestParam(value = "end", required = false)
-                                        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end
-    ) {
+                                        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
         return service.getSessions(PageRequest.of(page, limit), start, end);
     }
 
