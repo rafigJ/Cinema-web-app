@@ -1,8 +1,8 @@
 package com.github.gifarj.cinema.auth;
 
-import com.github.gifarj.cinema.dto.AuthRequestDto;
-import com.github.gifarj.cinema.dto.AuthResponseDto;
-import com.github.gifarj.cinema.dto.RegisterRequestDto;
+import com.github.gifarj.cinema.dto.auth.AuthRequestDto;
+import com.github.gifarj.cinema.dto.auth.AuthResponseDto;
+import com.github.gifarj.cinema.dto.auth.RegisterRequestDto;
 import com.github.gifarj.cinema.entity.UserEntity;
 import com.github.gifarj.cinema.exception.ExistUserException;
 import com.github.gifarj.cinema.exception.IncorrectCredentialsException;

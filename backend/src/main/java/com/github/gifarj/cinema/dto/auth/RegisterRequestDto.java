@@ -1,4 +1,4 @@
-package com.github.gifarj.cinema.dto;
+package com.github.gifarj.cinema.dto.auth;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;

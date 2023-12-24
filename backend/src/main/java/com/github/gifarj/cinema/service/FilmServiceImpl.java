@@ -1,9 +1,9 @@
 package com.github.gifarj.cinema.service;
 
-import com.github.gifarj.cinema.dto.FilmDto;
-import com.github.gifarj.cinema.dto.FullFilmDto;
 import com.github.gifarj.cinema.dto.GenreDto;
 import com.github.gifarj.cinema.dto.SessionDto;
+import com.github.gifarj.cinema.dto.film.FilmDto;
+import com.github.gifarj.cinema.dto.film.FullFilmDto;
 import com.github.gifarj.cinema.entity.FilmEntity;
 import com.github.gifarj.cinema.entity.GenreEntity;
 import com.github.gifarj.cinema.entity.SessionEntity;

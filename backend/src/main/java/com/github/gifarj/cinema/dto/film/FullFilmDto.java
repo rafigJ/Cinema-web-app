@@ -1,5 +1,6 @@
-package com.github.gifarj.cinema.dto;
+package com.github.gifarj.cinema.dto.film;
 
+import com.github.gifarj.cinema.dto.GenreDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;

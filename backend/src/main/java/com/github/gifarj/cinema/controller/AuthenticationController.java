@@ -1,8 +1,8 @@
 package com.github.gifarj.cinema.controller;
 
-import com.github.gifarj.cinema.dto.AuthResponseDto;
-import com.github.gifarj.cinema.dto.AuthRequestDto;
-import com.github.gifarj.cinema.dto.RegisterRequestDto;
+import com.github.gifarj.cinema.dto.auth.AuthResponseDto;
+import com.github.gifarj.cinema.dto.auth.AuthRequestDto;
+import com.github.gifarj.cinema.dto.auth.RegisterRequestDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
