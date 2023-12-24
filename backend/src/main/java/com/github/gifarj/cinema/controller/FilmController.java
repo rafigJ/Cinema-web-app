@@ -55,6 +55,7 @@ public class FilmController {
                                                @RequestParam(value = "end", required = false)
                                                @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
         if (end == null) {
+            // by default end = start, or end = start = NOW
             end = (start == null) ? LocalDate.now() : start;
         }
         if (start == null) {

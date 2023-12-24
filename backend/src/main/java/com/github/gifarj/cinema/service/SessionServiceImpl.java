@@ -78,18 +78,14 @@ public class SessionServiceImpl implements SessionService {
     }
 
     private SessionEntity convertToEntity(SessionDto dto) {
-        SessionEntity session = modelMapper.map(dto, SessionEntity.class);
-        FilmEntity film = filmRepository.findById(dto.getFilmId()).orElseThrow(
-                () -> new NotFoundException("Film by id: " + dto.getFilmId() + " not Found")
-        );
-        session.setFilm(film);
-        return session;
+        return modelMapper.map(dto, SessionEntity.class);
     }
 
     private SessionDto convertToDto(SessionEntity entity) {
         SessionDto dto = modelMapper.map(entity, SessionDto.class);
-        var film = entity.getFilm();
-        dto.setFilmId(film.getId());
+        FilmEntity film = filmRepository.findById(dto.getFilmId()).orElseThrow(() ->
+                new NotFoundException("Film by id: " + dto.getFilmId() + " not found")
+        );
         dto.setFilmName(film.getName());
         return dto;
     }

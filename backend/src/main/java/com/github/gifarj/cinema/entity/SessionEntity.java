@@ -22,9 +22,8 @@ public class SessionEntity {
     @Column(name = "id")
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "film_id")
-    private FilmEntity film;
+    @Column(name = "film_id")
+    private Integer filmId;
 
     @ManyToOne
     @JoinColumn(name = "hall_id")

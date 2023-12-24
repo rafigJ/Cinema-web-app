@@ -42,9 +42,6 @@ public class FilmEntity {
     )
     private List<GenreEntity> genres;
 
-    @OneToMany(mappedBy = "film")
-    private List<SessionEntity> sessions;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
