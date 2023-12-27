@@ -35,7 +35,7 @@ public class UserEntity {
     @Column(nullable = false, name = "role")
     private Role role;
 
-    @Column(nullable = false, name = "money")
+    @Column(nullable = false, name = "money", columnDefinition = "integer default 1500")
     private Integer money;
 
     @Column(nullable = false, name = "create_time")

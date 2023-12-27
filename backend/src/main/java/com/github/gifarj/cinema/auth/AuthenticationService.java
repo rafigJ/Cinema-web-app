@@ -29,6 +29,8 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
+    private static final int DEFAULT_MONEY = 1500;
+
     public AuthResponseDto register(RegisterRequestDto request) throws DataIntegrityViolationException {
         Optional<UserEntity> optionalUser = repository.findByEmail(request.getEmail());
         if (optionalUser.isPresent()) {
@@ -79,7 +81,7 @@ public class AuthenticationService {
                 .role(Role.USER)
                 .createTime(LocalDateTime.now())
                 .updateTime(LocalDateTime.now())
-                .money(1500)    // todo удалить костыль
+                .money(DEFAULT_MONEY)
                 .build();
     }
 }
