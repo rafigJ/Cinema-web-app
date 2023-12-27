@@ -79,6 +79,7 @@ public class AuthenticationService {
                 .role(Role.USER)
                 .createTime(LocalDateTime.now())
                 .updateTime(LocalDateTime.now())
+                .money(1500)    // todo удалить костыль
                 .build();
     }
 }
