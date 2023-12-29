@@ -7,11 +7,13 @@ import com.github.gifarj.cinema.entity.UserEntity;
 import com.github.gifarj.cinema.exception.ExistUserException;
 import com.github.gifarj.cinema.exception.IncorrectCredentialsException;
 import com.github.gifarj.cinema.exception.NotExistUserException;
+import com.github.gifarj.cinema.exception.RestException;
 import com.github.gifarj.cinema.repository.UserRepository;
 import com.github.gifarj.cinema.user.Role;
 import com.github.gifarj.cinema.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -38,7 +40,11 @@ public class AuthenticationService {
         }
 
         UserEntity userEntity = convertRequestToEntity(request, passwordEncoder);
-        repository.save(userEntity);
+        try {
+            repository.saveAndFlush(userEntity);
+        } catch (DataIntegrityViolationException e) {
+            throw new RestException("Server error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
         User user = new User(userEntity);
         String jwtToken = jwtService.generateToken(user);
