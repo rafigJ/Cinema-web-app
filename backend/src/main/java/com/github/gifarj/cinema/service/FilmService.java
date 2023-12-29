@@ -3,7 +3,7 @@ package com.github.gifarj.cinema.service;
 import com.github.gifarj.cinema.dto.SessionDto;
 import com.github.gifarj.cinema.dto.film.FilmDto;
 import com.github.gifarj.cinema.dto.film.FullFilmDto;
-import com.github.gifarj.cinema.utils.FilmCriteria;
+import com.github.gifarj.cinema.criteria.FilmCriteria;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

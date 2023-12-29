@@ -1,4 +1,4 @@
-package com.github.gifarj.cinema.utils;
+package com.github.gifarj.cinema.criteria;
 
 import com.github.gifarj.cinema.entity.FilmEntity;
 import com.github.gifarj.cinema.entity.GenreEntity;

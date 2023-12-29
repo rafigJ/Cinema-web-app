@@ -1,6 +1,6 @@
 package com.github.gifarj.cinema.controller;
 
-import com.github.gifarj.cinema.utils.FilmCriteria;
+import com.github.gifarj.cinema.criteria.FilmCriteria;
 import com.github.gifarj.cinema.dto.film.FilmDto;
 import com.github.gifarj.cinema.dto.film.FullFilmDto;
 import com.github.gifarj.cinema.dto.SessionDto;

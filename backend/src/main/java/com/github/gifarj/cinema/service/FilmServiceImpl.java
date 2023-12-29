@@ -12,7 +12,7 @@ import com.github.gifarj.cinema.exception.RestException;
 import com.github.gifarj.cinema.repository.FilmRepository;
 import com.github.gifarj.cinema.repository.GenreRepository;
 import com.github.gifarj.cinema.repository.SessionRepository;
-import com.github.gifarj.cinema.utils.FilmCriteria;
+import com.github.gifarj.cinema.criteria.FilmCriteria;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
