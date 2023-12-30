@@ -46,6 +46,7 @@ public class UserServiceImpl implements UserService {
         }
 
         // TODO проверить то, что row < hall_rows, column < column_rows. Переименовать column в a_column или col
+        // TODO добавить проверку на уникальность row, col и session (в бд а также тут)
 
         user.setMoney(user.getMoney() - session.getPrice());
         entity.setOwner(user);
