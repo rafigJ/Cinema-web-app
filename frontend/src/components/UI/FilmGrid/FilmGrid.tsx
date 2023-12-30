@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import './FilmGrid.css'
 import FilmItem from "../FilmItem/FilmItem";
-import {IFilm} from "../../../types/types";
+import {IFilm} from "../../../types/model/IFilm";
 
 interface FilmGridProps {
     title: string;

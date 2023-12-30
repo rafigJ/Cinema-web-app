@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import './AboutFilmSection.css'
-import {IFilm} from "../../../types/types";
+import {IFilm} from "../../../types/model/IFilm";
 
 interface AboutFilmSectionProps {
     film: IFilm;

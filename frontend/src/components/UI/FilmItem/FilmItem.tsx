@@ -1,7 +1,7 @@
 import React, {FC, useState} from 'react';
 import './FilmItem.css'
 import {useNavigate} from "react-router-dom";
-import {IFilm} from "../../../types/types";
+import {IFilm} from "../../../types/model/IFilm";
 
 interface FilmItemProps {
     film: IFilm;

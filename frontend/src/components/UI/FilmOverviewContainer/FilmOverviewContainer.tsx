@@ -4,7 +4,7 @@ import Button from '../Button/Button';
 import ticketIcon from './icons/ticket.svg';
 import favIcon from './icons/add-to-favorites-icon.svg';
 import AboutFilmSection from "../AboutFilmSection/AboutFilmSection";
-import {IFilm} from "../../../types/types";
+import {IFilm} from "../../../types/model/IFilm";
 
 interface FilmOverviewContainerProps {
     film: IFilm;

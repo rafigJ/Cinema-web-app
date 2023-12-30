@@ -3,13 +3,14 @@ import FilmService from "../API/FilmService";
 import FilmGrid from "../components/UI/FilmGrid/FilmGrid";
 import {useFetching} from "../hooks/useFetching";
 import '../styles/App.css'
-import {IFilm} from "../types/types";
+import {IFilm} from "../types/model/IFilm";
+
 
 const FilmsPage: FC = () => {
     const [films, setFilms] = useState([] as IFilm[])
 
     const [fetchFilms, isLoading, error] = useFetching(async () => {
-        const response = await FilmService.getAll(2, 200);
+        const response = await FilmService.getAll(2, 20);
         setFilms(response.data.content)
     },)
 

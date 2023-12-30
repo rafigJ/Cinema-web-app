@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {IFilm} from "../types/types";
 import {useFetching} from "../hooks/useFetching";
 import FilmService from "../API/FilmService";
 import FilmGrid from "../components/UI/FilmGrid/FilmGrid";
+import {IFilm} from "../types/model/IFilm";
 
 const HomePage = () => {
     const [films, setFilms] = useState([] as IFilm[])

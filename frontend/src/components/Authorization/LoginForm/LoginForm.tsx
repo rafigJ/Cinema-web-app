@@ -18,7 +18,7 @@ const LoginForm: FC<AuthFormProps> = ({deactivate, setModalActive}) => {
         event.preventDefault();
         setIsAuth(true);
         setModalActive(false);
-        localStorage.setItem('auth', "true");
+
     };
 
     return (

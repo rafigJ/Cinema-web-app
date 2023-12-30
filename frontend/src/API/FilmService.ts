@@ -1,6 +1,7 @@
 import {AxiosResponse} from "axios";
 import $api from "./index";
-import {IFilm, IPageResponse} from "../types/types";
+import {IPageResponse} from "../types/response/IPageResponse";
+import {IFilm} from "../types/model/IFilm";
 
 export default class FilmService {
 
