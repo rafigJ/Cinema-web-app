@@ -11,6 +11,8 @@
 }
 
 .auth-container__title {
+    font-size: larger;
+    margin-bottom: 15px;
     text-align: center;
     width: 100%;
 }
@@ -39,7 +41,7 @@
 .auth-container__change {
     display: inline;
     background-color: transparent;
-    font-size: 12px;
+    font-size: 14px;
     border: 0;
     text-align: center;
 }
@@ -50,6 +52,15 @@
     cursor: pointer;
 }
 
-.auth-container__button{
+.auth-container__button {
+    display: flex;
+    flex-direction: row;
     margin: 10px;
+}
+
+.auth-container__big-error {
+    color: red;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 5px;
 }

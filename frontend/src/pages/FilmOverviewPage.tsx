@@ -16,15 +16,16 @@ const FilmOverviewPage = () => {
 
     useEffect(() => {
         fetchFilmById(params.id);
-    }, []);
+    }, [params.id]);
 
     if (isLoading) {
-        return <p>Загрузка...</p>
+        return <div>Загрузка...</div>
     }
 
     if (error !== '') {
-        return <p>{error}</p>
+        return <div>{error}</div>
     }
+
     return (
         <main className="main-page">
             <FilmOverviewContainer
