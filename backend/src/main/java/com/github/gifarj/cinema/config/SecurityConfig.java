@@ -32,8 +32,8 @@ public class SecurityConfig {
                         configurer.authenticationEntryPoint(userAuthenticationEntryPoint))
                 .authorizeHttpRequests((auth -> auth
                         .requestMatchers("/api/v1/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/films/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/sessions/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/films/**", "/api/v1/sessions/**").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .anyRequest().authenticated()
                 ))
                 .sessionManagement(s ->
@@ -50,6 +50,8 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
+                        .allowedMethods("*")
+                        .allowedHeaders("*")
                         .allowedOriginPatterns(CorsConfiguration.ALL); // TODO Может поменять политику
             }
         };
