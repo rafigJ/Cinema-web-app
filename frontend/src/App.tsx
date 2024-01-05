@@ -1,5 +1,4 @@
 import './styles/App.css';
-import Navbar from "./components/UI/Navbar/Navbar";
 import AppRouter from "./components/AppRouter";
 import {BrowserRouter} from "react-router-dom";
 import {useEffect, useState} from "react";
@@ -10,6 +9,14 @@ function App() {
     const [user, setUser] = useState<IUser>({} as IUser);
     const [isAuth, setIsAuth] = useState<boolean>(false)
 
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token !== null) {
+
+        }
+    }, []);
+
     return (
         <AuthContext.Provider value={{
             user,
@@ -18,7 +25,6 @@ function App() {
             setUser
         }}>
             <BrowserRouter>
-                <Navbar/>
                 <AppRouter/>
             </BrowserRouter>
         </AuthContext.Provider>

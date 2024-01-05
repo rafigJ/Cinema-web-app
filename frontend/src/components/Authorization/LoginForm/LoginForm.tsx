@@ -11,16 +11,14 @@ interface AuthFormProps {
 }
 
 const LoginForm: FC<AuthFormProps> = ({deactivate, setModalActive}) => {
-    const {user, isAuth, setUser, setIsAuth} = useContext(AuthContext);
+    const {setUser, setIsAuth} = useContext(AuthContext);
 
     const [email, setEmail] = useState('test@gmail.com');
     const [password, setPassword] = useState('password1');
 
     const [login, isLoading, error] = useFetching(async () => {
         const response = await AuthService.login(email, password);
-        console.log(response);
-        setUser(response.data.user);
-        console.log(user);
+        setUser({...response.data});
         localStorage.setItem('token', response.data.token);
         setIsAuth(true);
         setModalActive(false);
@@ -51,8 +49,11 @@ const LoginForm: FC<AuthFormProps> = ({deactivate, setModalActive}) => {
                        onChange={e => setPassword(e.target.value)}
                 />
                 <div className="auth-container__button">
-                    <Button onClick={loginEvent}>Войти</Button>
-                    {isLoading && <div>Загрузка...</div>}
+                    {isLoading ?
+                        <div>Загрузка...</div>
+                        :
+                        <Button onClick={loginEvent}>Войти</Button>
+                    }
                 </div>
             </form>
             <span className="auth-container__change">

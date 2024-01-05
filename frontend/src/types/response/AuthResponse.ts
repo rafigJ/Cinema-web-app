@@ -1,6 +1,6 @@
-import {IUser} from "../model/IUser";
-
 export interface AuthResponse {
-    user: IUser;
+    email: string;
+    name: string;
+    role: 'USER' | 'ADMIN';
     token: string;
 }

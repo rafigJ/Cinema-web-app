@@ -19,8 +19,7 @@ const RegistrationForm: FC<RegistrationFormProps> = ({activate, setModalActive})
 
     const [register, isLoading, error] = useFetching(async () => {
         const response = await AuthService.register(name, email, password);
-        console.log(response);
-        setUser(response.data.user);
+        setUser({...response.data});
         localStorage.setItem('token', response.data.token);
         setIsAuth(true);
         setModalActive(false);
@@ -28,7 +27,7 @@ const RegistrationForm: FC<RegistrationFormProps> = ({activate, setModalActive})
 
     const registerEvent = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        register()
+        register();
     }
 
     return (
@@ -57,8 +56,11 @@ const RegistrationForm: FC<RegistrationFormProps> = ({activate, setModalActive})
                        onChange={e => setPassword(e.target.value)}
                 />
                 <div className="auth-container__button">
-                    <Button onClick={registerEvent}>Создать</Button>
-                    {isLoading && <div>Загрузка...</div>}
+                    {isLoading ?
+                        <div>Загрузка...</div>
+                        :
+                        <Button onClick={registerEvent}>Создать</Button>
+                    }
                 </div>
             </form>
             <span className="auth-container__change">

@@ -4,6 +4,7 @@ import FilmService from "../API/FilmService";
 import FilmGrid from "../components/UI/FilmGrid/FilmGrid";
 import {IFilm} from "../types/model/IFilm";
 import {AuthContext} from "../context";
+import {Link} from "react-router-dom";
 
 const HomePage = () => {
     const [films, setFilms] = useState([] as IFilm[])
@@ -31,6 +32,7 @@ const HomePage = () => {
     return (
         <main className="main-page">
             <FilmGrid title="Криминальное..." films={films}/>
+            <Link to="/admin"> ADMIN </Link>
             {isAuth &&
                 <ul>
                     <li>{user?.email}</li>
