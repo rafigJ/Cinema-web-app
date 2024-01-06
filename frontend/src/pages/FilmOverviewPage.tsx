@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import {useFetching} from "../hooks/useFetching";
 import FilmService from "../API/FilmService";
-import FilmOverviewContainer from "../components/UI/FilmOverviewContainer/FilmOverviewContainer";
+import FilmOverviewContainer from "../components/UI/user/FilmOverviewUI/FilmOverviewContainer/FilmOverviewContainer";
 import {IFilm} from "../types/model/IFilm";
 
 const FilmOverviewPage = () => {

@@ -1,6 +1,5 @@
 import {Layout} from "antd";
 import React, {FC} from "react";
-import "./SideBar.css"
 
 interface SideBarProps {
     menu: React.ReactElement;

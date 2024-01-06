@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import './FilmGrid.css'
-import FilmItem from "../FilmItem/FilmItem";
-import {IFilm} from "../../../types/model/IFilm";
+import FilmGridItem from "../FilmGridItem/FilmGridItem";
+import {IFilm} from "../../../../../types/model/IFilm";
 
 interface FilmGridProps {
     title: string;
@@ -16,7 +16,7 @@ const FilmGrid:FC<FilmGridProps> = ({title, films = [] as IFilm[]}) => {
             </div>
             <section className="film-grid">
                 {films.map(film =>
-                    <FilmItem
+                    <FilmGridItem
                         key={film.id}
                         film={film}
                     />

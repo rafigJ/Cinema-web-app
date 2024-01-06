@@ -4,14 +4,14 @@ import userLogo from './img/user.png';
 import {Link, useNavigate} from "react-router-dom";
 import NavbarElement from "../NavbarElement/NavbarElement";
 import './Navbar.css';
-import Modal from "../Modal/Modal";
-import AuthForm from "../../Authorization/AuthForm";
-import {AuthContext} from "../../../context";
-import Button from "../Button/Button";
+import Modal from "../../../Modal/Modal";
+import AuthForm from "../../../../Authorization/AuthForm";
+import {AuthContext} from "../../../../../context";
+import Button from "../../../Button/Button";
 
 const Navbar = () => {
     const [modalActive, setModalActive] = useState(false);
-    const {isAuth} = useContext(AuthContext);
+    const {user, isAuth} = useContext(AuthContext);
     const navigate = useNavigate();
 
     const buttonClick = () => isAuth ? navigate('/films') : setModalActive(true);
@@ -30,6 +30,9 @@ const Navbar = () => {
                     <ul className="navigation__list">
                         <NavbarElement to="/">Главная</NavbarElement>
                         <NavbarElement to="/films">Фильмы</NavbarElement>
+                        {user.role === 'ADMIN' &&
+                            <NavbarElement to="/admin">Админ-панель</NavbarElement>
+                        }
                         <NavbarElement to="/users">Другое</NavbarElement>
                     </ul>
                 </nav>

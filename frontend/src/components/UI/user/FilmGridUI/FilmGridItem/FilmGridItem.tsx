@@ -1,13 +1,13 @@
 import React, {FC, useState} from 'react';
-import './FilmItem.css'
+import './FilmGridItem.css'
 import {useNavigate} from "react-router-dom";
-import {IFilm} from "../../../types/model/IFilm";
+import {IFilm} from "../../../../../types/model/IFilm";
 
 interface FilmItemProps {
     film: IFilm;
 }
 
-const FilmItem: FC<FilmItemProps> = ({film}) => {
+const FilmGridItem: FC<FilmItemProps> = ({film}) => {
     const [isActive, setIsActive] = useState(false)
     const keyGeneration = (filmId: number, genreId: number) => filmId.toString() + genreId.toString()
     const navigate = useNavigate();
@@ -35,4 +35,4 @@ const FilmItem: FC<FilmItemProps> = ({film}) => {
     );
 };
 
-export default FilmItem;
+export default FilmGridItem;
