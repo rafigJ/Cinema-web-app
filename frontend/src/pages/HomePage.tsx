@@ -4,7 +4,6 @@ import FilmService from "../API/FilmService";
 import FilmGrid from "../components/UI/user/FilmGridUI/FilmGrid/FilmGrid";
 import {IFilm} from "../types/model/IFilm";
 import {AuthContext} from "../context";
-import {Link} from "react-router-dom";
 import {Spin} from "antd";
 
 const HomePage = () => {

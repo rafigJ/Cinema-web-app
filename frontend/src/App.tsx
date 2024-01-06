@@ -6,8 +6,10 @@ import {AuthContext} from "./context";
 import {IUser} from "./types/model/IUser";
 import {useFetching} from "./hooks/useFetching";
 import AuthService from "./API/AuthService";
+import dayjs from "dayjs";
 
 function App() {
+    dayjs.locale("ru")
     const [user, setUser] = useState<IUser>({} as IUser);
     const [isAuth, setIsAuth] = useState<boolean>(false)
 

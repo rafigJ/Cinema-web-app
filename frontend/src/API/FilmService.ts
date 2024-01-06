@@ -27,7 +27,7 @@ export default class FilmService {
         return await $api.get<IFilm>(`/films/${id}`);
     }
 
-    static async getSessionsById(id: string, startDate: string, endDate: string): Promise<AxiosResponse<ISession[]>> {
+    static async getSessionsById(id: string, startDate: string, endDate = startDate): Promise<AxiosResponse<ISession[]>> {
         return await $api.get<ISession[]>(`/films/${id}/sessions`, {
             params: {
                 start: startDate,

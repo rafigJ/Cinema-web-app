@@ -1,0 +1,19 @@
+.sessions-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.date-container__title {
+    font-size: 32px;
+    font-weight: 500;
+}
+
+.date-container {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.sessions-container__table {
+
+}

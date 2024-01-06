@@ -1,0 +1,17 @@
+.hall-title {
+    font-weight: 400;
+    font-size: 24px;
+    max-width: 366px;
+    min-width: 230px;
+}
+
+.sessions-row-list {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.sessions-row-list__item{
+    margin-right: 15px;
+}
