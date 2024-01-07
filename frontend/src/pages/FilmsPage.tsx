@@ -1,10 +1,10 @@
 import React, {FC, useEffect, useState} from 'react';
 import FilmService from "../API/FilmService";
-import FilmGrid from "../components/UI/user/FilmGridUI/FilmGrid/FilmGrid";
 import {useFetching} from "../hooks/useFetching";
 import '../styles/App.css'
 import {IFilm} from "../types/model/IFilm";
 import {Spin} from "antd";
+import FilmGrid from "../components/user/FilmGridUI/FilmGrid/FilmGrid";
 
 
 const FilmsPage: FC = () => {

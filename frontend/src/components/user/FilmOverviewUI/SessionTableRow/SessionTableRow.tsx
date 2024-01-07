@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import "./SessionTableRow.css"
-import {ISession} from "../../../../../types/model/ISession";
 import SessionButton from "../SessionButton/SessionButton";
+import {ISession} from "../../../../types/model/ISession";
 
 interface SessionsTableRowProps {
     hallId: number;

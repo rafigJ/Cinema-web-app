@@ -17,6 +17,7 @@
 
 .film-container__poster_active {
     opacity: .3;
+    border:  #0a78ff;
 }
 
 .detail-box {

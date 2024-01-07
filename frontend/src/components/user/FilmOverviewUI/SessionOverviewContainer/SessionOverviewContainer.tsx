@@ -1,49 +1,42 @@
 import React, {FC, useEffect, useMemo, useState} from 'react';
 import "./SessionOverviewContainer.css"
-import {useFetching} from "../../../../../hooks/useFetching";
-import {ISession} from "../../../../../types/model/ISession";
-import FilmService from "../../../../../API/FilmService";
 import SessionTableRow from "../SessionTableRow/SessionTableRow";
 import {Button, DatePicker, Empty, Spin} from "antd";
 import {CaretRightOutlined} from "@ant-design/icons";
 import dayjs from "dayjs";
+import {useFetching} from "../../../../hooks/useFetching";
+import FilmService from "../../../../API/FilmService";
+import {ISession} from "../../../../types/model/ISession";
 
 interface SessionOverviewContainerProps {
     filmId: number | string;
 }
 
+/**
+ * Переводит дату в строковое представление для заголовка
+ * пример: "Воскресенье, 7 января"
+ */
 const dateToString = (date: dayjs.Dayjs | null) => {
     if (date === null) {
         return "you should select date"
     }
     const days = [
-        "Воскресенье",
-        "Понедельник",
-        "Вторник",
-        "Среда",
-        "Четверг",
-        "Пятницу",
-        "Субботу"
+        "Воскресенье", "Понедельник", "Вторник",
+        "Среда", "Четверг", "Пятницу", "Субботу"
     ];
 
     const months = [
-        "Января",
-        "Февраля",
-        "Марта",
-        "Апреля",
-        "Мая",
-        "Июня",
-        "Июля",
-        "Августа",
-        "Сентября",
-        "Октября",
-        "Ноября",
-        "Декабря"
+        "Января", "Февраля", "Марта", "Апреля",
+        "Мая", "Июня", "Июля", "Августа", "Сентября",
+        "Октября", "Ноября", "Декабря"
     ]
 
     return days[date.day()] + ", " + date.date() + " " + months[date.month()];
 }
 
+/**
+ * Нужен для страницы с фильмом (FilmOverviewPage) пользователя
+ */
 const SessionOverviewContainer: FC<SessionOverviewContainerProps> = ({filmId}) => {
     const [sessions, setSessions] = useState<ISession[]>([] as ISession[]);
     const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
@@ -56,7 +49,7 @@ const SessionOverviewContainer: FC<SessionOverviewContainerProps> = ({filmId}) =
     });
 
     useEffect(() => {
-        if (date) {
+        if (date && filmId) {
             fetchSessions(filmId, date);
         }
     }, [date, filmId]);
@@ -85,7 +78,6 @@ const SessionOverviewContainer: FC<SessionOverviewContainerProps> = ({filmId}) =
                     style={{visibility: "hidden", width: 0}}
                     onOpenChange={open => setIsCalendarOpen(open)}
                     onChange={(date, stringDate) => {
-                        console.log(stringDate);
                         setDate(stringDate);
                         setDateHeader(dateToString(date));
                     }}

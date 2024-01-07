@@ -1,11 +1,11 @@
 import React from 'react';
 import {Navigate, Route, Routes} from "react-router-dom";
-import HomePage from "../pages/HomePage";
-import FilmsPage from "../pages/FilmsPage";
-import FilmOverviewPage from "../pages/FilmOverviewPage";
-import CrudFilmsPage from "../pages/admin/CrudPages/CrudFilmsPage";
-import {WithNav} from "./routing/WithNav";
-import {WithoutNav} from "./routing/WithoutNav";
+import HomePage from "../../pages/HomePage";
+import FilmsPage from "../../pages/FilmsPage";
+import FilmOverviewPage from "../../pages/FilmOverviewPage";
+import CrudFilmsPage from "../../pages/admin/CrudPages/CrudFilmsPage";
+import {WithNav} from "./WithNav";
+import {WithoutNav} from "./WithoutNav";
 
 
 const AppRouter = () => {

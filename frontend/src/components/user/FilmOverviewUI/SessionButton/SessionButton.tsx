@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
-import Button from "../../../Button/Button";
 import styles from "./SessionButton.module.css"
+import Button from "../../../UI/Button/Button";
 
 interface SessionButtonProps {
     time: string;

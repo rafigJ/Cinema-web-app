@@ -1,10 +1,10 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useFetching} from "../hooks/useFetching";
 import FilmService from "../API/FilmService";
-import FilmGrid from "../components/UI/user/FilmGridUI/FilmGrid/FilmGrid";
 import {IFilm} from "../types/model/IFilm";
 import {AuthContext} from "../context";
 import {Spin} from "antd";
+import FilmGrid from "../components/user/FilmGridUI/FilmGrid/FilmGrid";
 
 const HomePage = () => {
     const [films, setFilms] = useState([] as IFilm[])
@@ -19,7 +19,6 @@ const HomePage = () => {
         fetchFilms();
     }, []);
 
-    console.log(user);
     if (isLoading) {
         return <div style={{display: 'flex', alignItems: "center", justifyContent: "center", minHeight: "80vh"}}>
             <Spin size="large"/>

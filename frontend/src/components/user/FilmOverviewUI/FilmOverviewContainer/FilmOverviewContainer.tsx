@@ -1,15 +1,18 @@
 import React, {FC} from 'react';
 import './FilmOverviewContainer.css'
-import Button from '../../../Button/Button';
 import ticketIcon from './icons/ticket.svg';
 import favIcon from './icons/add-to-favorites-icon.svg';
 import AboutFilmSection from "../AboutFilmSection/AboutFilmSection";
-import {IFilm} from "../../../../../types/model/IFilm";
+import {IFilm} from "../../../../types/model/IFilm";
+import Button from "../../../UI/Button/Button";
 
 interface FilmOverviewContainerProps {
     film: IFilm;
 }
 
+/**
+ * Нужен для страницы с фильмом (FilmOverviewPage) пользователя
+ */
 const FilmOverviewContainer: FC<FilmOverviewContainerProps> = ({film}) => {
     return (
         <div className="overview-container">

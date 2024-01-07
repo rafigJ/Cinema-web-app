@@ -4,10 +4,10 @@ import userLogo from './img/user.png';
 import {Link, useNavigate} from "react-router-dom";
 import NavbarElement from "../NavbarElement/NavbarElement";
 import './Navbar.css';
-import Modal from "../../../Modal/Modal";
-import AuthForm from "../../../../Authorization/AuthForm";
-import {AuthContext} from "../../../../../context";
-import Button from "../../../Button/Button";
+import Modal from "../../../UI/Modal/Modal";
+import {AuthContext} from "../../../../context";
+import AuthForm from "../../../Authorization/AuthForm";
+import Button from "../../../UI/Button/Button";
 
 const Navbar = () => {
     const [modalActive, setModalActive] = useState(false);

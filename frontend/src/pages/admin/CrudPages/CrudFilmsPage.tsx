@@ -4,7 +4,7 @@ import {useFetching} from "../../../hooks/useFetching";
 import FilmService from "../../../API/FilmService";
 import {Spin} from "antd";
 import CrudTableLayout from "../CrudTableLayout/CrudTableLayout";
-import FilmTable from "../../../components/UI/admin/FilmTable/FilmTable";
+import FilmTable from "../../../components/admin/FilmTable/FilmTable";
 
 const CrudFilmsPage: FC = () => {
     const [data, setDataSource] = useState([] as IFilm[])

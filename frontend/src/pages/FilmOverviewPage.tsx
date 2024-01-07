@@ -2,11 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import {useFetching} from "../hooks/useFetching";
 import FilmService from "../API/FilmService";
-import FilmOverviewContainer from "../components/UI/user/FilmOverviewUI/FilmOverviewContainer/FilmOverviewContainer";
 import {IFilm} from "../types/model/IFilm";
-import SessionOverviewContainer
-    from "../components/UI/user/FilmOverviewUI/SessionOverviewContainer/SessionOverviewContainer";
 import {Footer} from "antd/es/layout/layout";
+import SessionOverviewContainer
+    from "../components/user/FilmOverviewUI/SessionOverviewContainer/SessionOverviewContainer";
+import FilmOverviewContainer from "../components/user/FilmOverviewUI/FilmOverviewContainer/FilmOverviewContainer";
 
 const FilmOverviewPage = () => {
     const params = useParams();
