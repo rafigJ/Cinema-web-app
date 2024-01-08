@@ -1,12 +1,15 @@
 package com.github.gifarj.cinema.service;
 
 import com.github.gifarj.cinema.dto.SessionDto;
+import com.github.gifarj.cinema.dto.TicketDto;
 import com.github.gifarj.cinema.entity.FilmEntity;
 import com.github.gifarj.cinema.entity.SessionEntity;
+import com.github.gifarj.cinema.entity.TicketEntity;
 import com.github.gifarj.cinema.exception.NotFoundException;
 import com.github.gifarj.cinema.exception.RestException;
 import com.github.gifarj.cinema.repository.FilmRepository;
 import com.github.gifarj.cinema.repository.SessionRepository;
+import com.github.gifarj.cinema.repository.TicketRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -16,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +27,7 @@ public class SessionServiceImpl implements SessionService {
 
     private final SessionRepository repository;
     private final FilmRepository filmRepository;
+    private final TicketRepository ticketRepository;
     private final ModelMapper modelMapper;
 
     @Override
@@ -36,6 +41,22 @@ public class SessionServiceImpl implements SessionService {
                 new NotFoundException("Session by id: " + id + " not Found")
         );
         return modelMapper.map(session, SessionDto.class);
+    }
+
+    @Override
+    public List<TicketDto> getOccupiedTicketsBySessionId(Integer sessionId) {
+        if (!repository.existsById(sessionId)) {
+            throw new NotFoundException("Session by id: " + sessionId + " not found");
+        }
+        List<TicketEntity> boughtTickets = ticketRepository.findAllBySessionId(sessionId);
+
+        return boughtTickets.stream()
+                .map(e -> TicketDto.builder()
+                        .sessionId(sessionId)
+                        .row(e.getRow())
+                        .column(e.getColumn())
+                        .build()
+                ).toList();
     }
 
     @Override

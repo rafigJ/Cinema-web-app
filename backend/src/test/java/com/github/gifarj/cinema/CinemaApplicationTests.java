@@ -1,4 +1,4 @@
-package com.github.gifarj.backend;
+package com.github.gifarj.cinema;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -72,8 +72,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUser(UUID uuid) {
-        var user = repository.findById(uuid).orElseThrow(()
-                -> new RestException("Server error", HttpStatus.INTERNAL_SERVER_ERROR)
+        var user = repository.findById(uuid).orElseThrow(() ->
+                new RestException("Server error", HttpStatus.INTERNAL_SERVER_ERROR)
         );
         return modelMapper.map(user, UserDto.class);
     }

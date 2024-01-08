@@ -1,6 +1,9 @@
 package com.github.gifarj.cinema.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.github.gifarj.cinema.dto.SessionDto;
+import com.github.gifarj.cinema.dto.TicketDto;
+import com.github.gifarj.cinema.dto.TicketView;
 import com.github.gifarj.cinema.service.SessionService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -12,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,6 +37,12 @@ public class SessionController {
                                         @RequestParam(value = "end", required = false)
                                         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
         return service.getSessions(PageRequest.of(page, limit), start, end);
+    }
+
+    @GetMapping("/{id}/occupied-tickets")
+    @JsonView(TicketView.Occupied.class)
+    public List<TicketDto> getOccupiedTickets(@PathVariable("id") Integer id) {
+        return service.getOccupiedTicketsBySessionId(id);
     }
 
     @PostMapping()

@@ -1,6 +1,7 @@
 package com.github.gifarj.cinema.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
@@ -22,13 +23,16 @@ public class TicketDto {
     @Null
     private UUID userUuid;
 
+    @JsonView(TicketView.Occupied.class)
     @NotNull(message = "should be not null")
     private Integer sessionId;
 
+    @JsonView(TicketView.Occupied.class)
     @NotNull(message = "row must be not null")
     @Min(value = 1, message = "must be greater than 1")
     private Short row;
 
+    @JsonView(TicketView.Occupied.class)
     @NotNull(message = "column must be not null")
     @Min(value = 1, message = "the number must be greater than 1")
     private Short column;

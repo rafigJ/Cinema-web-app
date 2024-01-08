@@ -32,7 +32,7 @@ public class TicketEntity {
     @Column(name = "row", nullable = false)
     private Short row;
 
-    @Column(name = "column", nullable = false)
+    @Column(name = "col", nullable = false)
     private Short column;
 
     @Column(name = "buy_time", nullable = false)
