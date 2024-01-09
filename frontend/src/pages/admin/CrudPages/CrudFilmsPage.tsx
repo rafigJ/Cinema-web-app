@@ -28,7 +28,7 @@ const CrudFilmsPage: FC = () => {
         <CrudTableLayout title="Фильмы" crudTable={
             <>
                 <Button onClick={() => navigate('/admin/films/create')} style={{marginBottom: "5px"}}>Добавить фильм</Button>
-                <FilmTable data={data}/>
+                <FilmTable data={data} setData={setDataSource}/>
             </>
         }/>
     );

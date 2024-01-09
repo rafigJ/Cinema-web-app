@@ -8,6 +8,7 @@ import {WithNav} from "./WithNav";
 import {WithAdminSidebar} from "./WithAdminSidebar";
 import ProfilePage from "../../pages/ProfilePage";
 import CreateFilmPage from "../../pages/admin/CrudPages/CreateFilmPage";
+import UpdateFilmPage from "../../pages/admin/CrudPages/UpdateFilmPage";
 
 
 const AppRouter = () => {
@@ -23,6 +24,7 @@ const AppRouter = () => {
                 <Route path="/admin/*" element={<Navigate replace to="/admin/films"/>}/>
                 <Route path="/admin/films" element={<CrudFilmsPage/>}/>
                 <Route path="/admin/films/create" element={<CreateFilmPage/>}/>
+                <Route path="/admin/films/edit/:id" element={<UpdateFilmPage/>}/>
                 <Route path="/admin/statistics" element={<div> Статистика </div>}/>
                 <Route path="/admin/users" element={<div> Пользователи </div>}/>
                 <Route path="/admin/sessions" element={<div> Сеансы </div>}/>
