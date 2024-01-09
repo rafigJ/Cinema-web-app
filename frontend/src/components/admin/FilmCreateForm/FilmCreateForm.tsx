@@ -1,6 +1,5 @@
 import React, {FC} from 'react';
 import {App, Spin} from "antd";
-import {allGenres} from "../../../helpers/genres";
 import {IFilm} from "../../../types/model/IFilm";
 import {useFetching} from "../../../hooks/useFetching";
 import FilmService from "../../../api/FilmService";
