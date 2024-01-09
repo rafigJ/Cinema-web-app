@@ -39,15 +39,15 @@ const columns: ColumnsType<IFilm> = [
                 )}
             </span>
         )
-    }
+    },
 ];
 
 
-interface DemoProps {
+interface FilmTableProps {
     data: IFilm[];
 }
 
-const FilmTable: React.FC<DemoProps> = ({data}) =>{
+const FilmTable: React.FC<FilmTableProps> = ({data}) =>{
     return <Table<IFilm> rowKey={(film) => film.id} columns={columns} dataSource={data}/>
 }
 

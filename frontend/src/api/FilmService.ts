@@ -35,4 +35,16 @@ export default class FilmService {
             }
         })
     }
+
+    static async createFilm(film: IFilm): Promise<AxiosResponse<IFilm>> {
+        return await $api.post<IFilm>(`/films`, film)
+    }
+
+    static async updateFilm(film: IFilm): Promise<AxiosResponse<IFilm>> {
+        return await $api.put<IFilm>(`/films/${film.id}`, film)
+    }
+
+    static async deleteFilm(id: number) {
+        await $api.delete(`/films/${id}`)
+    }
 };

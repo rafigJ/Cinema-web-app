@@ -9,5 +9,6 @@ export interface IFilm {
 
 export interface IGenre {
     id: number;
-    name: string;
+    name?: string;
+    color?: string;
 }
