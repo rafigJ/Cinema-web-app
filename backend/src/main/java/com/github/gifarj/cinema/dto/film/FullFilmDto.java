@@ -3,6 +3,7 @@ package com.github.gifarj.cinema.dto.film;
 import com.github.gifarj.cinema.dto.GenreDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -18,7 +19,7 @@ import java.util.List;
 public class FullFilmDto {
     private Integer id;
 
-    @NotEmpty(message = "film name should be not empty")
+    @NotBlank(message = "film name should be not empty")
     @Size(min = 2, max = 250, message = "film name should contain at least 2 characters and no more than 250 characters")
     private String name;
 
@@ -29,7 +30,7 @@ public class FullFilmDto {
     @URL(message = "film poster should contain only poster URL")
     private String poster;
 
-    @NotEmpty(message = "film description should be not empty")
+    @NotBlank(message = "film description should be not empty")
     private String description;
 
     @NotEmpty(message = "film genres should be not empty")

@@ -26,6 +26,6 @@ public class RegisterRequestDto {
     @NotEmpty(message = "should be not empty")
     @Size(min = 8, message = "Password should contain Minimum eight characters")
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$",
-            message = "Password must contain at least one letter and one number:")
+            message = "Password must contain minimum eight characters: at least one letter and one number")
     private String password;
 }

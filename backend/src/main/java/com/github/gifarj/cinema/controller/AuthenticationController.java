@@ -43,6 +43,9 @@ public class AuthenticationController {
         if (!authorization.startsWith("Bearer ")) {
             throw new RestException("Invalid header 'Bearer '", HttpStatus.BAD_REQUEST);
         }
+        if (user == null) {
+            throw new RestException("Unauthorized", HttpStatus.UNAUTHORIZED);
+        }
         String token = authorization.substring(7);
         var userEntity = user.getUserEntity();
         return ResponseEntity.ok(
