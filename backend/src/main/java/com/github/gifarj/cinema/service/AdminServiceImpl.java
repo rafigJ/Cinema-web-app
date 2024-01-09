@@ -17,7 +17,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -54,7 +53,7 @@ public class AdminServiceImpl implements AdminService {
     public Page<TicketDto> getTickets(Pageable pageable) {
         Page<TicketEntity> ticketEntities = ticketRepository.findAll(pageable);
         return ticketEntities.map(e -> {
-            var dto = modelMapper.map(e, TicketDto.class);
+            TicketDto dto = modelMapper.map(e, TicketDto.class);
             dto.setSessionId(e.getSession().getId());
             dto.setUserUuid(e.getOwner().getUuid());
             return dto;

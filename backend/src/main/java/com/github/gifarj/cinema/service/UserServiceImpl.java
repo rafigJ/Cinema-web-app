@@ -45,8 +45,8 @@ public class UserServiceImpl implements UserService {
             throw new RestException("insufficient funds", HttpStatus.PAYMENT_REQUIRED);
         }
 
-        // TODO проверить то, что row < hall_rows, column < column_rows. Переименовать column в a_column или col
-        // TODO добавить проверку на уникальность row, col и session (в бд а также тут)
+        // TODO проверить то, что row < hall_rows, column < column_rows
+        // TODO добавить проверку на уникальность row, col и session
 
         user.setMoney(user.getMoney() - session.getPrice());
         entity.setOwner(user);
