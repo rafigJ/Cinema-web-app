@@ -1,5 +1,6 @@
 package com.github.gifarj.cinema.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.github.gifarj.cinema.dto.views.UserView;
 import com.github.gifarj.cinema.user.Role;
@@ -36,8 +37,10 @@ public class UserDto {
     private Role role;
 
     @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime createTime;
 
     @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime updateTime;
 }

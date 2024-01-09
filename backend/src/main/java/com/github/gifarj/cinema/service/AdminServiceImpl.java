@@ -38,6 +38,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public UserDto updateRoleUser(UUID userUuid, Role role) {
         UserEntity user = userRepository.findById(userUuid).orElseThrow(NotExistUserException::new);
+        user.setUpdateTime(LocalDateTime.now());
         user.setRole(role);
         try {
             userRepository.saveAndFlush(user);
