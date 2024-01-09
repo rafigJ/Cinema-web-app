@@ -1,8 +1,7 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useFetching} from "../hooks/useFetching";
 import FilmService from "../api/FilmService";
 import {IFilm} from "../types/model/IFilm";
-import {AuthContext} from "../context";
 import {Spin} from "antd";
 import FilmGrid from "../components/user/FilmGridUI/FilmGrid/FilmGrid";
 

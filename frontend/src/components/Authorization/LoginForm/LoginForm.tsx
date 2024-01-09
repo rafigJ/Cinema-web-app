@@ -11,14 +11,14 @@ interface AuthFormProps {
 }
 
 const LoginForm: FC<AuthFormProps> = ({deactivate, setModalActive}) => {
-    const {setUser, setIsAuth} = useContext(AuthContext);
+    const {setAuthCredential, setIsAuth} = useContext(AuthContext);
 
     const [email, setEmail] = useState('test@gmail.com');
     const [password, setPassword] = useState('password1');
 
     const [login, isLoading, error] = useFetching(async () => {
         const response = await AuthService.login(email, password);
-        setUser({...response.data});
+        setAuthCredential(response.data);
         localStorage.setItem('token', response.data.token);
         setIsAuth(true);
         setModalActive(false);

@@ -1,11 +1,11 @@
 import {createContext, Dispatch, SetStateAction} from "react";
-import {IUser} from "../types/model/IUser";
+import {AuthResponse} from "../types/response/AuthResponse";
 
 interface AuthContextProps {
-    user: IUser;
+    authCredential: AuthResponse;
     isAuth: boolean;
     setIsAuth: Dispatch<SetStateAction<boolean>>;
-    setUser: Dispatch<SetStateAction<IUser>>;
+    setAuthCredential: Dispatch<SetStateAction<AuthResponse>>;
 }
 
 export const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);

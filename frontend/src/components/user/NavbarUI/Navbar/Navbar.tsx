@@ -11,7 +11,7 @@ import Button from "../../../UI/Button/Button";
 
 const Navbar = () => {
     const [modalActive, setModalActive] = useState(false);
-    const {user, isAuth} = useContext(AuthContext);
+    const {authCredential, isAuth} = useContext(AuthContext);
     const navigate = useNavigate();
 
     const buttonClick = () => isAuth ? navigate('/profile') : setModalActive(true);
@@ -30,7 +30,7 @@ const Navbar = () => {
                     <ul className="navigation__list">
                         <NavbarElement to="/">Главная</NavbarElement>
                         <NavbarElement to="/films">Фильмы</NavbarElement>
-                        {user.role === 'ADMIN' &&
+                        {authCredential.role === 'ADMIN' &&
                             <NavbarElement to="/admin">Админ-панель</NavbarElement>
                         }
                         <NavbarElement to="/users">Другое</NavbarElement>

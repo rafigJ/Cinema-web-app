@@ -11,7 +11,7 @@ interface RegistrationFormProps {
 }
 
 const RegistrationForm: FC<RegistrationFormProps> = ({activate, setModalActive}) => {
-    const {setUser, setIsAuth} = useContext(AuthContext);
+    const {setAuthCredential, setIsAuth} = useContext(AuthContext);
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -19,7 +19,7 @@ const RegistrationForm: FC<RegistrationFormProps> = ({activate, setModalActive})
 
     const [register, isLoading, error] = useFetching(async () => {
         const response = await AuthService.register(name, email, password);
-        setUser({...response.data});
+        setAuthCredential(response.data);
         localStorage.setItem('token', response.data.token);
         setIsAuth(true);
         setModalActive(false);
