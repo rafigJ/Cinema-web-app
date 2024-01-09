@@ -1,7 +1,7 @@
 package com.github.gifarj.cinema.service;
 
 import com.github.gifarj.cinema.dto.TicketDto;
-import com.github.gifarj.cinema.dto.user.UserDto;
+import com.github.gifarj.cinema.dto.UserDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

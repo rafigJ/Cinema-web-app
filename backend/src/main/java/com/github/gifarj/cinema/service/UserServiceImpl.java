@@ -1,7 +1,7 @@
 package com.github.gifarj.cinema.service;
 
 import com.github.gifarj.cinema.dto.TicketDto;
-import com.github.gifarj.cinema.dto.user.UserDto;
+import com.github.gifarj.cinema.dto.UserDto;
 import com.github.gifarj.cinema.entity.SessionEntity;
 import com.github.gifarj.cinema.entity.TicketEntity;
 import com.github.gifarj.cinema.entity.UserEntity;

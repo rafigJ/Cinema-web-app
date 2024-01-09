@@ -1,5 +1,7 @@
-package com.github.gifarj.cinema.dto.user;
+package com.github.gifarj.cinema.dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.github.gifarj.cinema.dto.views.UserView;
 import com.github.gifarj.cinema.user.Role;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -12,27 +14,30 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PrivateUserDto {
+public class UserDto {
 
     @NotNull
+    @JsonView(UserView.NotPrivate.class)
     private UUID uuid;
 
     @NotNull
+    @JsonView(UserView.NotPrivate.class)
     private String name;
 
     @NotNull
+    @JsonView(UserView.NotPrivate.class)
     private String email;
 
     @NotNull
-    private Role role;
+    @JsonView(UserView.NotPrivate.class)
+    private Integer money;
 
     @NotNull
-    private Integer money;
+    private Role role;
 
     @NotNull
     private LocalDateTime createTime;
 
     @NotNull
     private LocalDateTime updateTime;
-   
 }

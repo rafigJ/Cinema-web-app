@@ -32,6 +32,9 @@ public class SessionServiceImpl implements SessionService {
 
     @Override
     public Page<SessionDto> getSessions(Pageable pageable, LocalDate start, LocalDate end) {
+        if (end.isBefore(start) && !end.isEqual(start)) {
+            throw new RestException("start must be before end", HttpStatus.BAD_REQUEST);
+        }
         return repository.findAllByDateBetween(start, end, pageable).map(this::convertToDto);
     }
 

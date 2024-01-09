@@ -44,7 +44,4 @@ public class UserEntity {
     @Column(nullable = false, name = "update_time")
     private LocalDateTime updateTime;
 
-    @OneToMany(mappedBy = "owner")
-    private List<TicketEntity> tickets;
-
 }

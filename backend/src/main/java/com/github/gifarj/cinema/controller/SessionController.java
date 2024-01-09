@@ -3,7 +3,7 @@ package com.github.gifarj.cinema.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.github.gifarj.cinema.dto.SessionDto;
 import com.github.gifarj.cinema.dto.TicketDto;
-import com.github.gifarj.cinema.dto.TicketView;
+import com.github.gifarj.cinema.dto.views.TicketView;
 import com.github.gifarj.cinema.service.SessionService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -25,16 +25,16 @@ public class SessionController {
     private final SessionService service;
 
     @GetMapping("/{id}")
-    private SessionDto getById(@PathVariable("id") Integer id) {
+    public SessionDto getById(@PathVariable("id") Integer id) {
         return service.getSessionById(id);
     }
 
     @GetMapping()
     public Page<SessionDto> getSessions(@RequestParam(value = "_page", defaultValue = "0") Integer page,
                                         @RequestParam(value = "_limit", defaultValue = "10") Integer limit,
-                                        @RequestParam(value = "start", required = false)
+                                        @RequestParam(value = "start")
                                         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
-                                        @RequestParam(value = "end", required = false)
+                                        @RequestParam(value = "end")
                                         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
         return service.getSessions(PageRequest.of(page, limit), start, end);
     }
