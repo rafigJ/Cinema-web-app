@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useState} from 'react';
 import {IFilm} from "../../../types/model/IFilm";
 import {useFetching} from "../../../hooks/useFetching";
-import FilmService from "../../../API/FilmService";
+import FilmService from "../../../api/FilmService";
 import {Spin} from "antd";
 import CrudTableLayout from "../CrudTableLayout/CrudTableLayout";
 import FilmTable from "../../../components/admin/FilmTable/FilmTable";

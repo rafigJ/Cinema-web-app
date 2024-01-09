@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import {useFetching} from "../hooks/useFetching";
-import FilmService from "../API/FilmService";
+import FilmService from "../api/FilmService";
 import {IFilm} from "../types/model/IFilm";
 import {Footer} from "antd/es/layout/layout";
 import SessionOverviewContainer

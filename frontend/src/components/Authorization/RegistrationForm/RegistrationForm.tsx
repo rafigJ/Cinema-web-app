@@ -3,7 +3,7 @@ import '../Auth.css'
 import {AuthContext} from "../../../context";
 import Button from "../../UI/Button/Button";
 import {useFetching} from "../../../hooks/useFetching";
-import AuthService from "../../../API/AuthService";
+import AuthService from "../../../api/AuthService";
 
 interface RegistrationFormProps {
     activate: (event: React.MouseEvent<HTMLButtonElement>) => void;

@@ -3,7 +3,7 @@ import {AuthContext} from "../../../context";
 import '../Auth.css'
 import Button from "../../UI/Button/Button";
 import {useFetching} from "../../../hooks/useFetching";
-import AuthService from "../../../API/AuthService";
+import AuthService from "../../../api/AuthService";
 
 interface AuthFormProps {
     deactivate: (event: React.MouseEvent<HTMLButtonElement>) => void;

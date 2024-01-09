@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
-import FilmService from "../API/FilmService";
+import FilmService from "../api/FilmService";
 import {useFetching} from "../hooks/useFetching";
 import '../styles/App.css'
 import {IFilm} from "../types/model/IFilm";

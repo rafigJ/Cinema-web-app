@@ -4,7 +4,7 @@ import {Layout} from "antd";
 import SideBar from "../admin/SideBar/SideBar";
 import TopicMenu from "../admin/TopicMenu";
 
-export const WithoutNav = () => (
+export const WithAdminSidebar = () => (
     <main className="main-menu">
         <Layout style={{minHeight: '100svh'}}>
             <SideBar menu={(

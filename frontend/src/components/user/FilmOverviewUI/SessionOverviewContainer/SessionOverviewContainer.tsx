@@ -5,8 +5,9 @@ import {Button, DatePicker, Empty, Spin} from "antd";
 import {CaretRightOutlined} from "@ant-design/icons";
 import dayjs from "dayjs";
 import {useFetching} from "../../../../hooks/useFetching";
-import FilmService from "../../../../API/FilmService";
+import FilmService from "../../../../api/FilmService";
 import {ISession} from "../../../../types/model/ISession";
+import ru_RU from "antd/lib/locale/ru_RU";
 
 interface SessionOverviewContainerProps {
     filmId: number | string;

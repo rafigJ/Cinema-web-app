@@ -5,7 +5,7 @@ import {useEffect, useState} from "react";
 import {AuthContext} from "./context";
 import {IUser} from "./types/model/IUser";
 import {useFetching} from "./hooks/useFetching";
-import AuthService from "./API/AuthService";
+import AuthService from "./api/AuthService";
 import dayjs from "dayjs";
 
 function App() {
