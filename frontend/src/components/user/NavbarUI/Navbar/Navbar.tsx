@@ -14,7 +14,7 @@ const Navbar = () => {
     const {user, isAuth} = useContext(AuthContext);
     const navigate = useNavigate();
 
-    const buttonClick = () => isAuth ? navigate('/films') : setModalActive(true);
+    const buttonClick = () => isAuth ? navigate('/profile') : setModalActive(true);
 
 
     return (

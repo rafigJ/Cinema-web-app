@@ -1,0 +1,17 @@
+.profile-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-container__info-row {
+    display: flex;
+}
+
+.profile-container__text {
+    margin-right: 1em;
+}
+
+.profile-container__exit-btn {
+    max-width: 40svw;
+}
+

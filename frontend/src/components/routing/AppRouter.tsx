@@ -6,6 +6,7 @@ import FilmOverviewPage from "../../pages/FilmOverviewPage";
 import CrudFilmsPage from "../../pages/admin/CrudPages/CrudFilmsPage";
 import {WithNav} from "./WithNav";
 import {WithAdminSidebar} from "./WithAdminSidebar";
+import ProfilePage from "../../pages/ProfilePage";
 
 
 const AppRouter = () => {
@@ -15,6 +16,7 @@ const AppRouter = () => {
                 <Route index path="/" element={<HomePage/>}/>
                 <Route path="/films" element={<FilmsPage/>}/>
                 <Route path="/films/:id" element={<FilmOverviewPage/>}/>
+                <Route path="/profile" element={<ProfilePage/>}/>
             </Route>
             <Route element={<WithAdminSidebar/>}>
                 <Route path="/admin/*" element={<Navigate replace to="/admin/films"/>}/>

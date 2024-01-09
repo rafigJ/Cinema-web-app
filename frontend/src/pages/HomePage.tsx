@@ -8,7 +8,6 @@ import FilmGrid from "../components/user/FilmGridUI/FilmGrid/FilmGrid";
 
 const HomePage = () => {
     const [films, setFilms] = useState([] as IFilm[])
-    const {user, isAuth} = useContext(AuthContext);
 
     const [fetchFilms, isLoading, error] = useFetching(async () => {
         const response = await FilmService.getByName("Криминальное");
@@ -30,16 +29,10 @@ const HomePage = () => {
             <div>{error}</div>
         );
     }
+
     return (
         <main className="main-page">
             <FilmGrid title="Криминальное..." films={films}/>
-            {isAuth &&
-                <ul>
-                    <li>{user?.email}</li>
-                    <li>{user?.role}</li>
-                    <li>{user?.name}</li>
-                </ul>
-            }
         </main>
     );
 };
