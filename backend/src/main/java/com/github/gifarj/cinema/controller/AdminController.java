@@ -33,10 +33,10 @@ public class AdminController {
         return adminService.getUsers(PageRequest.of(page, limit));
     }
 
-    @PostMapping("/users/{uuid}")
+    @PatchMapping("/users/{uuid}")
     public UserDto updateRoleUser(@AuthenticationPrincipal User admin,
                                   @PathVariable("uuid") String strUuid,
-                                  @RequestParam(value = "role") String strRole) {
+                                  @RequestBody UserDto user) {
         if (admin == null) {
             throw new RestException("Unauthorized admin", HttpStatus.UNAUTHORIZED);
         }
@@ -47,7 +47,7 @@ public class AdminController {
         }
 
         try {
-            Role role = Role.valueOf(strRole.toUpperCase(Locale.US));
+            Role role = user.getRole();
             return adminService.updateRoleUser(uuid, role);
         } catch (IllegalArgumentException e) {
             throw new RestException("Role must be 'admin' or 'user'", HttpStatus.BAD_REQUEST);
