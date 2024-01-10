@@ -1,7 +1,7 @@
 package com.github.gifarj.cinema.dto;
 
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -14,7 +14,7 @@ public class HallDto {
 
     private Integer id;
 
-    @NotEmpty
+    @NotBlank
     private String name;
 
     @NotNull

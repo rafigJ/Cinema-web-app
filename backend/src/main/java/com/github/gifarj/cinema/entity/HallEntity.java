@@ -30,6 +30,4 @@ public class HallEntity {
     @Column(name = "column_count", nullable = false)
     private Short columnCount;
 
-    @OneToMany(mappedBy = "hall")
-    private List<SessionEntity> sessions;
 }

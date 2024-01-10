@@ -3,11 +3,13 @@ package com.github.gifarj.cinema.service;
 import com.github.gifarj.cinema.dto.SessionDto;
 import com.github.gifarj.cinema.dto.TicketDto;
 import com.github.gifarj.cinema.entity.FilmEntity;
+import com.github.gifarj.cinema.entity.HallEntity;
 import com.github.gifarj.cinema.entity.SessionEntity;
 import com.github.gifarj.cinema.entity.TicketEntity;
 import com.github.gifarj.cinema.exception.NotFoundException;
 import com.github.gifarj.cinema.exception.RestException;
 import com.github.gifarj.cinema.repository.FilmRepository;
+import com.github.gifarj.cinema.repository.HallRepository;
 import com.github.gifarj.cinema.repository.SessionRepository;
 import com.github.gifarj.cinema.repository.TicketRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +30,7 @@ public class SessionServiceImpl implements SessionService {
     private final SessionRepository repository;
     private final FilmRepository filmRepository;
     private final TicketRepository ticketRepository;
+    private final HallRepository hallRepository;
     private final ModelMapper modelMapper;
 
     @Override
@@ -102,15 +105,22 @@ public class SessionServiceImpl implements SessionService {
     }
 
     private SessionEntity convertToEntity(SessionDto dto) {
-        return modelMapper.map(dto, SessionEntity.class);
-    }
-
-    private SessionDto convertToDto(SessionEntity entity) {
-        SessionDto dto = modelMapper.map(entity, SessionDto.class);
         FilmEntity film = filmRepository.findById(dto.getFilmId()).orElseThrow(() ->
                 new NotFoundException("Film by id: " + dto.getFilmId() + " not found")
         );
-        dto.setFilmName(film.getName());
-        return dto;
+        HallEntity hall = hallRepository.findById(dto.getHallId()).orElseThrow(() ->
+                new NotFoundException("Hall by id: " + dto.getHallId() + " not found")
+        );
+        return SessionEntity.builder()
+                .film(film)
+                .hall(hall)
+                .date(dto.getDate())
+                .time(dto.getTime())
+                .price(dto.getPrice())
+                .build();
+    }
+
+    private SessionDto convertToDto(SessionEntity entity) {
+        return modelMapper.map(entity, SessionDto.class);
     }
 }

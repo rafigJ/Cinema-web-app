@@ -1,15 +1,13 @@
 package com.github.gifarj.cinema.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor
@@ -22,8 +20,9 @@ public class SessionEntity {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "film_id")
-    private Integer filmId;
+    @ManyToOne
+    @JoinColumn(name = "film_id")
+    private FilmEntity film;
 
     @ManyToOne
     @JoinColumn(name = "hall_id")

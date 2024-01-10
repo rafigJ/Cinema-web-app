@@ -11,6 +11,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,7 @@ public class FilmController {
     @GetMapping()
     public Page<FilmDto> getFilmsPage(@RequestParam(value = "_page", defaultValue = "0") Integer page,
                                       @RequestParam(value = "_limit", defaultValue = "10") Integer limit) {
-        return service.getFilms(PageRequest.of(page, limit));
+        return service.getFilms(PageRequest.of(page, limit, Sort.by("id")));
     }
 
     @GetMapping("/search")

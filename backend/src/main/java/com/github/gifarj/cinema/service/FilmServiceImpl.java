@@ -92,8 +92,6 @@ public class FilmServiceImpl implements FilmService {
         List<SessionEntity> sessionsList = sessionRepository.findAllByFilmIdAndDateBetween(filmId, start, end);
         return sessionsList.stream().map(e -> {
             var dto = modelMapper.map(e, SessionDto.class);
-            var film = repository.findById(dto.getFilmId()).orElseThrow();
-            dto.setFilmName(film.getName());
             return dto;
         }).toList();
     }

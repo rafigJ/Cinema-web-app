@@ -1,7 +1,7 @@
 package com.github.gifarj.cinema.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.github.gifarj.cinema.dto.film.FilmDto;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
@@ -15,6 +15,9 @@ import java.time.LocalTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+/*
+ * ВАЖНО: Поля помеченные @NotNull используется и при создании сеанса.
+ */
 public class SessionDto {
 
     @Null
@@ -23,10 +26,13 @@ public class SessionDto {
     @NotNull
     private Integer filmId;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String filmName;
-
     @NotNull
+    private Integer hallId;
+
+    @Null
+    private FilmDto film;
+
+    @Null
     private HallDto hall;
 
     @NotNull
