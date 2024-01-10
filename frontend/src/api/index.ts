@@ -17,4 +17,11 @@ $api.interceptors.request.use((config) => {
     return config;
 });
 
+$api.interceptors.response.use((config) => {
+    if (config.status === 401 && config.data?.message?.startsWith("JWT")) {
+        localStorage.removeItem('token')
+    }
+    return config;
+});
+
 export default $api;

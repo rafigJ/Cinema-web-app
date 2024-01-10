@@ -5,6 +5,7 @@ import {useFetching} from "../../../hooks/useFetching";
 import {IUser} from "../../../types/model/IUser";
 import {AuthContext} from "../../../context";
 import AdminService from "../../../api/AdminService";
+import dayjs from "dayjs";
 
 const roleOptions: SelectProps['options'] = [
     {
@@ -60,6 +61,12 @@ const UserTable: React.FC<UserTableProps> = ({data, setData}) => {
     const [changeRole, isLoading, error] = useFetching(async (user: IUser, role: "ADMIN" | "USER") => {
         await AdminService.updateUserRole(user.uuid, role);
         message.success(`Пользователь ${user.email} ${user.name} поменял роль на ${role}!`);
+        setData((prev: IUser[]) => {
+                // Обновляем "Время обновления" пользователя, в случае успеха. Чтобы лишний раз не идти в базу.
+                prev[prev.indexOf(user)] = {...user, updateTime: dayjs().format("YYYY-MM-DD HH:mm")};
+                return prev
+            }
+        )
     });
 
     const onChange = (user: IUser, role: string) => {
@@ -67,7 +74,7 @@ const UserTable: React.FC<UserTableProps> = ({data, setData}) => {
     }
 
     if (error !== '') {
-        message.success("Ошибка обновления роли")
+        message.error("Ошибка обновления роли")
     }
 
     return <Table loading={isLoading} rowKey={(user) => user.uuid} columns={columns} dataSource={data}/>;

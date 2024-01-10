@@ -57,15 +57,15 @@ const FilmTable: React.FC<FilmTableProps> = ({data, setData}) => {
     const [remove, isLoading, error] = useFetching(async (film: IFilm) => {
         await FilmService.deleteFilm(film.id);
         message.success(`Фильм ${film.id} ${film.name} удалён!`)
+        setData((prev) => prev.filter(f => f.id !== film.id))
     });
 
     const onDelete = (film: IFilm) => {
         remove(film);
-        setData((prev) => prev.filter(f => f.id !== film.id))
     }
 
     if (error !== '') {
-        message.success("Ошибка удаления")
+        message.error("Ошибка удаления " + error)
     }
 
     return <Table loading={isLoading} rowKey={(film) => film.id} columns={columns} dataSource={data}/>;

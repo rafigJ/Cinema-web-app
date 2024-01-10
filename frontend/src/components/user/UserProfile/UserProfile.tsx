@@ -23,7 +23,7 @@ const UserProfile: FC = () => {
     }, [context.isAuth])
 
     if (!context.isAuth) {
-        return <Empty description={<span> Авторизуйтесь, для доступа к данным профиля </span>}/>
+        return <Empty description={<h3 style={{color: "whitesmoke"}}> Авторизуйтесь, для доступа к данным профиля </h3>}/>
     }
 
     if (isLoading) {
