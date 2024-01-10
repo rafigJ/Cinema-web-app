@@ -1,6 +1,7 @@
 package com.github.gifarj.cinema.config;
 
 import com.github.gifarj.cinema.auth.UserAuthenticationEntryPoint;
+import com.github.gifarj.cinema.user.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,6 +35,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/films/**", "/api/v1/sessions/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("/api/v1/admin/users/**", "/api/v1/admin/tickets/**").hasAuthority(Role.ADMIN.name())
                         .anyRequest().authenticated()
                 ))
                 .sessionManagement(s ->
