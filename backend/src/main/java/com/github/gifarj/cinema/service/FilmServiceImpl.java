@@ -90,10 +90,7 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public List<SessionDto> getFilmSessionsByPeriod(Integer filmId, LocalDate start, LocalDate end) {
         List<SessionEntity> sessionsList = sessionRepository.findAllByFilmIdAndDateBetween(filmId, start, end);
-        return sessionsList.stream().map(e -> {
-            var dto = modelMapper.map(e, SessionDto.class);
-            return dto;
-        }).toList();
+        return sessionsList.stream().map(e -> modelMapper.map(e, SessionDto.class)).toList();
     }
 
     /**
