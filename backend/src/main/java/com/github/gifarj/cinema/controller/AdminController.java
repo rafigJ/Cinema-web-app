@@ -9,13 +9,13 @@ import com.github.gifarj.cinema.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -30,7 +30,7 @@ public class AdminController {
     @GetMapping("/users")
     public Page<UserDto> getUsers(@RequestParam(value = "_page", defaultValue = "0") Integer page,
                                   @RequestParam(value = "_limit", defaultValue = "10") Integer limit) {
-        return adminService.getUsers(PageRequest.of(page, limit));
+        return adminService.getUsers(PageRequest.of(page, limit, Sort.by("uuid")));
     }
 
     @PatchMapping("/users/{uuid}")
