@@ -1,9 +1,11 @@
 import {IHall} from "./IHall";
+import {IFilm} from "./IFilm";
 
 export interface ISession {
     id: number;
     filmId: number;
-    filmName: string;
+    hallId: number
+    film: IFilm;
     hall: IHall;
     date: string;
     time: string;

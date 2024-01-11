@@ -29,4 +29,13 @@ export default class AdminService {
             }
         });
     }
+
+    static async getProfitByPeriod(startDate: string, endDate: string): Promise<AxiosResponse<{profit: number}>> {
+        return await $api.get('/admin/tickets/profit', {
+            params: {
+                start: startDate,
+                end: endDate
+            }
+        })
+    }
 };

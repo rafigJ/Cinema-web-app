@@ -13,3 +13,8 @@ body {
     padding-left: 5.6rem !important;
     padding-right: 5.6rem !important;
 }
+
+.main-title {
+    font-weight: 400;
+    font-size: 33px;
+}
