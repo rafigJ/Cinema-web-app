@@ -1,4 +1,4 @@
-package com.github.gifarj.cinema.service;
+package com.github.gifarj.cinema.service.impl;
 
 import com.github.gifarj.cinema.criteria.FilmCriteria;
 import com.github.gifarj.cinema.dto.GenreDto;
@@ -8,11 +8,13 @@ import com.github.gifarj.cinema.dto.film.FullFilmDto;
 import com.github.gifarj.cinema.entity.FilmEntity;
 import com.github.gifarj.cinema.entity.GenreEntity;
 import com.github.gifarj.cinema.entity.SessionEntity;
+import com.github.gifarj.cinema.exception.BadRequestException;
 import com.github.gifarj.cinema.exception.NotFoundException;
 import com.github.gifarj.cinema.exception.RestException;
 import com.github.gifarj.cinema.repository.FilmRepository;
 import com.github.gifarj.cinema.repository.GenreRepository;
 import com.github.gifarj.cinema.repository.SessionRepository;
+import com.github.gifarj.cinema.service.FilmService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
@@ -61,7 +63,7 @@ public class FilmServiceImpl implements FilmService {
             FilmEntity createdFilm = repository.saveAndFlush(entity);
             return modelMapper.map(createdFilm, FullFilmDto.class);
         } catch (DataIntegrityViolationException e) {
-            throw new RestException("Client error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("Client error: " + e.getMessage());
         } catch (RuntimeException e) {
             throw new RestException("Server error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -83,7 +85,7 @@ public class FilmServiceImpl implements FilmService {
         try {
             repository.deleteById(id);
         } catch (IllegalArgumentException e) {
-            throw new RestException("Client error: id must be not null", HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("Client error: id must be not null");
         }
     }
 
@@ -121,7 +123,7 @@ public class FilmServiceImpl implements FilmService {
         String gName = dto.getName();
 
         if (gId == null && StringUtils.isEmpty(gName)) {
-            throw new RestException("Genre id or name must be present", HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("Genre id or name must be present");
         }
 
         GenreEntity res;

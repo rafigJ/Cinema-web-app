@@ -2,6 +2,7 @@ package com.github.gifarj.cinema.controller;
 
 import com.github.gifarj.cinema.dto.TicketDto;
 import com.github.gifarj.cinema.dto.UserDto;
+import com.github.gifarj.cinema.exception.BadRequestException;
 import com.github.gifarj.cinema.exception.RestException;
 import com.github.gifarj.cinema.service.AdminService;
 import com.github.gifarj.cinema.user.Role;
@@ -43,14 +44,14 @@ public class AdminController {
 
         UUID uuid = UUID.fromString(strUuid);
         if (admin.getUserEntity().getUuid().equals(uuid)) {
-            throw new RestException("Admin can't change themselves role", HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("Admin can't change themselves role");
         }
 
         try {
             Role role = user.getRole();
             return adminService.updateRoleUser(uuid, role);
         } catch (IllegalArgumentException e) {
-            throw new RestException("Role must be 'admin' or 'user'", HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("Role must be 'admin' or 'user'");
         }
     }
 
@@ -66,7 +67,7 @@ public class AdminController {
                                        @RequestParam(value = "end")
                                        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
         if (end.isBefore(start) && !end.isEqual(start)) {
-            throw new RestException("start must be before end", HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("start must be before end");
         }
         return Map.of("profit",
                 adminService.getCurrentProfitForSoldTicketsByPeriod(start.atStartOfDay(), end.atStartOfDay())

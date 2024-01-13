@@ -4,6 +4,7 @@ import com.github.gifarj.cinema.criteria.FilmCriteria;
 import com.github.gifarj.cinema.dto.film.FilmDto;
 import com.github.gifarj.cinema.dto.film.FullFilmDto;
 import com.github.gifarj.cinema.dto.SessionDto;
+import com.github.gifarj.cinema.exception.BadRequestException;
 import com.github.gifarj.cinema.exception.RestException;
 import com.github.gifarj.cinema.service.FilmService;
 import jakarta.validation.Valid;
@@ -44,7 +45,7 @@ public class FilmController {
                                      @RequestParam(value = "_page", defaultValue = "0") Integer page,
                                      @RequestParam(value = "_limit", defaultValue = "10") Integer limit) {
         if (name == null && genreIds == null) {
-            throw new RestException("name or genres must be not null", HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("name or genres must be not null");
         }
         return service.filterFilms(FilmCriteria.of(name, genreIds), PageRequest.of(page, limit));
     }
@@ -63,7 +64,7 @@ public class FilmController {
             start = LocalDate.now();
         }
         if (!start.equals(end) && start.isAfter(end)) {
-            throw new RestException("Start must be before End", HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("start must be before End");
         }
         return service.getFilmSessionsByPeriod(id, start, end);
     }

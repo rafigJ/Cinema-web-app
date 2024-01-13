@@ -3,6 +3,7 @@ package com.github.gifarj.cinema.controller;
 import com.github.gifarj.cinema.dto.auth.AuthResponseDto;
 import com.github.gifarj.cinema.dto.auth.AuthRequestDto;
 import com.github.gifarj.cinema.dto.auth.RegisterRequestDto;
+import com.github.gifarj.cinema.exception.BadRequestException;
 import com.github.gifarj.cinema.exception.RestException;
 import com.github.gifarj.cinema.user.User;
 import jakarta.validation.Valid;
@@ -41,7 +42,7 @@ public class AuthenticationController {
             @AuthenticationPrincipal User user
     ) {
         if (!authorization.startsWith("Bearer ")) {
-            throw new RestException("Invalid header 'Bearer '", HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("Invalid header 'Bearer '");
         }
         if (user == null) {
             throw new RestException("Unauthorized", HttpStatus.UNAUTHORIZED);

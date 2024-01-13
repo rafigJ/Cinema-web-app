@@ -1,16 +1,18 @@
-package com.github.gifarj.cinema.service;
+package com.github.gifarj.cinema.service.impl;
 
 import com.github.gifarj.cinema.dto.TicketDto;
 import com.github.gifarj.cinema.dto.UserDto;
 import com.github.gifarj.cinema.entity.SessionEntity;
 import com.github.gifarj.cinema.entity.TicketEntity;
 import com.github.gifarj.cinema.entity.UserEntity;
+import com.github.gifarj.cinema.exception.BadRequestException;
 import com.github.gifarj.cinema.exception.NotExistUserException;
 import com.github.gifarj.cinema.exception.NotFoundException;
 import com.github.gifarj.cinema.exception.RestException;
 import com.github.gifarj.cinema.repository.SessionRepository;
 import com.github.gifarj.cinema.repository.TicketRepository;
 import com.github.gifarj.cinema.repository.UserRepository;
+import com.github.gifarj.cinema.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -57,7 +59,7 @@ public class UserServiceImpl implements UserService {
             TicketEntity ticket = ticketRepository.saveAndFlush(entity);
             return convertToDto(ticket);
         } catch (DataIntegrityViolationException e) {
-            throw new RestException("Client error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("Client error: " + e.getMessage());
         } catch (RuntimeException e) {
             throw new RestException("Server error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }

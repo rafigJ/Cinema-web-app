@@ -1,4 +1,4 @@
-package com.github.gifarj.cinema.service;
+package com.github.gifarj.cinema.service.impl;
 
 import com.github.gifarj.cinema.dto.SessionDto;
 import com.github.gifarj.cinema.dto.TicketDto;
@@ -6,12 +6,14 @@ import com.github.gifarj.cinema.entity.FilmEntity;
 import com.github.gifarj.cinema.entity.HallEntity;
 import com.github.gifarj.cinema.entity.SessionEntity;
 import com.github.gifarj.cinema.entity.TicketEntity;
+import com.github.gifarj.cinema.exception.BadRequestException;
 import com.github.gifarj.cinema.exception.NotFoundException;
 import com.github.gifarj.cinema.exception.RestException;
 import com.github.gifarj.cinema.repository.FilmRepository;
 import com.github.gifarj.cinema.repository.HallRepository;
 import com.github.gifarj.cinema.repository.SessionRepository;
 import com.github.gifarj.cinema.repository.TicketRepository;
+import com.github.gifarj.cinema.service.SessionService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -36,7 +38,7 @@ public class SessionServiceImpl implements SessionService {
     @Override
     public Page<SessionDto> getSessions(Pageable pageable, LocalDate start, LocalDate end) {
         if (end.isBefore(start) && !end.isEqual(start)) {
-            throw new RestException("start must be before end", HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("start must be before end");
         }
         return repository.findAllByDateBetween(start, end, pageable).map(this::convertToDto);
     }
@@ -71,7 +73,7 @@ public class SessionServiceImpl implements SessionService {
         try {
             repository.saveAndFlush(sessionEntity);
         } catch (DataIntegrityViolationException e) {
-            throw new RestException("Client error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("Client error: " + e.getMessage());
         } catch (RuntimeException e) {
             throw new RestException("Server error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -88,7 +90,7 @@ public class SessionServiceImpl implements SessionService {
         try {
             repository.saveAndFlush(sessionEntity);
         } catch (DataIntegrityViolationException e) {
-            throw new RestException("Client error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("Client error: " + e.getMessage());
         } catch (RuntimeException e) {
             throw new RestException("Server error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -100,7 +102,7 @@ public class SessionServiceImpl implements SessionService {
         try {
             repository.deleteById(id);
         } catch (IllegalArgumentException e) {
-            throw new RestException("Client error: id must be not null", HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("Client error: id must be not null");
         }
     }
 
