@@ -8,6 +8,10 @@ import {useFetching} from "../../../hooks/useFetching";
 import {IUser} from "../../../types/model/IUser";
 import UserService from "../../../api/UserService";
 
+/**
+ * Нужен для страницы пользователя
+ * Необходим изменить дизайн данной страницы. Добавить отображение купленных билетов
+ */
 const UserProfile: FC = () => {
     const [user, setUser] = useState({} as IUser);
     const context = useContext(AuthContext);

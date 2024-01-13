@@ -7,7 +7,7 @@ interface FilmItemProps {
     film: IFilm;
 }
 
-const FilmGridItem: FC<FilmItemProps> = ({film}) => {
+const FilmItem: FC<FilmItemProps> = ({film}) => {
     const [isActive, setIsActive] = useState(false)
     const keyGeneration = (filmId: number, genreId: number) => filmId.toString() + genreId.toString()
     const navigate = useNavigate();
@@ -35,4 +35,4 @@ const FilmGridItem: FC<FilmItemProps> = ({film}) => {
     );
 };
 
-export default FilmGridItem;
+export default FilmItem;

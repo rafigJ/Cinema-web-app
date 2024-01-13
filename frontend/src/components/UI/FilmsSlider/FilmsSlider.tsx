@@ -1,13 +1,15 @@
 import React, {FC} from 'react';
 import {Splide, SplideSlide, SplideTrack} from "@splidejs/react-splide";
-import FilmGridItem from "../../user/FilmGridUI/FilmGridItem/FilmGridItem";
+import FilmItem from "../../user/FilmGridUI/FilmItem/FilmItem";
 import {IFilm} from "../../../types/model/IFilm";
 
-interface FilmsSpliderProps {
+interface FilmsSliderProps {
     films: IFilm[]
 }
-
-const FilmsSlider:FC<FilmsSpliderProps> = ({films}) => {
+/**
+ * Нужен для главной страницы HomePage
+ */
+const FilmsSlider:FC<FilmsSliderProps> = ({films}) => {
     return (
         <Splide options={{
             rewind: true,
@@ -21,7 +23,7 @@ const FilmsSlider:FC<FilmsSpliderProps> = ({films}) => {
                 <SplideTrack>
                     {films.map(f =>
                         <SplideSlide key={f.id}>
-                            <FilmGridItem film={f}/>
+                            <FilmItem film={f}/>
                         </SplideSlide>
                     )}
                 </SplideTrack>
