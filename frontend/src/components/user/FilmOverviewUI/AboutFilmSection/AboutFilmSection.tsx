@@ -14,10 +14,10 @@ const AboutFilmSection: FC<AboutFilmSectionProps> = ({film = {} as IFilm}) => {
 
             <span className="film-genres">Жанр:{' '}
                 <ul className="film-genres__list">
-                    {film.genres?.map(genre =>
+                    {film.genres?.map((genre, index) =>
                         <li key={genre.id}
                             className="film-genres__list-item">
-                            {genre.name}
+                            {genre.name}{index + 1 !== film.genres?.length && ","}
                         </li>
                     )}
                 </ul>

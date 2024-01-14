@@ -5,6 +5,7 @@ import '../styles/App.css'
 import {IFilm} from "../types/model/IFilm";
 import {Spin} from "antd";
 import FilmGrid from "../components/user/FilmGridUI/FilmGrid/FilmGrid";
+import {Footer} from "antd/es/layout/layout";
 
 
 const FilmsPage: FC = () => {
@@ -30,6 +31,7 @@ const FilmsPage: FC = () => {
     return (
         <main className="main-page">
             <FilmGrid title="Фильмы" films={films}/>
+            <Footer style={{background: "transparent"}}/>
         </main>
     );
 };

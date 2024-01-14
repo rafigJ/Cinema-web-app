@@ -1,8 +1,9 @@
 .film-grid {
     display: grid;
     justify-content: left;
-    grid-gap: 15px;
+    grid-gap: 29px 19px;
     grid-template-columns: repeat(auto-fit, minmax(206px, 1fr));
+    grid-template-rows: auto;
 }
 
 .title-container__title {

@@ -35,6 +35,10 @@ const UserProfile: FC = () => {
     }
 
     if (error !== '') {
+        localStorage.removeItem('token');
+        context.setAuthCredential({} as AuthResponse);
+        context.setIsAuth(false);
+        setUser({} as IUser);
         return <h1>{error}</h1>;
     }
 

@@ -13,6 +13,7 @@ const FilmsSlider:FC<FilmsSliderProps> = ({films}) => {
     return (
         <Splide options={{
             rewind: true,
+            fixedHeight: 350,
             gap: '2rem',
             type: 'slide',
             autoHeight: true,
@@ -22,8 +23,8 @@ const FilmsSlider:FC<FilmsSliderProps> = ({films}) => {
             <div className="custom-wrapper">
                 <SplideTrack>
                     {films.map(f =>
-                        <SplideSlide key={f.id}>
-                            <FilmItem film={f}/>
+                        <SplideSlide style={{marginTop: "15px"}} key={f.id}>
+                            <FilmItem  film={f}/>
                         </SplideSlide>
                     )}
                 </SplideTrack>

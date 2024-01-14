@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useFetching} from "../hooks/useFetching";
 import {IFilm} from "../types/model/IFilm";
-import {Spin} from "antd";
+import {Empty, Spin} from "antd";
 import '@splidejs/react-splide/css';
 import FilmsSlider from "../components/UI/FilmsSlider/FilmsSlider";
 import SessionService from "../api/SessionService";
@@ -56,15 +56,15 @@ const HomePage = () => {
                 ?
                 <FilmsSlider films={todayFilms}/>
                 :
-                "На сегодня сеансы отсутствуют"
+                <Empty description={<h3 style={{color: "whitesmoke"}}>На сегодня нет сеансов</h3>}/>
             }
 
             <h1 className="main-title">Фильмы на завтра</h1>
-            {tomorrowFilms
+            {tomorrowFilms.length
                 ?
                 <FilmsSlider films={tomorrowFilms}/>
                 :
-                "На завтра сеансы отсутствуют"
+                <Empty description={<h3 style={{color: "whitesmoke"}}>На завтра нет сеансов</h3>}/>
             }
         </main>
     );
