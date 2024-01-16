@@ -18,6 +18,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.Year;
 import java.util.Map;
 import java.util.UUID;
 
@@ -72,7 +74,12 @@ public class AdminController {
             throw new BadRequestException("start must be before end");
         }
         return Map.of("profit",
-                ticketService.getCurrentProfitForSoldTicketsByPeriod(start.atStartOfDay(), end.atStartOfDay())
+                ticketService.getProfitByPeriod(start.atStartOfDay(), end.atStartOfDay())
         );
+    }
+
+    @GetMapping("/tickets/year-profit")
+    public Map<Month, Integer> getProfitByYear(@RequestParam(value = "year") Year year) {
+        return ticketService.getProfitStatisticByYear(year);
     }
 }
