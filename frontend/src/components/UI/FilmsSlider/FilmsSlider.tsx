@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {Splide, SplideSlide, SplideTrack} from "@splidejs/react-splide";
-import FilmItem from "../../user/FilmGridUI/FilmItem/FilmItem";
+import FilmCard from "../../user/FilmGridUI/FilmCard/FilmCard";
 import {IFilm} from "../../../types/model/IFilm";
 
 interface FilmsSliderProps {
@@ -24,7 +24,7 @@ const FilmsSlider:FC<FilmsSliderProps> = ({films}) => {
                 <SplideTrack>
                     {films.map(f =>
                         <SplideSlide style={{marginTop: "15px"}} key={f.id}>
-                            <FilmItem  film={f}/>
+                            <FilmCard film={f}/>
                         </SplideSlide>
                     )}
                 </SplideTrack>
