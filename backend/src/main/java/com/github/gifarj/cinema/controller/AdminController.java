@@ -5,6 +5,7 @@ import com.github.gifarj.cinema.dto.UserDto;
 import com.github.gifarj.cinema.exception.BadRequestException;
 import com.github.gifarj.cinema.exception.RestException;
 import com.github.gifarj.cinema.service.AdminService;
+import com.github.gifarj.cinema.service.TicketService;
 import com.github.gifarj.cinema.user.Role;
 import com.github.gifarj.cinema.user.User;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ public class AdminController {
 
     //    private final HallService hallService;
     private final AdminService adminService;
+    private final TicketService ticketService;
 
     @GetMapping("/users")
     public Page<UserDto> getUsers(@RequestParam(value = "_page", defaultValue = "0") Integer page,
@@ -58,7 +60,7 @@ public class AdminController {
     @GetMapping("/tickets")
     public Page<TicketDto> getTickets(@RequestParam(value = "_page", defaultValue = "0") Integer page,
                                       @RequestParam(value = "_limit", defaultValue = "10") Integer limit) {
-        return adminService.getTickets(PageRequest.of(page, limit));
+        return ticketService.getTickets(PageRequest.of(page, limit));
     }
 
     @GetMapping("/tickets/profit")
@@ -70,7 +72,7 @@ public class AdminController {
             throw new BadRequestException("start must be before end");
         }
         return Map.of("profit",
-                adminService.getCurrentProfitForSoldTicketsByPeriod(start.atStartOfDay(), end.atStartOfDay())
+                ticketService.getCurrentProfitForSoldTicketsByPeriod(start.atStartOfDay(), end.atStartOfDay())
         );
     }
 }
