@@ -1,11 +1,11 @@
 package com.github.gifarj.cinema.controller;
 
 import com.github.gifarj.cinema.criteria.FilmCriteria;
+import com.github.gifarj.cinema.criteria.FilmSort;
 import com.github.gifarj.cinema.dto.film.FilmDto;
 import com.github.gifarj.cinema.dto.film.FullFilmDto;
 import com.github.gifarj.cinema.dto.SessionDto;
 import com.github.gifarj.cinema.exception.BadRequestException;
-import com.github.gifarj.cinema.exception.RestException;
 import com.github.gifarj.cinema.service.FilmService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -35,8 +35,12 @@ public class FilmController {
 
     @GetMapping()
     public Page<FilmDto> getFilmsPage(@RequestParam(value = "_page", defaultValue = "0") Integer page,
-                                      @RequestParam(value = "_limit", defaultValue = "10") Integer limit) {
-        return service.getFilms(PageRequest.of(page, limit, Sort.by("id")));
+                                      @RequestParam(value = "_limit", defaultValue = "10") Integer limit,
+                                      @RequestParam(value = "sort", required = false) FilmSort sort) {
+        if (sort == null) {
+            return service.getFilms(PageRequest.of(page, limit));
+        }
+        return service.getFilms(PageRequest.of(page, limit, Sort.by(sort.getFieldName())));
     }
 
     @GetMapping("/search")
