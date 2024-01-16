@@ -29,12 +29,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-                .exceptionHandling(configurer ->
-                        configurer.authenticationEntryPoint(userAuthenticationEntryPoint))
+//                .exceptionHandling(configurer ->
+//                        configurer.authenticationEntryPoint(userAuthenticationEntryPoint))
                 .authorizeHttpRequests((auth -> auth
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/films/**", "/api/v1/sessions/**").permitAll()
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS).permitAll()
                         .requestMatchers("/api/v1/admin/users/**", "/api/v1/admin/tickets/**").hasAuthority(Role.ADMIN.name())
                         .anyRequest().authenticated()
                 ))
