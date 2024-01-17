@@ -4,10 +4,10 @@ import FilmCard from "../FilmCard/FilmCard";
 import {IFilm} from "../../../../types/model/IFilm";
 import {useFetching} from "../../../../hooks/useFetching";
 import FilmService from "../../../../api/FilmService";
-import {Button, SelectProps, Spin, Space, Input} from "antd";
+import {Button, Input, Space, Spin} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
-import {allGenres} from "../../../../helpers/genres";
 import GenreSelect from "../../../UI/GenreSelect/GenreSelect";
+import CustomEmpty from "../../../UI/CustomEmpty/CustomEmpty";
 
 /**
  * Нужен для страницы с фильмами (FilmsPage) пользователя
@@ -19,51 +19,53 @@ const FilmGrid: FC = () => {
 
     const [page, setPage] = useState(0);
     const [films, setFilms] = useState([] as IFilm[]);
-    const [searchQuery, setSearchQuery] = useState<string | null>(null);
+    const [query, setQuery] = useState<string | null>(null);
     const [genres, setGenres] = useState<number[] | null>(null);
 
-    const [fetchFilms, isLoading, error] = useFetching(async () => {
-        if (searchQuery === null && genres === null) {
-            const response = await FilmService.getAll(page, limit);
-            setFilms(response.data.content);
-        }
-    },)
+    const [fetchFilms, isLoading, isError, error] = useFetching(async () => {
+        const response = await FilmService.getAllFilms(page, limit, null, query, genres);
+        setFilms(response.data.content);
+    })
 
 
     useEffect(() => {
-        fetchFilms();
-    }, []);
-
-    if (isLoading) {
-        return <Spin fullscreen/>
-    }
-
-    if (error !== '') {
-        return <p>{error}</p>
-    }
+        if (query !== null && query.length > 3) fetchFilms();
+        else if (query === null) fetchFilms();
+    }, [genres, page]);
 
     return (
         <>
             <div className="title-container">
                 <h1 className="title-container__title">Фильмы {films.length}</h1>
-                <div className="search-wrapper">
+                <div className="filter-wrapper">
                     <Space.Compact style={{width: '100%'}}>
-                        <Input className="search-wrapper__input" size="large"
+                        <Input className="filter-wrapper__input" size="large"
                                placeholder="Название фильма или сериала..."
-                               onChange={e => setSearchQuery(e.target.value)}/>
-                        <Button size="large" type="primary" icon={<SearchOutlined/>}/>
+                               onChange={e => setQuery(e.target.value)}/>
+                        <Button size="large" type="primary" icon={<SearchOutlined/>}
+                                onClick={fetchFilms}/>
                     </Space.Compact>
-                    <GenreSelect maxTagCount='responsive' size="large" onChange={(value: number[]) => setGenres(value)}/>
+                    <GenreSelect maxTagCount='responsive' size="large"
+                                 onChange={(value: number[]) => setGenres(value)}/>
                 </div>
             </div>
-            <section className="film-grid">
-                {films.map(film =>
-                    <FilmCard
-                        key={film.id}
-                        film={film}
-                    />
-                )}
-            </section>
+            {isLoading ? <Spin/>  // если загрузка, то Spin
+                :
+                isError ? <p>{error}</p> // иначе если ошибка, то Error
+                    :
+                    <section className="film-grid">
+                        {films.length ?
+                            films.map(film =>
+                                <FilmCard
+                                    key={film.id}
+                                    film={film}
+                                />)
+                            :
+                            <CustomEmpty description="Фильмы не найдены!"/>
+                        }
+                    </section>
+            }
+
         </>
     );
 };

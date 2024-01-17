@@ -6,12 +6,29 @@ import {ISession} from "../types/model/ISession";
 
 export default class FilmService {
 
-    static async getAll(offset: number = 0, limit: number = 10,
-                        sort: "ID" | "NAME" | "YEAR" | null = null): Promise<AxiosResponse<IPageResponse<IFilm>>> {
+    /**
+     * Метод, который возвращает список фильмов (без поля description).
+     *
+     * Принимает в качестве аргументов номер страницы:
+     *  - offset: номер страницы
+     *  - limit: количество элементов на странице
+     *
+     * Следующие параметры относятся к фильтрации и они не обязательны:
+     *  - sort: По какому атрибуту сортировать
+     *  - name: название фильма
+     *  - genres: идентификаторы определенных жанров (id).
+     */
+    static async getAllFilms(offset: number = 0, limit: number = 10,
+                             sort: "ID" | "NAME" | "YEAR" | null = null,
+                             name: string | null = null,
+                             genres: number[] | null = null
+    ): Promise<AxiosResponse<IPageResponse<IFilm>>> {
         return await $api.get("/films", {
                 params: {
                     _page: offset,
                     _limit: limit,
+                    name: name,
+                    genres: genres?.join(','),
                     sort: sort
                 }
             }
