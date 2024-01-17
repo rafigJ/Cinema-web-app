@@ -1,6 +1,5 @@
 package com.github.gifarj.cinema.service.impl;
 
-import com.github.gifarj.cinema.criteria.FilmCriteria;
 import com.github.gifarj.cinema.dto.GenreDto;
 import com.github.gifarj.cinema.dto.SessionDto;
 import com.github.gifarj.cinema.dto.film.FilmDto;
@@ -21,6 +20,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -37,14 +37,8 @@ public class FilmServiceImpl implements FilmService {
     private final ModelMapper modelMapper;
 
     @Override
-    public Page<FilmDto> getFilms(Pageable pageable) {
-        Page<FilmEntity> films = repository.findAll(pageable);
-        return films.map(film -> modelMapper.map(film, FilmDto.class));
-    }
-
-    @Override
-    public Page<FilmDto> filterFilms(FilmCriteria criteria, Pageable pageable) {
-        Page<FilmEntity> films = repository.findAll(criteria.getSpecification(), pageable);
+    public Page<FilmDto> getFilms(Specification<FilmEntity> criteria, Pageable pageable) {
+        Page<FilmEntity> films = repository.findAll(criteria, pageable);
         return films.map(film -> modelMapper.map(film, FilmDto.class));
     }
 
@@ -100,8 +94,8 @@ public class FilmServiceImpl implements FilmService {
      *
      * @param dto The FullFilmDto object to be converted.
      * @return FilmEntity object representing the converted FullFilmDto.
-     * @throws RestException if genre id or name is missing or if there is a conflict between
-     *                       the provided genre id and name.
+     * @throws RestException     if genre id or name is missing or if there is a conflict between
+     *                           the provided genre id and name.
      * @throws NotFoundException if the genre is not found in the database by id or name.
      */
     private FilmEntity convertFullFilmDtoToEntity(FullFilmDto dto) {

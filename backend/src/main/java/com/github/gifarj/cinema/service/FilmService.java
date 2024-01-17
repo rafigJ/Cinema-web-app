@@ -3,18 +3,21 @@ package com.github.gifarj.cinema.service;
 import com.github.gifarj.cinema.dto.SessionDto;
 import com.github.gifarj.cinema.dto.film.FilmDto;
 import com.github.gifarj.cinema.dto.film.FullFilmDto;
-import com.github.gifarj.cinema.criteria.FilmCriteria;
+import com.github.gifarj.cinema.entity.FilmEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public interface FilmService {
 
-    Page<FilmDto> getFilms(Pageable pageable);
-
-    Page<FilmDto> filterFilms(FilmCriteria criteria, Pageable pageable);
+    /**
+     * Возвращает страницу с фильмами, отфильтрованными по Specification
+     * @return Filter Films page
+     */
+    Page<FilmDto> getFilms(Specification<FilmEntity> criteria, Pageable pageable);
 
     FullFilmDto getFilmById(Integer id);
 
