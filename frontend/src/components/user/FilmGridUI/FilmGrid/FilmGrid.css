@@ -31,7 +31,13 @@
     border-color: hsla(0, 0%, 100%, .15);
 }
 
-.filter-wrapper__input::placeholder{
+.filter-wrapper__input::placeholder {
     opacity: 1;
     color: hsla(0, 0%, 100%, .15);
+}
+
+.pagination-wrapper {
+    padding: 30px;
+    display: flex;
+    justify-content: flex-end;
 }

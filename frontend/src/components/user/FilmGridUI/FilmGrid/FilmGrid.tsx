@@ -8,6 +8,7 @@ import {Button, Input, Space, Spin} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
 import GenreSelect from "../../../UI/GenreSelect/GenreSelect";
 import CustomEmpty from "../../../UI/CustomEmpty/CustomEmpty";
+import CustomPagination from "../../../UI/CustomPagination/CustomPagination";
 
 /**
  * Нужен для страницы с фильмами (FilmsPage) пользователя
@@ -18,30 +19,35 @@ const FilmGrid: FC = () => {
     const limit = 20;
 
     const [page, setPage] = useState(0);
+    const [total, setTotal] = useState(0);
     const [films, setFilms] = useState([] as IFilm[]);
     const [query, setQuery] = useState<string | null>(null);
     const [genres, setGenres] = useState<number[] | null>(null);
 
     const [fetchFilms, isLoading, isError, error] = useFetching(async () => {
-        const response = await FilmService.getAllFilms(page, limit, null, query, genres);
-        setFilms(response.data.content);
+        if ((query !== null && query.length > 3) || query === null || query.length === 0) {
+            const response = await FilmService.getAllFilms(page, limit, null, query, genres);
+            setFilms(response.data.content);
+            setTotal(response.data.totalElements);
+            if (query !== null) setPage(0);
+        }
     })
 
-
     useEffect(() => {
-        if (query !== null && query.length > 3) fetchFilms();
-        else if (query === null) fetchFilms();
+        fetchFilms();
     }, [genres, page]);
 
     return (
         <>
             <div className="title-container">
-                <h1 className="title-container__title">Фильмы {films.length}</h1>
+                <h1 className="title-container__title">Фильмы {total}</h1>
                 <div className="filter-wrapper">
                     <Space.Compact style={{width: '100%'}}>
                         <Input className="filter-wrapper__input" size="large"
                                placeholder="Название фильма или сериала..."
-                               onChange={e => setQuery(e.target.value)}/>
+                               onChange={e => setQuery(e.target.value)}
+                               onPressEnter={fetchFilms}
+                        />
                         <Button size="large" type="primary" icon={<SearchOutlined/>}
                                 onClick={fetchFilms}/>
                     </Space.Compact>
@@ -53,19 +59,30 @@ const FilmGrid: FC = () => {
                 :
                 isError ? <p>{error}</p> // иначе если ошибка, то Error
                     :
-                    <section className="film-grid">
-                        {films.length ?
-                            films.map(film =>
-                                <FilmCard
-                                    key={film.id}
-                                    film={film}
-                                />)
-                            :
-                            <CustomEmpty description="Фильмы не найдены!"/>
-                        }
-                    </section>
+                    (<>
+                        <section className="film-grid">
+                            {films.length ?
+                                films.map(film =>
+                                    <FilmCard
+                                        key={film.id}
+                                        film={film}
+                                    />)
+                                :
+                                <CustomEmpty description="Фильмы не найдены!"/>
+                            }
+                        </section>
+                        <div className="pagination-wrapper">
+                            <CustomPagination
+                                defaultCurrent={page + 1}
+                                current={page + 1}
+                                onChange={(page) => setPage(page - 1)}
+                                total={total}
+                                defaultPageSize={limit}
+                                showSizeChanger={false}
+                                showQuickJumper={false}/>
+                        </div>
+                    </>)
             }
-
         </>
     );
 };
