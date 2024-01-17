@@ -33,10 +33,11 @@ public class SecurityConfig {
 //                        configurer.authenticationEntryPoint(userAuthenticationEntryPoint))
                 .authorizeHttpRequests((auth -> auth
                         .requestMatchers("/api/v1/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/films/**", "/api/v1/sessions/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS).permitAll()
-                        .requestMatchers("/api/v1/admin/users/**", "/api/v1/admin/tickets/**").hasAuthority(Role.ADMIN.name())
-                        .anyRequest().authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/films/**", "/api/v1/sessions/**", "/api/v1/halls/**").permitAll()
+                        .requestMatchers("/api/v1/user/**").authenticated()
+//                        .requestMatchers("/api/v1/admin/users/**", "/api/v1/admin/tickets/**").hasAuthority(Role.ADMIN.name())
+                        .anyRequest().hasAuthority(Role.ADMIN.name())
                 ))
                 .sessionManagement(s ->
                         s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

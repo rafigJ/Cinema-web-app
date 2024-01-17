@@ -1,10 +1,9 @@
 package com.github.gifarj.cinema.controller;
 
-import com.github.gifarj.cinema.criteria.FilmSpecifications;
 import com.github.gifarj.cinema.criteria.FilmSort;
+import com.github.gifarj.cinema.dto.SessionDto;
 import com.github.gifarj.cinema.dto.film.FilmDto;
 import com.github.gifarj.cinema.dto.film.FullFilmDto;
-import com.github.gifarj.cinema.dto.SessionDto;
 import com.github.gifarj.cinema.entity.FilmEntity;
 import com.github.gifarj.cinema.exception.BadRequestException;
 import com.github.gifarj.cinema.service.FilmService;
@@ -23,7 +22,8 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
-import static com.github.gifarj.cinema.criteria.FilmSpecifications.*;
+import static com.github.gifarj.cinema.criteria.FilmSpecifications.genresIdIn;
+import static com.github.gifarj.cinema.criteria.FilmSpecifications.nameContainsIgnoreCase;
 
 @RestController
 @RequiredArgsConstructor
