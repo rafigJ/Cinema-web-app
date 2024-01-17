@@ -11,7 +11,7 @@ const FilmCreateForm: FC = () => {
     const navigate = useNavigate();
     const {message} = App.useApp();
 
-    const [createFilm, isLoading, error] = useFetching(async (film: IFilm) => {
+    const [createFilm, isLoading, isError, error] = useFetching(async (film: IFilm) => {
         const response = await FilmService.createFilm(film);
         navigate('admin/films');
         message.success('Фильм сохранен под id: ' + response.data.id);
@@ -21,7 +21,7 @@ const FilmCreateForm: FC = () => {
         return <Spin fullscreen/>
     }
 
-    if (error !== '') {
+    if (isError) {
         message.error(error);
     }
 

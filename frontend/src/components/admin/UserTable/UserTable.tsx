@@ -58,7 +58,7 @@ const UserTable: React.FC<UserTableProps> = ({data, setData}) => {
 
     const {message} = App.useApp();
 
-    const [changeRole, isLoading, error] = useFetching(async (user: IUser, role: "ADMIN" | "USER") => {
+    const [changeRole, isLoading, isError, error] = useFetching(async (user: IUser, role: "ADMIN" | "USER") => {
         await AdminService.updateUserRole(user.uuid, role);
         message.success(`Пользователь ${user.email} ${user.name} поменял роль на ${role}!`);
         setData((prev: IUser[]) => {
@@ -73,8 +73,8 @@ const UserTable: React.FC<UserTableProps> = ({data, setData}) => {
         changeRole(user, role);
     }
 
-    if (error !== '') {
-        message.error("Ошибка обновления роли")
+    if (isError) {
+        message.error("Ошибка обновления роли " + error)
     }
 
     return <Table loading={isLoading} rowKey={(user) => user.uuid} columns={columns} dataSource={data}/>;

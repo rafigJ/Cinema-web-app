@@ -1,12 +1,13 @@
 import React, {FC, useEffect, useMemo, useState} from 'react';
 import "./SessionOverviewContainer.css"
 import SessionTableRow from "../SessionTableRow/SessionTableRow";
-import {Button, DatePicker, Empty, Spin} from "antd";
+import {Button, DatePicker, Spin} from "antd";
 import {CaretRightOutlined} from "@ant-design/icons";
 import dayjs from "dayjs";
 import {useFetching} from "../../../../hooks/useFetching";
 import FilmService from "../../../../api/FilmService";
 import {ISession} from "../../../../types/model/ISession";
+import CustomEmpty from "../../../UI/CustomEmpty/CustomEmpty";
 
 interface SessionOverviewContainerProps {
     filmId: number | string;
@@ -43,7 +44,7 @@ const SessionOverviewContainer: FC<SessionOverviewContainerProps> = ({filmId}) =
     const [date, setDate] = useState<string>(new Date().toISOString().substring(0, 10));
     const [dateHeader, setDateHeader] = useState<string>(dateToString(dayjs()));
 
-    const [fetchSessions, isLoading, error] = useFetching(async (id, date) => {
+    const [fetchSessions, isLoading, isError, error] = useFetching(async (id, date) => {
         const response = await FilmService.getSessionsById(id, date);
         setSessions(response.data)
     });
@@ -64,8 +65,8 @@ const SessionOverviewContainer: FC<SessionOverviewContainerProps> = ({filmId}) =
         return <Spin/>;
     }
 
-    if (error !== '') {
-        return <div>sessionOverviewContainer error</div>;
+    if (isError) {
+        return <div>sessionOverviewContainer {error}</div>;
     }
 
     return (
@@ -100,7 +101,7 @@ const SessionOverviewContainer: FC<SessionOverviewContainerProps> = ({filmId}) =
                         </tbody>
                     </table>
                     :
-                    <Empty description={false}/>
+                    <CustomEmpty description="Отсутствуют сеансы"/>
             }
         </div>
     );

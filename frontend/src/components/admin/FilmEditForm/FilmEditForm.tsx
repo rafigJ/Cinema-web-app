@@ -12,7 +12,7 @@ const FilmEditForm: FC = () => {
     const params = useParams();
     const [film, setFilm] = useState({} as IFilm);
 
-    const [fetchFilm, isLoadingFetch, errorFetch] =  useFetching(async (id: string) => {
+    const [fetchFilm, isLoadingFetch, isErrorFetch, errorFetch] = useFetching(async (id: string) => {
         const response = await FilmService.getById(id);
         setFilm(response.data)
     });
@@ -21,7 +21,7 @@ const FilmEditForm: FC = () => {
         fetchFilm(params.id);
     }, [params.id]);
 
-    const [editFilm, isLoading, error] = useFetching(async (film: IFilm) => {
+    const [editFilm, isLoading, isError, error] = useFetching(async (film: IFilm) => {
         const response = await FilmService.updateFilm(film);
         navigate('admin/films');
         message.success('Фильм обновлен под id: ' + response.data.id);
@@ -31,11 +31,11 @@ const FilmEditForm: FC = () => {
         return <Spin fullscreen/>
     }
 
-    if (errorFetch !== '') {
+    if (isErrorFetch) {
         message.error(errorFetch)
     }
 
-    if (error !== '') {
+    if (isError) {
         message.error(error);
     }
 

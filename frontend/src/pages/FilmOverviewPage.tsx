@@ -12,7 +12,7 @@ const FilmOverviewPage = () => {
     const params = useParams();
     const [film, setFilm] = useState({} as IFilm);
 
-    const [fetchFilmById, isLoading, error] = useFetching(async (id) => {
+    const [fetchFilmById, isLoading, error, isError] = useFetching(async (id) => {
         const response = await FilmService.getById(id);
         setFilm(response.data);
     })
@@ -25,7 +25,7 @@ const FilmOverviewPage = () => {
         return <div>Загрузка...</div>
     }
 
-    if (error !== '') {
+    if (isError) {
         return <div>{error}</div>
     }
 

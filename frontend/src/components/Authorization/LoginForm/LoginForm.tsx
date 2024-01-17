@@ -16,7 +16,7 @@ const LoginForm: FC<AuthFormProps> = ({deactivate, setModalActive}) => {
     const [email, setEmail] = useState('test@gmail.com');
     const [password, setPassword] = useState('password1');
 
-    const [login, isLoading, error] = useFetching(async () => {
+    const [login, isLoading, isError] = useFetching(async () => {
         const response = await AuthService.login(email, password);
         setAuthCredential(response.data);
         localStorage.setItem('token', response.data.token);
@@ -32,7 +32,7 @@ const LoginForm: FC<AuthFormProps> = ({deactivate, setModalActive}) => {
     return (
         <div className="auth-container">
             <h1 className="auth-container__title">Вход</h1>
-            {error !== '' &&
+            {isError &&
                 <h4 className="auth-container__big-error">Ошибка авторизации </h4>
             }
             <form className="auth-container__form">

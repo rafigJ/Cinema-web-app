@@ -11,8 +11,8 @@ const StatisticPage: FC = () => {
     const [ticketCount, setTicketCount] = useState(0);
     const [profitForYear, setProfitForYear] = useState(0);
 
-    const [fetchData, isLoading, error] = useFetching(async () => {
-        const films = await FilmService.getAll(0, 1);
+    const [fetchData, isLoading, isError] = useFetching(async () => {
+        const films = await FilmService.getAllFilms(0, 1);
         setFilmCount(films.data.totalElements);
 
         const users = await AdminService.getAllUsers(0, 1);
@@ -29,7 +29,7 @@ const StatisticPage: FC = () => {
         fetchData();
     }, []);
 
-    if (error !== '') {
+    if (isError) {
         return <CrudTableLayout title="Статистика" crudTable={<Empty/>}/>
     }
 

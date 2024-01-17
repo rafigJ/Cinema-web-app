@@ -54,7 +54,7 @@ const FilmTable: React.FC<FilmTableProps> = ({data, setData}) => {
     ];
 
     const {message} = App.useApp();
-    const [remove, isLoading, error] = useFetching(async (film: IFilm) => {
+    const [remove, isLoading, isError, error] = useFetching(async (film: IFilm) => {
         await FilmService.deleteFilm(film.id);
         message.success(`Фильм ${film.id} ${film.name} удалён!`)
         setData((prev) => prev.filter(f => f.id !== film.id))
@@ -64,7 +64,7 @@ const FilmTable: React.FC<FilmTableProps> = ({data, setData}) => {
         remove(film);
     }
 
-    if (error !== '') {
+    if (isError) {
         message.error("Ошибка удаления " + error)
     }
 

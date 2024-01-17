@@ -1,12 +1,13 @@
 import React, {FC, useContext, useEffect, useState} from 'react';
 import {AuthContext} from "../../../context";
-import {Button, Empty, Spin} from "antd";
+import {Button, Spin} from "antd";
 import {useNavigate} from "react-router-dom";
 import './UserProfile.css';
 import {AuthResponse} from "../../../types/response/AuthResponse";
 import {useFetching} from "../../../hooks/useFetching";
 import {IUser} from "../../../types/model/IUser";
 import UserService from "../../../api/UserService";
+import CustomEmpty from "../../UI/CustomEmpty/CustomEmpty";
 
 /**
  * Нужен для страницы пользователя
@@ -17,7 +18,7 @@ const UserProfile: FC = () => {
     const context = useContext(AuthContext);
     const navigate = useNavigate();
 
-    const [fetchUser, isLoading, error] = useFetching(async () => {
+    const [fetchUser, isLoading, isError, error] = useFetching(async () => {
         const response = await UserService.getUser();
         setUser(response.data);
     });
@@ -27,14 +28,14 @@ const UserProfile: FC = () => {
     }, [context.isAuth])
 
     if (!context.isAuth) {
-        return <Empty description={<h3 style={{color: "whitesmoke"}}> Авторизуйтесь, для доступа к данным профиля </h3>}/>
+        return <CustomEmpty description= "Авторизуйтесь, для доступа к данным профиля"/>
     }
 
     if (isLoading) {
         return <Spin fullscreen/>
     }
 
-    if (error !== '') {
+    if (isError) {
         localStorage.removeItem('token');
         context.setAuthCredential({} as AuthResponse);
         context.setIsAuth(false);

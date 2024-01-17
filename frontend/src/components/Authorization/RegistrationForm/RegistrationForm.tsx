@@ -17,7 +17,7 @@ const RegistrationForm: FC<RegistrationFormProps> = ({activate, setModalActive})
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const [register, isLoading, error] = useFetching(async () => {
+    const [register, isLoading, isError] = useFetching(async () => {
         const response = await AuthService.register(name, email, password);
         setAuthCredential(response.data);
         localStorage.setItem('token', response.data.token);
@@ -33,7 +33,7 @@ const RegistrationForm: FC<RegistrationFormProps> = ({activate, setModalActive})
     return (
         <div className="auth-container">
             <h1 className="auth-container__title">Создать аккаунт</h1>
-            {error !== '' &&
+            {isError &&
                 <h4 className="auth-container__big-error">Ошибка регистрации </h4>
             }
             <form className="auth-container__form">

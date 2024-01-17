@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {useFetching} from "../hooks/useFetching";
 import {IFilm} from "../types/model/IFilm";
-import {Empty, Spin} from "antd";
+import {Spin} from "antd";
 import '@splidejs/react-splide/css';
 import FilmsSlider from "../components/UI/FilmsSlider/FilmsSlider";
 import SessionService from "../api/SessionService";
 import dayjs from "dayjs";
+import CustomEmpty from "../components/UI/CustomEmpty/CustomEmpty";
 
 const removeDuplicates = (arr: IFilm[]) => {
     const uniqueMap = new Map();
@@ -21,7 +22,7 @@ const HomePage = () => {
     const [todayFilms, setTodayFilms] = useState([] as IFilm[])
     const [tomorrowFilms, setTomorrowFilms] = useState([] as IFilm[])
 
-    const [fetchFilms, isLoading, error] = useFetching(async () => {
+    const [fetchFilms, isLoading, isError, error] = useFetching(async () => {
         const today = dayjs().format("YYYY-MM-DD");
         let response = await SessionService.getAll(0, 35, today);
         let films = response.data.content.map(session => session.film);
@@ -43,7 +44,7 @@ const HomePage = () => {
         </div>
     }
 
-    if (error !== '') {
+    if (isError) {
         return (
             <div>{error}</div>
         );
@@ -56,7 +57,7 @@ const HomePage = () => {
                 ?
                 <FilmsSlider films={todayFilms}/>
                 :
-                <Empty description={<h3 style={{color: "whitesmoke"}}>На сегодня нет сеансов</h3>}/>
+                <CustomEmpty description="На сегодня нет сеансов"/>
             }
 
             <h1 className="main-title">Фильмы на завтра</h1>
@@ -64,7 +65,7 @@ const HomePage = () => {
                 ?
                 <FilmsSlider films={tomorrowFilms}/>
                 :
-                <Empty description={<h3 style={{color: "whitesmoke"}}>На завтра нет сеансов</h3>}/>
+                <CustomEmpty description="На завтра нет сеансов"/>
             }
         </main>
     );

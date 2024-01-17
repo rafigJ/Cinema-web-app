@@ -12,7 +12,7 @@ const CrudFilmsPage: FC = () => {
     const navigate = useNavigate();
 
     const [fetchFilms, isLoading] = useFetching(async () => {
-        const response = await FilmService.getAll(0, 10000);
+        const response = await FilmService.getAllFilms(0, 10000);
         setDataSource(response.data.content)
     },)
 
