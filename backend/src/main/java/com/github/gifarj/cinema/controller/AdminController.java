@@ -28,7 +28,6 @@ import java.util.UUID;
 @RequestMapping("/api/v1/admin")
 public class AdminController {
 
-    //    private final HallService hallService;
     private final AdminService adminService;
     private final TicketService ticketService;
 
@@ -39,6 +38,7 @@ public class AdminController {
     }
 
     @PatchMapping("/users/{uuid}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public UserDto updateRoleUser(@AuthenticationPrincipal User admin,
                                   @PathVariable("uuid") String strUuid,
                                   @RequestBody UserDto user) {

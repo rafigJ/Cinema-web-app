@@ -10,7 +10,7 @@ public interface HallService {
 
     HallDto createHall(HallDto hallDto);
 
-    HallDto updateHall(HallDto hallDto);
+    HallDto updateHall(Integer id, HallDto hallDto);
 
     void deleteHall(Integer id);
 

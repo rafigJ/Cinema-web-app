@@ -1,8 +1,6 @@
 package com.github.gifarj.cinema.dto;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Getter
@@ -12,16 +10,18 @@ import lombok.*;
 @NoArgsConstructor
 public class HallDto {
 
+    @Null
     private Integer id;
 
     @NotBlank
+    @Size(min = 5, max = 200)
     private String name;
 
     @NotNull
-    @Min(2)
+    @Min(3)
     private Short rowCount;
 
     @NotNull
-    @Min(2)
+    @Min(3)
     private Short columnCount;
 }
