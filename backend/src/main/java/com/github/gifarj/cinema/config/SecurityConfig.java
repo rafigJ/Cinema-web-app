@@ -47,16 +47,16 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedMethods("*")
-                        .allowedHeaders("*")
-                        .allowedOriginPatterns(CorsConfiguration.ALL); // TODO Может поменять политику
-            }
-        };
-    }
+//    @Bean
+//    public WebMvcConfigurer corsConfigurer() {
+//        return new WebMvcConfigurer() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry.addMapping("/**")
+//                        .allowedMethods("*")
+//                        .allowedHeaders("*")
+//                        .allowedOriginPatterns(CorsConfiguration.ALL); // TODO Может поменять политику
+//            }
+//        };
+//    }
 }
