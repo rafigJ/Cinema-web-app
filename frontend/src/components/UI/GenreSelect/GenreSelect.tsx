@@ -26,8 +26,9 @@ const GenreSelect: FC<SelectProps> = ({...props}) => {
             }}
         >
             <Select
+                defaultValue={[]}
                 popupClassName="popup-select"
-                mode="tags"
+                mode="multiple"
                 allowClear
                 placeholder="Выберите жанры"
                 options={genreOptions}
