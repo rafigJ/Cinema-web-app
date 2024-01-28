@@ -19,6 +19,7 @@ public interface TicketRepository extends JpaRepository<TicketEntity, Integer> {
 
     List<TicketEntity> findAllByBuyTimeBetween(LocalDateTime start, LocalDateTime end);
 
+    boolean existsBySessionIdAndRowAndColumn(Integer sessionId, Short row, Short column);
 
     /**
      * Используется для статистики за год.

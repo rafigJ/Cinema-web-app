@@ -38,6 +38,14 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public TicketDto buyTicket(UUID uuid, TicketDto ticketDto) {
+        if (ticketRepository.existsBySessionIdAndRowAndColumn(
+                ticketDto.getSessionId(),
+                ticketDto.getRow(),
+                ticketDto.getColumn())
+        ) {
+            throw new BadRequestException("seat is taken / occupied");
+        }
+
         UserEntity user = repository.findForUpdateByUuid(uuid)
                 .orElseThrow(NotExistUserException::new);
         TicketEntity entity = convertToEntity(ticketDto);
@@ -46,9 +54,6 @@ public class UserServiceImpl implements UserService {
         if (user.getMoney() < session.getPrice()) {
             throw new RestException("insufficient funds", HttpStatus.PAYMENT_REQUIRED);
         }
-
-        // TODO проверить то, что row < hall_rows, column < column_rows
-        // TODO добавить проверку на уникальность row, col и session
 
         user.setMoney(user.getMoney() - session.getPrice());
         entity.setOwner(user);
@@ -90,9 +95,16 @@ public class UserServiceImpl implements UserService {
     private TicketEntity convertToEntity(TicketDto dto) {
         TicketEntity entity = modelMapper.map(dto, TicketEntity.class);
         Integer sessionId = dto.getSessionId();
+
         SessionEntity session = sessionRepository.findById(sessionId).orElseThrow(() ->
                 new NotFoundException("Session by id: " + sessionId + " not found")
         );
+
+        if (entity.getRow() > session.getHall().getRowCount() ||
+                entity.getColumn() > session.getHall().getColumnCount()) {
+            // случай если таких мест в зале нет
+            throw new BadRequestException("There is no seat in the hall with row " + entity.getRow() + " and column " + entity.getColumn());
+        }
         entity.setSession(session);
         return entity;
     }
