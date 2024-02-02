@@ -24,6 +24,11 @@
     "typescript-plugin-css-modules": "^5.0.2",
     "web-vitals": "^2.1.4"
   },
+  "overrides": {
+    "react-scripts": {
+      "typescript": "^5"
+    }
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -47,5 +52,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.1"
   }
 }

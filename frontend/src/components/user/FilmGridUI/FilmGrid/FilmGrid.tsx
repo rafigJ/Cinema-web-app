@@ -14,7 +14,6 @@ import CustomPagination from "../../../UI/CustomPagination/CustomPagination";
  * Нужен для страницы с фильмами (FilmsPage) пользователя
  * Отображает простую сетку из фильмов
  */
-// todo перенести fetch сюда, из-за поиска и фильтрации фильмов
 const FilmGrid: FC = () => {
     const limit = 20;
 
@@ -29,7 +28,7 @@ const FilmGrid: FC = () => {
             const response = await FilmService.getAllFilms(page, limit, null, query, genres);
             setFilms(response.data.content);
             setTotal(response.data.totalElements);
-            if (query !== null) setPage(0);
+            if (query !== null || genres?.length) setPage(0);
         }
     })
 
