@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  backend:
+    image: cinema:0.0.1-SNAPSHOT # mvn spring-boot:build-image в помощь
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres_db
+    environment:
+      SERVER_PORT: 8080
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    restart: always
+  
+  frontend:
+    build: ./frontend
+    ports: 
+      - 80:80
+    environment:
+      REACT_APP_API_URL: http://backend:8080
+    
+  
+  postgres_db:
+    build: ./postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
