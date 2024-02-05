@@ -9,7 +9,7 @@ interface CrudTableLayoutProps {
 
 const CrudTableLayout:FC<CrudTableLayoutProps> = ({title, crudTable}) => {
     return (
-        <Layout>
+        <Layout style={{width: 'auto'}}>
             <Layout.Header style={{padding: 0, background: "white"}}>
                 <span color='white' className='title'>{title}</span>
             </Layout.Header>
@@ -17,7 +17,6 @@ const CrudTableLayout:FC<CrudTableLayoutProps> = ({title, crudTable}) => {
                 <div
                     style={{
                         padding: 24,
-                        minHeight: 360,
                         background: "white",
                         borderRadius: "8px",
                     }}

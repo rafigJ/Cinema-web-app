@@ -21,7 +21,7 @@ const FilmForm: FC<FilmFormProps> = ({onSubmit, film = {} as IFilm}) => {
 
     const onFinish = (values: any) => {
         const year = values['year'].format('YYYY');
-        const actualGenres = values['genresSelect'].map((e: number) => allGenres[e - 1]);
+        const actualGenres = values['genresSelect'].map((e: number) => allGenres.find(value => value.id === e));
         const newFilm = {
             id: film?.id,
             name: values.name,
@@ -43,7 +43,7 @@ const FilmForm: FC<FilmFormProps> = ({onSubmit, film = {} as IFilm}) => {
                        fallback={fallbackImage}
                 />
             </div>
-            <Form style={{minWidth: "50vw"}} onFinish={onFinish}>
+            <Form style={{width: "auto"}} onFinish={onFinish}>
                 <Form.Item initialValue={film?.name} name="name"
                            rules={[{required: true, message: 'Введите название фильма'}]}>
                     <Input placeholder="Название фильма" size="large"/>
@@ -68,7 +68,6 @@ const FilmForm: FC<FilmFormProps> = ({onSubmit, film = {} as IFilm}) => {
                 <Form.Item initialValue={film?.genres?.map(g => g.id)} name="genresSelect"
                            rules={[{required: true, message: 'Введите жанры'}]}>
                     <Select
-                        style={{minWidth: "190px"}}
                         mode="multiple"
                         allowClear
                         placeholder="Выберите жанры"
