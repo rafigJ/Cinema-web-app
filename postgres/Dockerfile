@@ -4,8 +4,10 @@ COPY sqlfile.sql ./docker-entrypoint-initdb.d/
 
 RUN ["sed", "-i", "s/exec \"$@\"/echo \"skipping...\"/", "/usr/local/bin/docker-entrypoint.sh"]
 
-ENV POSTGRES_USER=postgres
-ENV POSTGRES_PASSWORD=postgres
+ARG POSTGRES_USER
+ARG POSTGRES_PASSWORD
+ENV POSTGRES_USER=$POSTGRES_USER
+ENV POSTGRES_PASSWORD=$POSTGRES_PASSWORD
 ENV PGDATA=/data
 
 RUN ["/usr/local/bin/docker-entrypoint.sh", "postgres"]
