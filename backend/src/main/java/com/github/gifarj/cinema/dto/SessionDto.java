@@ -2,6 +2,7 @@ package com.github.gifarj.cinema.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.github.gifarj.cinema.dto.film.FilmDto;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
@@ -18,6 +19,7 @@ import java.time.LocalTime;
 /*
  * ВАЖНО: Поля помеченные @NotNull используется и при создании сеанса.
  */
+@Schema(name = "Session")
 public class SessionDto {
 
     @Null

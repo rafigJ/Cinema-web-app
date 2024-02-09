@@ -6,17 +6,19 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
     show-sql: true
     properties:
       hibernate:
         format_sql: true
     database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-  jackson:
-    mapper:
-      accept-case-insensitive-enums: true
+springdoc:
+  swagger-ui:
+    operationsSorter: alpha
+    tags-sorter: alpha
+    doc-expansion: none
+    defaultModelsExpandDepth: 0
 application:
   security:
     jwt:
-      secret-key:
+      secret-key: 0000a0a000000c0001234abc1230000000000000000000aaaaaaaaa000011111

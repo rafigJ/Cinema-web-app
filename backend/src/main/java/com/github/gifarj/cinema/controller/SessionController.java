@@ -1,6 +1,7 @@
 package com.github.gifarj.cinema.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.github.gifarj.cinema.dto.PageDto;
 import com.github.gifarj.cinema.dto.SessionDto;
 import com.github.gifarj.cinema.dto.TicketDto;
 import com.github.gifarj.cinema.dto.views.TicketView;
@@ -30,13 +31,14 @@ public class SessionController {
     }
 
     @GetMapping()
-    public Page<SessionDto> getSessions(@RequestParam(value = "_page", defaultValue = "0") Integer page,
+    public PageDto<SessionDto> getSessions(@RequestParam(value = "_page", defaultValue = "0") Integer page,
                                         @RequestParam(value = "_limit", defaultValue = "10") Integer limit,
                                         @RequestParam(value = "start")
                                         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
                                         @RequestParam(value = "end")
                                         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
-        return service.getSessions(PageRequest.of(page, limit), start, end);
+        Page<SessionDto> sessionsPage = service.getSessions(PageRequest.of(page, limit), start, end);
+        return PageDto.of(sessionsPage);
     }
 
     @GetMapping("/{id}/occupied-tickets")

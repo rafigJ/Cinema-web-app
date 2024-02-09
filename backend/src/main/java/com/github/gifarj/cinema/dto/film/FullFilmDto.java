@@ -1,6 +1,7 @@
 package com.github.gifarj.cinema.dto.film;
 
 import com.github.gifarj.cinema.dto.GenreDto;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -16,6 +17,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(name = "Detailed Film")
 public class FullFilmDto {
     private Integer id;
 

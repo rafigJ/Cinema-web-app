@@ -1,6 +1,7 @@
 package com.github.gifarj.cinema.controller;
 
 import com.github.gifarj.cinema.criteria.FilmSort;
+import com.github.gifarj.cinema.dto.PageDto;
 import com.github.gifarj.cinema.dto.SessionDto;
 import com.github.gifarj.cinema.dto.film.FilmDto;
 import com.github.gifarj.cinema.dto.film.FullFilmDto;
@@ -38,16 +39,21 @@ public class FilmController {
     }
 
     @GetMapping()
-    public Page<FilmDto> getFilmsPage(@RequestParam(value = "_page", defaultValue = "0") Integer page,
-                                      @RequestParam(value = "_limit", defaultValue = "10") Integer limit,
-                                      @RequestParam(value = "name", required = false) String name,
-                                      @RequestParam(value = "genres", required = false) Collection<Integer> genreIds,
-                                      @RequestParam(value = "sort", required = false) FilmSort sort) {
+    public PageDto<FilmDto> getFilmsPage(@RequestParam(value = "_page", defaultValue = "0") Integer page,
+                                         @RequestParam(value = "_limit", defaultValue = "10") Integer limit,
+                                         @RequestParam(value = "name", required = false) String name,
+                                         @RequestParam(value = "genres", required = false) Collection<Integer> genreIds,
+                                         @RequestParam(value = "sort", required = false) FilmSort sort) {
         Specification<FilmEntity> specifications = Specification.allOf(nameContainsIgnoreCase(name), genresIdIn(genreIds));
+
         if (sort == null) {
-            return service.getFilms(specifications, PageRequest.of(page, limit));
+            Page<FilmDto> filmsPage = service.getFilms(specifications, PageRequest.of(page, limit));
+            return PageDto.of(filmsPage);
         }
-        return service.getFilms(specifications, PageRequest.of(page, limit, Sort.by(sort.getFieldName())));
+
+        Page<FilmDto> filmsPage = service.getFilms(specifications, PageRequest.of(page, limit, Sort.by(sort.getFieldName())));
+
+        return PageDto.of(filmsPage);
     }
 
     @GetMapping("/{id}/sessions")

@@ -1,6 +1,7 @@
 package com.github.gifarj.cinema.dto.film;
 
 import com.github.gifarj.cinema.dto.GenreDto;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(name = "Film")
 public class FilmDto {
     private Integer id;
     private String name;

@@ -1,5 +1,6 @@
 package com.github.gifarj.cinema.controller;
 
+import com.github.gifarj.cinema.dto.PageDto;
 import com.github.gifarj.cinema.dto.TicketDto;
 import com.github.gifarj.cinema.dto.UserDto;
 import com.github.gifarj.cinema.exception.BadRequestException;
@@ -8,6 +9,7 @@ import com.github.gifarj.cinema.service.AdminService;
 import com.github.gifarj.cinema.service.TicketService;
 import com.github.gifarj.cinema.user.Role;
 import com.github.gifarj.cinema.user.User;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,7 +24,7 @@ import java.time.Month;
 import java.time.Year;
 import java.util.Map;
 import java.util.UUID;
-
+@Tag(name = "Admin", description = "admin dashboard")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/admin")
@@ -32,9 +34,10 @@ public class AdminController {
     private final TicketService ticketService;
 
     @GetMapping("/users")
-    public Page<UserDto> getUsers(@RequestParam(value = "_page", defaultValue = "0") Integer page,
+    public PageDto<UserDto> getUsers(@RequestParam(value = "_page", defaultValue = "0") Integer page,
                                   @RequestParam(value = "_limit", defaultValue = "10") Integer limit) {
-        return adminService.getUsers(PageRequest.of(page, limit, Sort.by("uuid")));
+        Page<UserDto> usersPage = adminService.getUsers(PageRequest.of(page, limit, Sort.by("createdTime")));
+        return PageDto.of(usersPage);
     }
 
     @PatchMapping("/users/{uuid}")
@@ -60,9 +63,10 @@ public class AdminController {
     }
 
     @GetMapping("/tickets")
-    public Page<TicketDto> getTickets(@RequestParam(value = "_page", defaultValue = "0") Integer page,
+    public PageDto<TicketDto> getTickets(@RequestParam(value = "_page", defaultValue = "0") Integer page,
                                       @RequestParam(value = "_limit", defaultValue = "10") Integer limit) {
-        return ticketService.getTickets(PageRequest.of(page, limit));
+        Page<TicketDto> ticketsPage = ticketService.getTickets(PageRequest.of(page, limit));
+        return PageDto.of(ticketsPage);
     }
 
     @GetMapping("/tickets/profit")

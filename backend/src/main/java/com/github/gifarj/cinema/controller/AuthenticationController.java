@@ -6,6 +6,8 @@ import com.github.gifarj.cinema.dto.auth.RegisterRequestDto;
 import com.github.gifarj.cinema.exception.BadRequestException;
 import com.github.gifarj.cinema.exception.RestException;
 import com.github.gifarj.cinema.user.User;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,5 +1,6 @@
 package com.github.gifarj.cinema.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
@@ -8,6 +9,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(name = "Hall")
 public class HallDto {
 
     @Null

@@ -1,5 +1,6 @@
 package com.github.gifarj.cinema.dto.auth;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
@@ -11,6 +12,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(name = "Register Request")
 public class RegisterRequestDto {
 
     @NotEmpty(message = "should be not empty")

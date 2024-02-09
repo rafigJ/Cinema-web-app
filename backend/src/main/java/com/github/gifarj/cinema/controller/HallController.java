@@ -1,6 +1,7 @@
 package com.github.gifarj.cinema.controller;
 
 import com.github.gifarj.cinema.dto.HallDto;
+import com.github.gifarj.cinema.dto.PageDto;
 import com.github.gifarj.cinema.service.HallService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -17,9 +18,10 @@ public class HallController {
     private final HallService service;
 
     @GetMapping()
-    public Page<HallDto> getHalls(@RequestParam(value = "_page", defaultValue = "0") Integer page,
+    public PageDto<HallDto> getHalls(@RequestParam(value = "_page", defaultValue = "0") Integer page,
                                   @RequestParam(value = "_limit", defaultValue = "10") Integer limit) {
-        return service.getHalls(PageRequest.of(page, limit));
+        Page<HallDto> hallsPage = service.getHalls(PageRequest.of(page, limit));
+        return PageDto.of(hallsPage);
     }
 
     @PostMapping()
