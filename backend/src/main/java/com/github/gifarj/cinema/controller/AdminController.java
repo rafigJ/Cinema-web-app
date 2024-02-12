@@ -36,7 +36,7 @@ public class AdminController {
     @GetMapping("/users")
     public PageDto<UserDto> getUsers(@RequestParam(value = "_page", defaultValue = "0") Integer page,
                                   @RequestParam(value = "_limit", defaultValue = "10") Integer limit) {
-        Page<UserDto> usersPage = adminService.getUsers(PageRequest.of(page, limit, Sort.by("createdTime")));
+        Page<UserDto> usersPage = adminService.getUsers(PageRequest.of(page, limit, Sort.by("createTime")));
         return PageDto.of(usersPage);
     }
 
