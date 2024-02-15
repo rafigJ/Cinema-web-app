@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from 'react';
+import Modal from '../components/UI/Modal/Modal'
+import TicketBooking from '../components/user/TicketBooking/TicketBooking'
 import {useFetching} from "../hooks/useFetching";
 import {IFilm} from "../types/model/IFilm";
 import {Spin} from "antd";
@@ -21,6 +23,8 @@ const removeDuplicates = (arr: IFilm[]) => {
 const HomePage = () => {
     const [todayFilms, setTodayFilms] = useState([] as IFilm[])
     const [tomorrowFilms, setTomorrowFilms] = useState([] as IFilm[])
+    
+    const [active, setActive] = useState(true) // todo delete
 
     const [fetchFilms, isLoading, isError, error] = useFetching(async () => {
         const today = dayjs().format("YYYY-MM-DD");
@@ -67,6 +71,9 @@ const HomePage = () => {
                 :
                 <CustomEmpty description="На завтра нет сеансов"/>
             }
+            <Modal active={active} setActive={setActive}>
+                <TicketBooking sessionId={2}/>
+            </Modal>
         </main>
     );
 };
