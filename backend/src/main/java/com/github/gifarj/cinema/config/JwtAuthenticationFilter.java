@@ -19,6 +19,9 @@ import com.github.gifarj.cinema.auth.JwtService;
 
 import java.io.IOException;
 
+import static com.github.gifarj.cinema.auth.UserAuthenticationEntryPoint.JWT_EXPIRED;
+import static com.github.gifarj.cinema.auth.UserAuthenticationEntryPoint.RUNTIME_ERROR;
+
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -56,9 +59,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
             }
         } catch (SignatureException | ExpiredJwtException e) {
-            request.setAttribute("error", e.getMessage());
+            request.setAttribute(JWT_EXPIRED, e.getMessage());
         } catch (RuntimeException re) {
             SecurityContextHolder.clearContext();
+            request.setAttribute(RUNTIME_ERROR, re.getMessage());
             throw re;
         }
         filterChain.doFilter(request, response);
