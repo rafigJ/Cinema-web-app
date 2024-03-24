@@ -27,13 +27,18 @@ const TicketBooking: FC<TicketBookingProps> = ({ sessionId }) => {
 		setSeatGrid(seatArray)
 	})
 	
+	const onSelect = (rowIndex: number, colIndex: number) => {
+		const newGrid = seatGrid.toSpliced(rowIndex, 1, seatGrid[rowIndex].toSpliced(colIndex, 1, 1))
+		setSeatGrid(newGrid)
+	}
+	
 	useEffect(() => {
 		fetchOccupiedTickets(sessionId)
 	}, [sessionId])
 	
 	if (isLoading) {
 		return (
-				<Spin />
+			<Spin />
 		)
 	}
 	
@@ -54,7 +59,8 @@ const TicketBooking: FC<TicketBookingProps> = ({ sessionId }) => {
 					<div className='seat-row' key={rowIndex}>
 						{row.map((col, colIndex) => (
 							<div key={`${rowIndex}-${colIndex}`}
-							     className={col === -1 ? 'seat occupied' : col === 0 ? 'seat' : 'seat selected'} />
+							     className={col === -1 ? 'seat occupied' : col === 0 ? 'seat' : 'seat selected'}
+							     onClick={() => onSelect(rowIndex, colIndex)} />
 						))}
 					</div>
 				))}

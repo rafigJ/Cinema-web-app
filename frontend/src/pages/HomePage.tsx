@@ -1,14 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import Modal from '../components/UI/Modal/Modal'
-import TicketBooking from '../components/user/TicketBooking/TicketBooking'
-import {useFetching} from "../hooks/useFetching";
-import {IFilm} from "../types/model/IFilm";
-import {Spin} from "antd";
-import '@splidejs/react-splide/css';
-import FilmsSlider from "../components/UI/FilmsSlider/FilmsSlider";
-import SessionService from "../api/SessionService";
-import dayjs from "dayjs";
-import CustomEmpty from "../components/UI/CustomEmpty/CustomEmpty";
+import { Spin } from 'antd'
+import '@splidejs/react-splide/css'
+import dayjs from 'dayjs'
+import React, { useEffect, useState } from 'react'
+import SessionService from '../api/SessionService'
+import CustomEmpty from '../components/UI/CustomEmpty/CustomEmpty'
+import FilmsSlider from '../components/UI/FilmsSlider/FilmsSlider'
+import { useFetching } from '../hooks/useFetching'
+import { IFilm } from '../types/model/IFilm'
 
 const removeDuplicates = (arr: IFilm[]) => {
     const uniqueMap = new Map();
@@ -71,9 +69,9 @@ const HomePage = () => {
                 :
                 <CustomEmpty description="На завтра нет сеансов"/>
             }
-            <Modal active={active} setActive={setActive}>
-                <TicketBooking sessionId={2}/>
-            </Modal>
+            {/* <Modal active={active} setActive={setActive}> */}
+            {/*     <TicketBooking sessionId={2}/> */}
+            {/* </Modal> */}
         </main>
     );
 };
