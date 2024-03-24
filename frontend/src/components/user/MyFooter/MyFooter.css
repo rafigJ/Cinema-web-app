@@ -1,0 +1,27 @@
+.my-footer {
+	background: transparent;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	padding-left: 5.6rem !important;
+	padding-right: 5.6rem !important;
+	padding-top: 28px;
+	padding-bottom: 28px;
+	font-size: 14px;
+}
+
+.my-footer__application-name {
+	font-size: 16px;
+	color: whitesmoke;
+}
+
+.my-footer__block {
+	color: hsla(0, 0%, 100%, .5);
+	font-size: 14px;
+	margin-top: 12px;
+}
+
+.my-footer__contact {
+	color: hsla(0, 0%, 100%, .5);
+	margin-top: 12px;
+}
